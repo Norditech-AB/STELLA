@@ -1,0 +1,4 @@
+# LICENSE
+VISSAI offers two licensing options to accommodate diverse use cases. Both licenses are designed to meet different requirements, ensuring flexibility and convenience for all users.
+- **AGPL-3.0 License:** This license is perfect for students and hobbyists. It's an [Open Source Initiative (OSI)-approved](https://opensource.org/licenses/) open-source license that encourages collaborative development and knowledge exchange. For detailed information, please refer to the LICENSE file.
+- **Enterprise License:** Tailored for commercial purposes, this license allows for the integration of STELLA software into commercial products and services. This option is ideal for those who need to use our solutions in a commercial context without adhering to the open-source stipulations of the AGPL-3.0 license. For inquiries and more details about this license, please [contact us](https://viss.ai/).
