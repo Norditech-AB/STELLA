@@ -59,7 +59,6 @@ def main():
     config = subparsers.add_parser('config', help='Configure project')
 
     parser_register = subparsers.add_parser('register', help='Register user')
-    parser_register.add_argument('username', help='Username for registration')
 
     # Workspace commands
     parser_workspace = subparsers.add_parser('workspace', help='Workspace operations')
@@ -115,12 +114,17 @@ def main():
         Sanitization().configure_project()
         return
 
-
     elif args.command == 'login':
         username = input("Username: ")
         password = getpass.getpass("Password: ")
         client.login(username, password)
-        return 
+        return
+
+    elif args.command == 'register':
+
+        username = input("Username: ")
+        password = getpass.getpass("Password: ")
+        client.register(username, password)
     
     if not client.is_authenticated():
         print("Not logged in, try " + VISS_GREEN + "stella login" + ENDC)

@@ -200,7 +200,15 @@ class StellaClient:
             print("Not logged in")
 
     def register(self, email, password):
-        print("TODO: use demo@spotify.se and 123 for now")
+        try:
+            response = requests.post(
+                self.compose_url("register"),
+                json={"email": email, "password": password}
+            )
+            print("Registration successful. Please login.")
+
+        except Exception as e:
+            print(f"Registration failed: {e}")
 
     def get_current_workspace(self):
         return self.workspace_id

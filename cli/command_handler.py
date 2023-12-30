@@ -1,16 +1,19 @@
+from getpass import getpass
+
 from cli_design import *
 from tabulate import tabulate
+
 
 class CommandHandler():
     def __init__(self, client):
         self.client = client
-    
+
     def __call__(self, args):
 
         cmd = None
         arg = None
         value = None
-        
+
         if len(args) == 0:
             print("No command given")
             return
@@ -21,8 +24,6 @@ class CommandHandler():
             print("Too many arguments.")
             return
 
-
-        
         if cmd == "workspace":
             if arg == "add":
                 if value is None:
@@ -36,7 +37,7 @@ class CommandHandler():
                 workspace_data = self.client.get_all_workspaces()
                 workspace_info = [(item['_id'], item['name'], len(item['agents'])) for item in workspace_data]
 
-                #Using tabulate to format the output
+                # Using tabulate to format the output
                 table = tabulate(workspace_info, headers=['ID', 'Name', 'Number of Agents'], tablefmt='grid')
                 print(table)
             elif arg == "switch":
@@ -68,7 +69,7 @@ class CommandHandler():
             self.help()
         else:
             print("Unknown command. type /help for help.")
-        
+
     def help(self):
         print(""" 
               Commands:
@@ -80,9 +81,10 @@ class CommandHandler():
               exit                       exit the program
               help                       show this help
               """)
+
     def __status(self):
 
-        #TODO show email in authenticated row
+        # TODO show email in authenticated row
 
         workspace_data = self.client.get_workspace_by_id(self.client.workspace_id)
         if workspace_data is None:
@@ -104,17 +106,17 @@ class CommandHandler():
 
         # Apply color to the rows
         colored_rows = [[apply_color(cell) for cell in row] for row in rows]
-        
+
         # Print the table using tabulate
         table = tabulate(colored_rows, headers=headers, tablefmt="grid")
-        #workspace_name = workspace_data['workspace']['name']
+        # workspace_name = workspace_data['workspace']['name']
         print("Using Workspace: " + VISS_GREEN + self.client.workspace_id + ENDC + "\n")
         print(table)
         print("")
 
 
-
 if __name__ == '__main__':
     from cli.stella_client import StellaClient
+
     handler = CommandHandler(StellaClient())
     handler('test')
