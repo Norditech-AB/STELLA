@@ -4,7 +4,7 @@ from cli_design import *
 from tabulate import tabulate
 
 
-class CommandHandler():
+class CommandHandler:
     def __init__(self, client):
         self.client = client
 
@@ -29,7 +29,7 @@ class CommandHandler():
                 if value is None:
                     print("No workspace name given")
                 else:
-                    workspace_id = self.client.add_workspace()
+                    workspace_id = self.client.create_workspace()
                     self.client.rename_workspace(workspace_id, value)
             elif arg == "delete":
                 self.client.workspace_delete(value)

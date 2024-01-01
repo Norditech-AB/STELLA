@@ -94,6 +94,14 @@ class DatabaseInterface(ABC):
         pass
 
     @abstractmethod
+    def get_chat_message_string(self, string) -> ChatConnectionString:
+        pass
+
+    @abstractmethod
+    def delete_chat_message_string(self, string) -> None:
+        pass
+
+    @abstractmethod
     def create_task(self, chat_id, agents, owner, coordinator_agent, current_agent, memories,
                     parent_task_id=None, top_level_task_id=None, completed=False, created_at=None, depths=None,
                     is_top_level=False, top_level_task_max_depth=None, top_level_task_depth=None):

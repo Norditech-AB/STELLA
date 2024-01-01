@@ -86,6 +86,7 @@ class Task:
 
         # Set the top level task id to the task id and update the task
         task_data['top_level_task_id'] = task_data['task_id']
+        print(f"Created top level task {task_data['top_level_task_id']}")
         db.update_task_data(task_data)
 
         return cls(
@@ -149,7 +150,7 @@ class Task:
             else:
                 top_level_task.depths[selected_agent.agent_id] = agent_depth + 1
 
-        db.update_chat(top_level_task)
+        db.update_task_data(top_level_task.to_dict())
         return result
 
     def execute(self, agent_storage: AgentStorage, openai_client: OpenAIClient, socketio,
@@ -163,6 +164,8 @@ class Task:
         :return:
         """
         print(f"[Task] ---- Executing task: {self.task_id}")
+        print(json.dumps(self.to_dict(), indent=4))
+
         # 1. Load the current agent
         # 2. Perform action selection
         #
@@ -235,7 +238,7 @@ class Task:
                 current_agent=selected_agent.agent_id,
                 memories=self.memories,
                 parent_task_id=self.task_id,
-                top_level_task_id=top_level_task.task_id,
+                top_level_task_id=self.top_level_task_id,
                 completed=False,
                 is_top_level=False,
             )
@@ -287,6 +290,7 @@ class Task:
                 parent_task = Task.load(self.parent_task_id)
                 print(f"[TASK] -- Forwarding last memory to parent task {parent_task.task_id}")
                 print(f"[TASK] -- Last memory: {self.memories[-1]}")
+                print(json.dumps(parent_task.to_dict(), indent=4))
                 parent_task.memories.append(self.memories[-1])
                 db.update_task_data(parent_task.to_dict())
 
@@ -303,6 +307,7 @@ class Task:
                f"Coordinator Agent: {self.coordinator_agent}, " \
                f"Current Agent: {self.current_agent}, " \
                f"Parent Task: {self.parent_task_id}, " \
+               f"Top Level Task: {self.top_level_task_id}, " \
                f"Memories: {self.memories}, " \
                f"Completed: {self.completed}, " \
                f"Created At: {self.created_at}, " \
@@ -320,6 +325,7 @@ class Task:
             "coordinator_agent": self.coordinator_agent,
             "current_agent": self.current_agent,
             "parent_task_id": self.parent_task_id,
+            "top_level_task_id": self.top_level_task_id,
             "memories": self.memories,
             "completed": self.completed,
             "created_at": self.created_at,

@@ -1,7 +1,7 @@
 import argparse
 from cli.stella_client import StellaClient
 from cli.command_handler import CommandHandler
-import getpass  # For securely prompting for a password
+import getpass
 from shell import Shell
 from cli_design import *
 from sanitization import Sanitization
@@ -22,7 +22,6 @@ def print_examples():
         delete workspace:       stella workspace delete myworkspace
         switch workspace:       stella workspace switch defaultWorkspace
 
-          
         add agent to ws:        stella add spotify
         remove agent from ws:   stella remove spotify
         authenticate agent:     stella auth spotify 
@@ -37,12 +36,12 @@ def print_examples():
         chat with agents:       stella
     """)
 
+
 def main():
     client = StellaClient()
 
     parser = argparse.ArgumentParser(description="Stella Command Line Interface")
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
-
     help = subparsers.add_parser('help', help='Show help')
 
     # Server command
@@ -90,7 +89,7 @@ def main():
     parser_chat = subparsers.add_parser('chat', help='Chat with agents')
 
     parser_version = subparsers.add_parser('version', help='Show version')
-    larser_examples = subparsers.add_parser('examples', help='Show examples')
+    parser_examples = subparsers.add_parser('examples', help='Show examples')
 
     args = parser.parse_args()
     cmd_list = sys.argv[1:]
@@ -140,4 +139,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-    #start_server()

@@ -2,15 +2,13 @@ import cmd
 import getpass
 from cli_design import *
 import time
-import socketio
-import requests
-import json
 import os
 import platform
 from cli.command_handler import CommandHandler
 import sys
 
 SOCKETIO_NAMESPACE = "/chat"
+
 
 class Shell(cmd.Cmd):
     def __init__(self, client):
@@ -21,12 +19,10 @@ class Shell(cmd.Cmd):
 
         self.client.connect_to_chat()
 
-
         if platform.system() == "Windows":
             os.system('title Stella')
         else:
             sys.stdout.write("\x1b]2;Another Title\x07") #TODO This dont work
-
 
     intro = 'Welcome to Stella Shell. Type /help to list commands.\n'
     prompt = '> ' #TODO bug, if you start to write, and delete you can delete this character. This comes from the print, not this line

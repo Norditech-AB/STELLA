@@ -3,6 +3,7 @@ import os
 import dotenv
 
 from app.db.databases.mongodb import MongoDB
+from app.db.databases.sqlite import SQLite
 
 dotenv.load_dotenv()
 
@@ -14,7 +15,8 @@ class DatabaseFactory:
 
         if db_type == 'mongodb':
             return MongoDB()
-        # Add other database types here
+        elif db_type == 'sqlite':
+            return SQLite()
         else:
             raise Exception(f"Unsupported database type: {db_type}")
 

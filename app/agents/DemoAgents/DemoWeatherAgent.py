@@ -15,4 +15,6 @@ class DemoWeatherAgent(Agent):
             forward_all_memory_entries_to_parent=True,
             skip_response=True,
             connections_available={"demo_weather_agent_2": {}, "demo_weather_agent_3": {}},
+            model_for_response="llama-2",
+            model_for_action_selection="gpt-4"
         )

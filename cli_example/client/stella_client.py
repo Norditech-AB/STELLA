@@ -1,4 +1,4 @@
-from cli_design import *
+from cli_example.client.cli_design import *
 import socketio
 import json
 import time
@@ -170,7 +170,7 @@ class StellaClient:
         if response.status_code == 200:
             # Assuming the package is a zip file
             z = zipfile.ZipFile(io.BytesIO(response.content))
-            z.extractall(path="../app/agents")
+            z.extractall(path="../../app/agents")
 
     def logout(self):
         if self.access_token:
@@ -204,7 +204,7 @@ class StellaClient:
 
     # workspace logic
 
-    def add_workspace(self):
+    def create_workspace(self):
         headers = {"Authorization": f"Bearer {self.access_token}", "Content-Type": "application/json"}
         response = requests.post(compose_url("workspace"), headers=headers)
         if response.status_code != 200:
@@ -303,7 +303,7 @@ class StellaClient:
         # check if workspace exist
         ws_data = self.get_workspace_by_id(self.workspace_id)
         if ws_data is None:
-            self.workspace_id = self.add_workspace()
+            self.workspace_id = self.create_workspace()
             self.chat_id = self.create_chat(self.workspace_id)
         else:
             if self.chat_id != ws_data['last_chat_id']:
