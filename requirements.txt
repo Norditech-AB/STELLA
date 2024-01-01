@@ -12,7 +12,7 @@ certifi==2023.7.22
 charset-normalizer==3.3.1
 click==8.1.7
 dnspython==2.4.2
-docutils==0.20.1
+docutils==0.18.1
 Flask==3.0.0
 Flask-Cors==4.0.0
 Flask-JWT-Extended==4.5.3
@@ -38,12 +38,15 @@ python-dateutil==2.8.2
 python-dotenv==1.0.0
 python-engineio==4.8.0
 python-socketio==5.10.0
+PyYAML==6.0.1
 requests==2.31.0
 simple-websocket==1.0.0
 six==1.16.0
 snowballstemmer==2.2.0
 soupsieve==2.5
 Sphinx==7.2.6
+sphinx-tabs==3.4.4
+sphinx_design==0.5.0
 sphinxawesome-theme==5.0.1
 sphinxcontrib-applehelp==1.0.7
 sphinxcontrib-devhelp==1.0.5
@@ -52,6 +55,7 @@ sphinxcontrib-jsmath==1.0.1
 sphinxcontrib-qthelp==1.0.6
 sphinxcontrib-serializinghtml==1.1.9
 stripe==7.5.0
+tabulate==0.9.0
 tqdm==4.66.1
 typing_extensions==4.8.0
 urllib3==2.0.7
@@ -62,4 +66,3 @@ yarl==1.9.2
 zipp==3.17.0
 zope.event==5.0
 zope.interface==6.1
-tabulate==0.9.0
