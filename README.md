@@ -1,77 +1,42 @@
+# Updating the docs
 
-# Welcome to STELLA
+## Cleanup the docs
+```bash
+$ ./cleanup.sh
+```
 
-## A Scalable Multi-Agent AI Framework
 
-STELLA is a multi-agent framework for conversational agents using Large Language Models that focuses on scalability, broad capabilities, and powerful configuration. It simplifies the application and incorporation of advanced LLM capabilities into applications, offering a server-based multi-agent framework solution that is scalable and user-friendly.
+## Build the docs
 
-**Note**: STELLA is currently in beta. We are working hard to improve the framework and add new features. For questions or feedback, contact us at [contact@stellaframework.com](mailto:contact@stellaframework.com).
+```bash
+$ cd docs
+$ make html
+```
 
-### Typical Use Cases:
+## Copy the docs to the root of the repo
 
-- Automating workflows and tasks.
-- Building digital workforces.
-- Connecting APIs and services.
-- Creating smart chatbots.
-- Speeding up the development of LLM-powered applications.
-- Finding patterns and trends in unstructured data.
-- Creating content.
+```bash
+$ cd docs
+$ cp -r _build/html/* ../
+```
 
-**Get started with our [Getting Started Guide](https://docs.stellaframework.com/Getting_Started).**
+## Commit and push
 
-## Key Features
+```bash
+$ git add .
+$ git commit -m "Update docs"
+$ git push
+```
 
-- **Server-based Architecture**: Solid foundation for large-scale applications.
-- **Socket Communication**: Efficient real-time updates.
-- **Multi-User Support**: Scalable for numerous users.
-- **Configurability**: Expandable with minimal coding.
-- **Speed Optimization**: Faster execution times.
-- **Agent Intercommunication**: Reduces Token usage.
-- **Single-Prompt Method**: Simple model support.
-- **Command Line Interface**: Direct terminal access.
-- **Community-Driven Package Manager**: Easy publication and installation of agents.
+## All in one
 
-For detailed use cases, visit our [Use Cases page](https://docs.stellaframework.com/).
-
-## LICENSE
-STELLA offers two licensing options to accommodate diverse use cases. Both licenses are designed to meet different requirements, ensuring flexibility and convenience for all users.
-- **AGPL-3.0 License:** This license is perfect for students and hobbyists. It's an [Open Source Initiative (OSI)-approved](https://opensource.org/licenses/) open-source license that encourages collaborative development and knowledge exchange. For detailed information, please refer to the LICENSE file.
-- **Enterprise License:** Tailored for commercial purposes, this license allows for the integration of STELLA software into commercial products and services. This option is ideal for those who need to use our solutions in a commercial context without adhering to the open-source stipulations of the AGPL-3.0 license. For inquiries and more details about this license, please [contact us](mailto:philip@norditech.se).
-
-## Community and Support
-
-Join our community for support, discussions, and insights. Connect through our forums and support channels.
-
-Visit the [Community section](https://docs.stellaframework.com/Community) to get involved.
-
-## Getting Started
-
-To set up STELLA:
-
-1. **Clone the Repository**:
-   - HTTPS: `git clone https://github.com/Norditech-AB/STELLA.git`
-   - SSH: `git clone git@github.com:Norditech-AB/STELLA.git`
-   - GitHub CLI: `gh repo clone Norditech-AB/STELLA`
-
-2. **Configure the `.env` File**:
-   Update the `.env` file in the STELLA directory with your specific values.
-
-3. **Install Dependencies**:
-   `pip install -r requirements.txt`
-
-4. **Start the Server**:
-   Run `python run.py` from the `/app` folder.
-
-5. **Explore and Create**:
-   Explore default agents and create your workspace.
-
-For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
-
-## Next Steps
-
-- Learn about agent creation in [Creating a new Agent](https://docs.stellaframework.com/agents/Creating_a_new_Agent).
-- Explore CLI commands in the [CLI section](https://docs.stellaframework.com/cli/index).
-
----
-
-STELLA is an evolving framework. We welcome contributions and feedback to improve and expand its capabilities.
+```bash
+$ ./cleanup.sh
+$ cd docs
+$ make html
+$ cp -r _build/html/* ../
+$ cd ..
+$ git add .
+$ git commit -m "Update docs"
+$ git push
+```
