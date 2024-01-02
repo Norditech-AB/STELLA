@@ -1,0 +1,3 @@
+[sphinx.html_themes]
+sphinxawesome_theme=sphinxawesome_theme
+
