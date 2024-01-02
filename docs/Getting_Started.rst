@@ -45,9 +45,31 @@ Before running the server, install any necessary dependencies:
     pip install -r requirements.txt
 
 .. tip:: Create a virtual environment to isolate the dependencies from other projects.
-    Simply run `python3 -m venv venv` to create a virtual environment named `venv` in the current directory.
-    Then on MacOS/Unix run `source venv/bin/activate`, or on Windows `venv\Scripts\activate` to activate the virtual environment.
-    Now, install the dependencies by running `pip install -r requirements.txt`.
+    Simply run
+
+    .. code-block:: bash
+
+        python3 -m venv venv
+
+    to create a virtual environment named `venv` in the current directory.
+
+    Then on MacOS/Unix run:
+    .. code-block:: bash
+
+        source venv/bin/activate
+
+    or on Windows:
+    .. code-block:: bash
+
+        venv\Scripts\activate
+
+    to activate the virtual environment.
+
+    Now, install the dependencies by running
+    .. code-block:: bash
+
+        pip install -r requirements.txt
+
     More information on virtual environments can be found in the `Python documentation <https://docs.python.org/3/tutorial/venv.html>`_.
 
 Step 3: Setup the Environment
@@ -88,7 +110,7 @@ Create and configure your workspace using the CLI:
 
    .. code-block:: bash
 
-       > /register
+       /register
 
 2. **Login:**
 
@@ -96,7 +118,7 @@ Login with your newly created account:
 
    .. code-block:: bash
 
-       > /login
+       /login
 
 3. **Create a Workspace:**
 
@@ -104,7 +126,7 @@ Create a workspace to start chatting with STELLA. Replace `<workspace_name>` wit
 
    .. code-block:: bash
 
-       > /workspace create <workspace_name>
+       /workspace create <workspace_name>
 
 4. **Start chatting with STELLA:**
 
@@ -114,19 +136,19 @@ Lets see what the weather is like in Jönköping as an example:
 
    .. code-block:: bash
 
-       > What is the weather in Jönköping?
+       What is the weather in Jönköping?
 
 .. note:: Add agents to your workspace (replace `<agentid>` with the actual agent ID):
 
    .. code-block:: bash
 
-       > /add <agentid>
+       /add <agentid>
 
 .. note:: Use the /help command to see all available commands:
 
    .. code-block:: bash
 
-       > /help
+       /help
 
 
 Step 7 (OPTIONAL): Configure the .env File
