@@ -54,18 +54,21 @@ Before running the server, install any necessary dependencies:
     to create a virtual environment named `venv` in the current directory.
 
     Then on MacOS/Unix run:
+
     .. code-block:: bash
 
         source venv/bin/activate
 
     or on Windows:
+
     .. code-block:: bash
 
         venv\Scripts\activate
 
     to activate the virtual environment.
 
-    Now, install the dependencies by running
+    Now, install the dependencies by running:
+
     .. code-block:: bash
 
         pip install -r requirements.txt
