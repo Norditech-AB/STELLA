@@ -79,12 +79,12 @@ Before running the server, install any necessary dependencies:
 Step 3: Setup the Environment
 -----------------------------
 
-Setup the Environment by running the :file:`setup.py` script from the root folder:
+Setup the Environment by running the :file:`configure.py` script from the root folder:
 This will walk you through the setup process and create a `.env` file in the root directory.
 
 .. code-block:: bash
 
-    python setup.py
+    python configure.py
 
 Step 4: Start the Server
 -------------------------
