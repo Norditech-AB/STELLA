@@ -44,7 +44,8 @@ Before running the server, install any necessary dependencies:
 
     pip install -r requirements.txt
 
-.. tip:: Create a virtual environment to isolate the dependencies from other projects.
+.. tip::
+    Create a virtual environment to isolate the dependencies from other projects.
     Simply run
 
     .. code-block:: bash
