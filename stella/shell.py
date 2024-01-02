@@ -2,10 +2,12 @@ from getpass import getpass
 
 from client.stella_client import StellaClient
 
+from prompt_toolkit import PromptSession
+from prompt_toolkit.history import InMemoryHistory
+
 from client.cli_design import *
 
 import os
-import readline
 
 
 AVAILABLE_COMMANDS = """Available commands:
@@ -30,6 +32,7 @@ class Shell:
         self.client: StellaClient = client
         self.version = "0.0.1"
         self.active = True
+        self.prompt_session = PromptSession(history=InMemoryHistory())
 
     def motd(self):
         print("\n\n")
@@ -53,16 +56,13 @@ class Shell:
         # Show message of the day (welcome message)
         self.motd()
 
-        # Enable auto history (up/down arrow keys for history)
-        readline.set_auto_history(True)
-
         # Connect to the latest workspace and chat, if any
         self.client.connect_latest()
 
         try:
             while self.active:
                 if not self.client.waiting_for_response:
-                    message = input(' > ')
+                    message = self.prompt_session.prompt(' > ')
 
                     # Check if command or message
                     if message.startswith('/'):
