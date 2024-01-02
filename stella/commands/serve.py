@@ -1,6 +1,7 @@
 from .base_command import BaseCommand
 import time
 import os
+import sys
 from client.cli_design import *
 
 
@@ -23,6 +24,9 @@ class ServeCommand(BaseCommand):
         # Change directory to app
         os.chdir('app')
 
+        # Use sys.executable to run the server
+        python_interpreter = sys.executable
+
         # Base command for running the server
-        server_command = f'python3 run.py --host {self.args.host} --port {self.args.port}'
+        server_command = f'{python_interpreter} run.py --host {self.args.host} --port {self.args.port}'
         os.system(server_command)
