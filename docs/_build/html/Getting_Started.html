@@ -112,7 +112,7 @@
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="cli/index.html">CLI (Command Line Interface)<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="cli/Quickstart.html">Quickstart</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cli/Commands.html">Commands</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cli/Commands.html">CLI Commands Documentation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cli/Installing_External_Agents.html">Installing External Agents</a></li>
 </ul>
 </li>
@@ -191,22 +191,19 @@ Simply run</p>
 </span></code></pre></div>
 </div>
 <p>to create a virtual environment named <cite>venv</cite> in the current directory.</p>
-<p>Then on MacOS/Unix run:
-.. code-block:: bash</p>
-<blockquote>
-<div><p>source venv/bin/activate</p>
-</div></blockquote>
-<p>or on Windows:
-.. code-block:: bash</p>
-<blockquote>
-<div><p>venvScriptsactivate</p>
-</div></blockquote>
+<p>Then on MacOS/Unix run:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="nb">source</span><span class="w"> </span>venv/bin/activate
+</span></code></pre></div>
+</div>
+<p>or on Windows:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
+</span></code></pre></div>
+</div>
 <p>to activate the virtual environment.</p>
-<p>Now, install the dependencies by running
-.. code-block:: bash</p>
-<blockquote>
-<div><p>pip install -r requirements.txt</p>
-</div></blockquote>
+<p>Now, install the dependencies by running:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+</span></code></pre></div>
+</div>
 <p>More information on virtual environments can be found in the <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">Python documentation</a>.</p>
 </div>
 </section>
