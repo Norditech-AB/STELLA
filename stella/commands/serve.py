@@ -17,7 +17,7 @@ class ServeCommand(BaseCommand):
         print_info('Starting STELLA server...')
         print_info('Press Ctrl+C to stop the server.')
         print_info('')
-        print_info('To continue using the CLI, open a new terminal and run `python cli`.')
+        print_info('To continue using the CLI, open a new terminal and run `python stella`.')
         time.sleep(2)
         print('')
 
