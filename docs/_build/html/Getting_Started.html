@@ -186,10 +186,28 @@
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Create a virtual environment to isolate the dependencies from other projects.
-Simply run <cite>python3 -m venv venv</cite> to create a virtual environment named <cite>venv</cite> in the current directory.
-Then on MacOS/Unix run <cite>source venv/bin/activate</cite>, or on Windows <cite>venvScriptsactivate</cite> to activate the virtual environment.
-Now, install the dependencies by running <cite>pip install -r requirements.txt</cite>.
-More information on virtual environments can be found in the <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">Python documentation</a>.</p>
+Simply run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+</span></code></pre></div>
+</div>
+<p>to create a virtual environment named <cite>venv</cite> in the current directory.</p>
+<p>Then on MacOS/Unix run:
+.. code-block:: bash</p>
+<blockquote>
+<div><p>source venv/bin/activate</p>
+</div></blockquote>
+<p>or on Windows:
+.. code-block:: bash</p>
+<blockquote>
+<div><p>venvScriptsactivate</p>
+</div></blockquote>
+<p>to activate the virtual environment.</p>
+<p>Now, install the dependencies by running
+.. code-block:: bash</p>
+<blockquote>
+<div><p>pip install -r requirements.txt</p>
+</div></blockquote>
+<p>More information on virtual environments can be found in the <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">Python documentation</a>.</p>
 </div>
 </section>
 <section id="step-3-setup-the-environment">
@@ -223,7 +241,7 @@ This will walk you through the setup process and create a <cite>.env</cite> file
 <p>Create and configure your workspace using the CLI:</p>
 <ol class="arabic">
 <li><p><strong>Register:</strong></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">&gt;<span class="w"> </span>/register
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/register
 </span></code></pre></div>
 </div>
 </li>
@@ -231,7 +249,7 @@ This will walk you through the setup process and create a <cite>.env</cite> file
 </ol>
 <p>Login with your newly created account:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">&gt;<span class="w"> </span>/login
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/login
 </span></code></pre></div>
 </div>
 </div></blockquote>
@@ -240,7 +258,7 @@ This will walk you through the setup process and create a <cite>.env</cite> file
 </ol>
 <p>Create a workspace to start chatting with STELLA. Replace <cite>&lt;workspace_name&gt;</cite> with the name of your workspace or leave it blank:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">&gt;<span class="w"> </span>/workspace<span class="w"> </span>create<span class="w"> </span>&lt;workspace_name&gt;
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace<span class="w"> </span>create<span class="w"> </span>&lt;workspace_name&gt;
 </span></code></pre></div>
 </div>
 </div></blockquote>
@@ -250,21 +268,21 @@ This will walk you through the setup process and create a <cite>.env</cite> file
 <p>Now you are ready to start chatting with STELLA. The default Weather agent is already installed so you can start chatting right away:</p>
 <p>Lets see what the weather is like in Jönköping as an example:</p>
 <blockquote>
-<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">&gt;<span class="w"> </span>What<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>weather<span class="w"> </span><span class="k">in</span><span class="w"> </span>Jönköping?
+<div><div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">What<span class="w"> </span>is<span class="w"> </span>the<span class="w"> </span>weather<span class="w"> </span><span class="k">in</span><span class="w"> </span>Jönköping?
 </span></code></pre></div>
 </div>
 </div></blockquote>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Add agents to your workspace (replace <cite>&lt;agentid&gt;</cite> with the actual agent ID):</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">&gt;<span class="w"> </span>/add<span class="w"> </span>&lt;agentid&gt;
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/add<span class="w"> </span>&lt;agentid&gt;
 </span></code></pre></div>
 </div>
 </div>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
 <p>Use the /help command to see all available commands:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">&gt;<span class="w"> </span>/help
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/help
 </span></code></pre></div>
 </div>
 </div>
