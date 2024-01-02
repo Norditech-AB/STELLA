@@ -23,7 +23,7 @@ class Session:
     def load_session(self):
         # If a session file is not provided, create it in the current directory
         if self.session_file_path is None:
-            self.session_file_path = os.path.join(os.getcwd(), "stella/session.json")
+            self.session_file_path = os.path.join(os.path.dirname(__file__), "../session.json")
 
         # If the session file does not exist, create it
         if not os.path.exists(self.session_file_path):

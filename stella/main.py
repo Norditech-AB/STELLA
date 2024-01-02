@@ -2,10 +2,10 @@ import json
 import os
 import argparse
 
-from client.stella_client import StellaClient
-from shell import Shell
+from stella.client.stella_client import StellaClient
+from stella.shell import Shell
 
-from commands import ServeCommand
+from stella.commands import ServeCommand
 
 
 def setup_parser():

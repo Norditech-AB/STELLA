@@ -1,7 +1,7 @@
 from .base_command import BaseCommand
 import time
 import os
-from client.cli_design import *
+from stella.client.cli_design import *
 
 
 class ServeCommand(BaseCommand):
@@ -20,8 +20,10 @@ class ServeCommand(BaseCommand):
         time.sleep(2)
         print('')
 
+        current_file_path = os.path.dirname(os.path.abspath(__file__))
+        changed_path = os.path.abspath(os.path.join(current_file_path, '../../app'))
         # Change directory to app
-        os.chdir('app')
+        os.chdir(changed_path)
 
         # Base command for running the server
         server_command = f'python3 run.py --host {self.args.host} --port {self.args.port}'

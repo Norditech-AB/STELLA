@@ -1,8 +1,8 @@
 from getpass import getpass
 
-from client.stella_client import StellaClient
+from stella.client.stella_client import StellaClient
 
-from client.cli_design import *
+from stella.client.cli_design import *
 
 import os
 import readline

@@ -39,7 +39,7 @@ def backup_env_file(env_path):
             backup.write(original.read())
         print_success("Backup of .env file created.")
 
-def update_env_file(key, value, env_path="app/.env"):
+def update_env_file(key, value, env_path):
     if not os.path.exists(env_path):
         print(f"Error: {env_path} does not exist. Please ensure you are in the correct directory.")
         sys.exit(1)
@@ -121,7 +121,7 @@ def main():
     print_info("Initializing STELLA Setup...")
     check_python_version()
 
-    env_path = "app/.env"
+    env_path = os.path.join(os.path.dirname(__file__), "app/.env")
     backup_env_file(env_path)
     
     setup_database(env_path)
