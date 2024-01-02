@@ -1,6 +1,7 @@
 from .base_command import BaseCommand
 import time
 import os
+import sys
 from client.cli_design import *
 
 
@@ -16,13 +17,16 @@ class ServeCommand(BaseCommand):
         print_info('Starting STELLA server...')
         print_info('Press Ctrl+C to stop the server.')
         print_info('')
-        print_info('To continue using the CLI, open a new terminal and run `python cli`.')
+        print_info('To continue using the CLI, open a new terminal and run `python stella`.')
         time.sleep(2)
         print('')
 
         # Change directory to app
         os.chdir('app')
 
+        # Use sys.executable to run the server
+        python_interpreter = sys.executable
+
         # Base command for running the server
-        server_command = f'python3 run.py --host {self.args.host} --port {self.args.port}'
+        server_command = f'{python_interpreter} run.py --host {self.args.host} --port {self.args.port}'
         os.system(server_command)

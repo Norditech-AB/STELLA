@@ -1,9 +1,9 @@
 import sys
 import os
-import re
 import uuid
 import subprocess
 import bcrypt
+import shutil
 
 def print_banner():
     banner = """
@@ -122,6 +122,13 @@ def main():
     check_python_version()
 
     env_path = "app/.env"
+    env_template_path = "app/.env_template"
+
+    # Create a copy of .env.template if .env does not exist
+    if not os.path.exists(env_path):
+        shutil.copyfile(env_template_path, env_path)
+        print_success("Created .env file.")
+
     backup_env_file(env_path)
     
     setup_database(env_path)
