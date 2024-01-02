@@ -50,10 +50,10 @@ Before running the server, install any necessary dependencies:
     Now, install the dependencies by running `pip install -r requirements.txt`.
     More information on virtual environments can be found in the `Python documentation <https://docs.python.org/3/tutorial/venv.html>`_.
 
-Step 3: Setup the CLI
-----------------------
+Step 3: Setup the Environment
+-----------------------------
 
-Setup the CLI by running the :file:`setup.py` script from the root folder:
+Setup the Environment by running the :file:`setup.py` script from the root folder:
 This will walk you through the setup process and create a `.env` file in the root directory.
 
 .. code-block:: bash
@@ -71,9 +71,9 @@ With the environment configured, start the server by running `python stella serv
 
 .. seealso:: If you encounter issues starting the server, refer to the :doc:`Troubleshooting` guide for common problems and solutions.
 
-Step 5: Explore and create
----------------------------
-Open a new terminal window and run `python stella` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+Step 5: Explore and create in the CLI
+--------------------------------------
+Open a new terminal window and run `python stella` from the `root` folder of the repository to move into the CLI. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 
 .. code-block:: bash
 
