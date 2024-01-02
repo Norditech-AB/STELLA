@@ -15,11 +15,18 @@ $ make html
 
 ## Copy the docs to the root of the repo
 
+MacOS/Unix
 ```bash
 $ cd docs
 $ cp -r _build/html/* ../
 ```
 
+Windows
+```bash
+$ cd docs
+$ xcopy _build\html\* ..\ /E /I
+
+```
 ## Commit and push
 
 ```bash
