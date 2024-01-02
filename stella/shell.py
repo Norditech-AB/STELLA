@@ -1,11 +1,9 @@
 from getpass import getpass
 
-from client.stella_client import StellaClient
+from stella.client.stella_client import StellaClient
 
-from prompt_toolkit import PromptSession
-from prompt_toolkit.history import InMemoryHistory
-
-from client.cli_design import *
+from stella.client.cli_design import *
+from stella.client.cli_design import *
 
 import os
 
