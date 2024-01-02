@@ -69,7 +69,7 @@ This method is responsible for generating the agent's response. For example if o
         ...
 
 .. note::
-    Read more about the `respond` method in the :doc:`agents/How_Agents_Communicate_&_Memories` documentation.
+    Read more about the `respond` method in the :doc:`How_Agents_Communicate_&_Memories` documentation.
 
 5. Define Additional Helper Methods
 ------------------------------------
