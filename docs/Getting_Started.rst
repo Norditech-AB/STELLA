@@ -35,34 +35,7 @@ Clone the STELLA repository using your preferred method:
 
     gh repo clone Norditech-AB/STELLA
 
-
-Step 2: Configure the .env File
--------------------------------
-
-Navigate to the STELLA directory and update the `.env` file with your information:
-
-.. code-block:: none
-
-    JWT_SECRET_KEY="<REPLACE ME>"
-    BCRYPT_SALT="<REPLACE ME>"
-    MONGO_USERNAME="<REPLACE ME>"
-    MONGO_PASSWORD="<REPLACE ME>"
-    MONGO_URI="<REPLACE ME>"
-    MONGO_DB="<REPLACE ME>"
-    OPENAI_API_KEY="<REPLACE ME>"
-    FLASK_CONFIG="development"
-    JWT_ACCESS_TOKEN_EXPIRES="7"
-    SOCK_SERVER_OPTIONS_PING_INTERVAL="150"
-    ASYNC_MODE="gevent"
-
-Each placeholder should be replaced with your specific values. For instance, `OPENAI_API_KEY` requires a valid API key from OpenAI.
-
-.. tip:: Visit the :doc:`configuration/Environment_Variables` section for detailed guidance on setting up each variable.
-
-.. note:: The `FLASK_CONFIG` variable is set to `development` by default. This is not recommended for production environments.
-
-
-Step 3: Install Dependencies
+Step 2: Install Dependencies
 -----------------------------
 
 Before running the server, install any necessary dependencies:
@@ -70,6 +43,8 @@ Before running the server, install any necessary dependencies:
 .. code-block:: bash
 
     pip install -r requirements.txt
+
+.. tip:: Create a virtual environment to isolate the dependencies from other projects. Simply run `python3 -m venv venv` to create a virtual environment named `venv` in the current directory. Then on MacOS/Unix run `source venv/bin/activate`, on Windows `venv\Scripts\activate` to activate the virtual environment. Now, install the dependencies by running `pip install -r requirements.txt`. More information on virtual environments can be found in the `Python documentation <https://docs.python.org/3/tutorial/venv.html>`_.
 
 Step 4: Start the Server
 -------------------------
@@ -117,6 +92,31 @@ Step 7: Verify the Setup
 -------------------------
 
 Verify that STELLA is set up correctly by sending a test message or command. Check for expected responses or outputs to confirm everything is operational.
+
+Step 8 (OPTIONAL): Configure the .env File
+-------------------------------
+
+Navigate to the STELLA directory and update the `.env` file with your information:
+
+.. code-block:: none
+
+    JWT_SECRET_KEY="<REPLACE ME>"
+    BCRYPT_SALT="<REPLACE ME>"
+    MONGO_USERNAME="<REPLACE ME>"
+    MONGO_PASSWORD="<REPLACE ME>"
+    MONGO_URI="<REPLACE ME>"
+    MONGO_DB="<REPLACE ME>"
+    OPENAI_API_KEY="<REPLACE ME>"
+    FLASK_CONFIG="development"
+    JWT_ACCESS_TOKEN_EXPIRES="7"
+    SOCK_SERVER_OPTIONS_PING_INTERVAL="150"
+    ASYNC_MODE="gevent"
+
+Each placeholder should be replaced with your specific values. For instance, `OPENAI_API_KEY` requires a valid API key from OpenAI.
+
+.. tip:: Visit the :doc:`configuration/Environment_Variables` section for detailed guidance on setting up each variable.
+
+.. note:: The `FLASK_CONFIG` variable is set to `development` by default. This is not recommended for production environments.
 
 Next Steps
 ----------
