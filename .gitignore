@@ -3,3 +3,4 @@ app/.env.backup
 app/sqlite.db
 stella/session.json
 **/__pycache__/
+venv
