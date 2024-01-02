@@ -8,7 +8,7 @@ Prerequisites
 
 Before you begin, ensure you have the following:
 
-- Python 3.8 – 3.11 installed.
+- Python 3.9 – 3.10 installed.
 - Git installed for cloning the repository.
 - Basic familiarity with command-line operations.
 
@@ -44,58 +44,95 @@ Before running the server, install any necessary dependencies:
 
     pip install -r requirements.txt
 
-.. tip:: Create a virtual environment to isolate the dependencies from other projects. Simply run `python3 -m venv venv` to create a virtual environment named `venv` in the current directory. Then on MacOS/Unix run `source venv/bin/activate`, on Windows `venv\Scripts\activate` to activate the virtual environment. Now, install the dependencies by running `pip install -r requirements.txt`. More information on virtual environments can be found in the `Python documentation <https://docs.python.org/3/tutorial/venv.html>`_.
+.. tip:: Create a virtual environment to isolate the dependencies from other projects.
+    Simply run `python3 -m venv venv` to create a virtual environment named `venv` in the current directory.
+    Then on MacOS/Unix run `source venv/bin/activate`, or on Windows `venv\Scripts\activate` to activate the virtual environment.
+    Now, install the dependencies by running `pip install -r requirements.txt`.
+    More information on virtual environments can be found in the `Python documentation <https://docs.python.org/3/tutorial/venv.html>`_.
+
+Step 3: Setup the CLI
+----------------------
+
+Setup the CLI by running the :file:`setup.py` script from the root folder:
+This will walk you through the setup process and create a `.env` file in the root directory.
+
+.. code-block:: bash
+
+    python setup.py
 
 Step 4: Start the Server
 -------------------------
 
-With the environment configured, start the server by running the :file:`run.py` script from the :file:`/app` folder:
+With the environment configured, start the server by running `python stella serve` script from the root folder:
 
 .. code-block:: bash
 
-    cd app
-    python run.py
+    python stella serve
 
 .. seealso:: If you encounter issues starting the server, refer to the :doc:`Troubleshooting` guide for common problems and solutions.
 
-Step 5: Explore Default Agents
-------------------------------
+Step 5: Explore and create
+---------------------------
+Open a new terminal window and run `python stella` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 
-Explore the default agents provided in :file:`/app/agents/DefaultAgents` to get a feel for STELLA's capabilities.
+.. code-block:: bash
 
-Step 6: Create Your Workspace
------------------------------
+    python stella
 
-Create and configure your workspace using the CLI in the :file:`/cli` folder:
+Step 6: Create Your Account and Workspace
+------------------------------------------
 
-1. **Login:**
+Create and configure your workspace using the CLI:
 
-   .. code-block:: bash
-
-       stella login
-
-2. **Create a Workspace:**
+1. **Register:**
 
    .. code-block:: bash
 
-       stella workspace create
+       > /register
 
-3. **Add Agents:**
+2. **Login:**
 
-   Add agents to your workspace (replace `<agentid>` with the actual agent ID):
+Login with your newly created account:
 
    .. code-block:: bash
 
-       stella add <agentid>
+       > /login
 
-Step 7: Verify the Setup
--------------------------
+3. **Create a Workspace:**
 
-Verify that STELLA is set up correctly by sending a test message or command. Check for expected responses or outputs to confirm everything is operational.
+Create a workspace to start chatting with STELLA. Replace `<workspace_name>` with the name of your workspace or leave it blank:
 
-Step 8 (OPTIONAL): Configure the .env File
--------------------------------
+   .. code-block:: bash
 
+       > /workspace create <workspace_name>
+
+4. **Start chatting with STELLA:**
+
+Now you are ready to start chatting with STELLA. The default Weather agent is already installed so you can start chatting right away:
+
+Lets see what the weather is like in Jönköping as an example:
+
+   .. code-block:: bash
+
+       > What is the weather in Jönköping?
+
+.. note:: Add agents to your workspace (replace `<agentid>` with the actual agent ID):
+
+   .. code-block:: bash
+
+       > /add <agentid>
+
+.. note:: Use the /help command to see all available commands:
+
+   .. code-block:: bash
+
+       > /help
+
+
+Step 7 (OPTIONAL): Configure the .env File
+-------------------------------------------
+
+To customize your STELLA environment, you can update the `.env` file in the root directory. This file contains all the environment variables used by STELLA.
 Navigate to the STELLA directory and update the `.env` file with your information:
 
 .. code-block:: none
@@ -123,6 +160,7 @@ Next Steps
 
 Congratulations on setting up STELLA! Now, you're ready to dive deeper:
 
+- Explore more default agents provided in :file:`/app/agents/DefaultAgents` to get a feel for STELLA's capabilities.
 - Learn how to create your first agent in the :doc:`agents/Creating_a_new_Agent` guide.
 - Explore advanced CLI commands in the :doc:`cli/index` section.
 
