@@ -1,3 +1,4 @@
+import shutil
 import sys
 import os
 import re
@@ -123,19 +124,16 @@ def main():
     check_python_version()
 
     env_path = os.path.join(os.path.dirname(__file__), "app/.env")
+    env_template_path = os.path.join(os.path.dirname(__file__), "app/.env_template")
     backup_env_file(env_path)
+
+    # Create a copy of .env.template if .env does not exist
+    if not os.path.exists(env_path):
+        shutil.copyfile(env_template_path, env_path)
+        print_success("Created .env file.")
     
     setup_database(env_path)
     setup_openai_api_key(env_path)
-
-    """
-    # Ask to modify PYTHONPATH
-    cli_path = os.path.dirname(os.path.abspath(__file__))
-    add_to_path = input("Do you want to add the STELLA CLI to your PYTHONPATH permanently? [y/N]: ").strip().lower()
-    if add_to_path == 'y':
-        add_path_to_pythonpath(cli_path)
-        print("PYTHONPATH updated successfully.")
-    """
 
     generate_keys(env_path)
     print("")
