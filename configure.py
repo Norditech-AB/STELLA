@@ -125,13 +125,14 @@ def main():
 
     env_path = os.path.join(os.path.dirname(__file__), "app/.env")
     env_template_path = os.path.join(os.path.dirname(__file__), "app/.env_template")
-    backup_env_file(env_path)
 
     # Create a copy of .env.template if .env does not exist
     if not os.path.exists(env_path):
         shutil.copyfile(env_template_path, env_path)
         print_success("Created .env file.")
-    
+
+    backup_env_file(env_path)
+
     setup_database(env_path)
     setup_openai_api_key(env_path)
 
