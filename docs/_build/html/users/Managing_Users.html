@@ -89,13 +89,13 @@
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../workspaces/index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talking to Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../agents/index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Creating a New Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Best_Practices.html">Best Practices</a></li>
 </ul>
@@ -152,8 +152,69 @@
 <div id="content" role="main">
 <section id="creating-a-new-user">
 <h1>Creating a new User<a class="headerlink" href="#creating-a-new-user" title="Link to this heading">¶</a></h1>
+<p>This section details the process of creating a new user in our framework through the Command Line Interface (CLI).</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#overview'">¶</a></h2>
+<p>Creating a new user is a simple process that can be done directly from the CLI. The user’s information, including email and password, will be securely stored in the connected database.</p>
 </section>
-</div></div>
+<section id="database-storage">
+<h2>Database Storage<a class="headerlink" href="#database-storage" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#database-storage'">¶</a></h2>
+<p>When a new user is created:</p>
+<ul class="simple">
+<li><p><strong>Email</strong>: The user’s email address is stored as a unique identifier.</p></li>
+<li><p><strong>Password</strong>: The password is securely hashed and stored. We ensure the security of user passwords by using robust hashing algorithms.</p></li>
+</ul>
+</section>
+<section id="creating-a-user-via-cli">
+<h2>Creating a User via CLI<a class="headerlink" href="#creating-a-user-via-cli" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#creating-a-user-via-cli'">¶</a></h2>
+<p>To create a new user, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Open the CLI</strong>:
+Start by opening the CLI environment. Ensure that you are in the root directory of the framework.</p></li>
+<li><p><strong>Run the Registration Command</strong>:
+Use the registration command to initiate the user creation process. You will be prompted to enter the user’s email and password.</p>
+<p>Example Command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/register
+</span></code></pre></div>
+</div>
+</li>
+<li><p><strong>Enter User Details</strong>:
+- When prompted, enter the user’s <strong>email address</strong>.
+- Next, enter the <strong>password</strong> for the new account.</p>
+<p>The CLI will communicate with the backend to create the user and store the details in the database.</p>
+</li>
+</ol>
+</section>
+<section id="success-confirmation">
+<h2>Success Confirmation<a class="headerlink" href="#success-confirmation" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#success-confirmation'">¶</a></h2>
+<p>Upon successful creation of the new user, you will receive a confirmation message in the CLI indicating that the user account has been created.</p>
+</section>
+<section id="handling-errors">
+<h2>Handling Errors<a class="headerlink" href="#handling-errors" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#handling-errors'">¶</a></h2>
+<p>If there are any issues during the user creation process, such as entering an already existing email, the CLI will display an appropriate error message. Follow the instructions provided in the error message to resolve the issue.</p>
+</section>
+<section id="more-details">
+<h2>More Details<a class="headerlink" href="#more-details" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#more-details'">¶</a></h2>
+<p>For more details on the create user endpoint, refer to the <a class="reference internal" href="../API_Reference.html"><span class="doc">API Reference</span></a> documentation.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
+<p>Creating a new user through our CLI is a straightforward process. Once created, the user’s details are securely stored in the database, ensuring the safety and integrity of user data.</p>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a></li>
+<li><a :data-current="activeSection === '#database-storage'" class="reference internal" href="#database-storage">Database Storage</a></li>
+<li><a :data-current="activeSection === '#creating-a-user-via-cli'" class="reference internal" href="#creating-a-user-via-cli">Creating a User via CLI</a></li>
+<li><a :data-current="activeSection === '#success-confirmation'" class="reference internal" href="#success-confirmation">Success Confirmation</a></li>
+<li><a :data-current="activeSection === '#handling-errors'" class="reference internal" href="#handling-errors">Handling Errors</a></li>
+<li><a :data-current="activeSection === '#more-details'" class="reference internal" href="#more-details">More Details</a></li>
+<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

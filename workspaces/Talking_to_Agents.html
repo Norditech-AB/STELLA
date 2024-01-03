@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Talking to Agents | STELLA  documentation</title>
-<meta content="Talking to Agents | STELLA  documentation" property="og:title"/>
-<meta content="Talking to Agents | STELLA  documentation" name="twitter:title"/>
+<title>Talk to Agents with the CLI | STELLA  documentation</title>
+<meta content="Talk to Agents with the CLI | STELLA  documentation" property="og:title"/>
+<meta content="Talk to Agents with the CLI | STELLA  documentation" name="twitter:title"/>
 <link href="../_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=e43df443" rel="stylesheet" type="text/css"/>
 <link href="../_static/tabs.css?v=a5c4661c" rel="stylesheet" type="text/css"/>
@@ -89,13 +89,13 @@
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html">Managing Workspaces</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Talking to Agents</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../agents/index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Creating a New Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Best_Practices.html">Best Practices</a></li>
 </ul>
@@ -147,13 +147,85 @@
 </svg>
 </a>
 <div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Workspaces</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Talking to Agents</span>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Talk to Agents with the CLI</span>
 </nav>
 <div id="content" role="main">
-<section id="talking-to-agents">
-<h1>Talking to Agents<a class="headerlink" href="#talking-to-agents" title="Link to this heading">¶</a></h1>
+<section id="talk-to-agents-with-the-cli">
+<h1>Talk to Agents with the CLI<a class="headerlink" href="#talk-to-agents-with-the-cli" title="Link to this heading">¶</a></h1>
+<p>This documentation provides instructions on how to interact with Stella through the Command Line Interface (CLI). You can communicate with various agents, including a pre-installed weather agent, to get information or perform tasks.</p>
+<section id="setting-up-your-workspace">
+<h2>Setting Up Your Workspace<a class="headerlink" href="#setting-up-your-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#setting-up-your-workspace'">¶</a></h2>
+<p><strong>Step 1:</strong> Connect to or Create a Workspace</p>
+<blockquote>
+<div><p>To start chatting with Stella, you need to be connected to a workspace. You can either connect to an existing workspace or create a new one.</p>
+<p>To connect to an existing workspace:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace connect &lt;workspace_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;workspace_id&gt;</span></code> with the ID of the workspace you want to connect to.</p>
+<p>To create and connect to a new workspace:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace create &lt;workspace_name&gt;
+</span><span id="line-2">/workspace connect &lt;workspace_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;workspace_name&gt;</span></code> with your desired workspace name and <code class="docutils literal notranslate"><span class="pre">&lt;workspace_id&gt;</span></code> with the ID of the newly created workspace.</p>
+</div></blockquote>
+<p><strong>Step 2:</strong> Add relevant agents to your workspace</p>
+<blockquote>
+<div><p>After connecting to your workspace, it’s important to ensure that you are also add agents to it.</p>
+<p>Add an agent using the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/add &lt;agent_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <cite>&lt;agent_id&gt;</cite> with the specific ID of the agent of your choice. This will establish a connection with the agent Stella can use to communicate with, allowing you to start querying information.</p>
+</div></blockquote>
 </section>
-</div></div>
+<section id="chatting-with-the-weather-agent">
+<h2>Chatting with the Weather Agent<a class="headerlink" href="#chatting-with-the-weather-agent" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#chatting-with-the-weather-agent'">¶</a></h2>
+<p>Chat with the pre-installed weather agent to get weather updates for any city in the world.</p>
+<p>This agent is pre-installed in the framework, to use it, you need to explicitly add it to your workspace in order to start chatting and receiving weather updates.</p>
+<blockquote>
+<div><p>Add the weather agent using the following command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/add demo_weather_agent
+</span></code></pre></div>
+</div>
+<p>This will let Stella to communicate with the weather agent and start receiving weather information.</p>
+</div></blockquote>
+<p>Once your workspace is set up and the weather agent is active, you can simply type your queries into the CLI prompt.
+Here are three examples of how to ask about the weather in the three biggest cities in Sweden:</p>
+<ol class="arabic">
+<li><p>Asking about the weather in Stockholm:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">What's the weather like in Stockholm today?
+</span></code></pre></div>
+</div>
+</li>
+<li><p>Inquiring about the weather in Gothenburg:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Can you give me the weather forecast for Gothenburg?
+</span></code></pre></div>
+</div>
+</li>
+<li><p>Getting weather updates for Malmö:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">Tell me about today's weather in Malmö.
+</span></code></pre></div>
+</div>
+</li>
+</ol>
+<p>Each of these queries will prompt the weather agent to provide current weather information or forecasts for the specified city.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
+<p>With Stella’s CLI, you can easily connect to workspaces, interact with various agents, and get information or execute tasks efficiently. The pre-installed weather agent is just one example of the many functionalities available to enhance your productivity and decision-making processes.</p>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#setting-up-your-workspace'" class="reference internal" href="#setting-up-your-workspace">Setting Up Your Workspace</a></li>
+<li><a :data-current="activeSection === '#chatting-with-the-weather-agent'" class="reference internal" href="#chatting-with-the-weather-agent">Chatting with the Weather Agent</a></li>
+<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

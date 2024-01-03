@@ -18,7 +18,7 @@
 <link href="../_static/awesome-sphinx-design.css?v=a54cf077" rel="stylesheet" type="text/css"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
-<link href="Talking_to_Agents.html" rel="next" title="Talking to Agents"/>
+<link href="Talking_to_Agents.html" rel="next" title="Talk to Agents with the CLI"/>
 <link href="index.html" rel="prev" title="Workspaces"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
@@ -89,13 +89,13 @@
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Managing Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Talking_to_Agents.html">Talking to Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../agents/index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Creating a New Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Best_Practices.html">Best Practices</a></li>
 </ul>
@@ -152,8 +152,145 @@
 <div id="content" role="main">
 <section id="managing-workspaces">
 <h1>Managing Workspaces<a class="headerlink" href="#managing-workspaces" title="Link to this heading">¶</a></h1>
+<p>This section provides guidance on managing workspaces in our framework via the Command Line Interface (CLI). Workspaces in our framework serve as hubs for collaboration and automation across various applications.</p>
+<section id="overview">
+<h2>Overview<a class="headerlink" href="#overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#overview'">¶</a></h2>
+<p>Workspaces are central to organizing and managing your activities within the framework. They allow for the integration of agents and automation tools, facilitating a collaborative and efficient environment. Workspaces, including their configurations and associated agents, can be shared or exported to the marketplace for Stella workspaces.</p>
+<div class="admonition tip">
+<p class="admonition-title">Tip</p>
+<p>You can use <code class="docutils literal notranslate"><span class="pre">/ws</span></code> as a shortcut for <code class="docutils literal notranslate"><span class="pre">/workspace</span></code> in the CLI.</p>
+</div>
 </section>
-</div></div>
+<section id="what-is-a-workspace">
+<h2>What is a Workspace?<a class="headerlink" href="#what-is-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#what-is-a-workspace'">¶</a></h2>
+<p>A workspace in our framework is a virtual environment or hub where users can manage and interact with various components like agents and automated processes.
+It serves as a container for different tasks and projects, providing a structured environment for managing activities related to Stella workspaces.
+Each workspace can be tailored with specific agents and tools to fit the unique needs of a project or team.</p>
+</section>
+<section id="creating-a-workspace">
+<h2>Creating a Workspace<a class="headerlink" href="#creating-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#creating-a-workspace'">¶</a></h2>
+<p>To create a new workspace:</p>
+<ol class="arabic">
+<li><p>Enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace create &lt;workspace_name&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;workspace_name&gt;</span></code> with your desired workspace name. If no name is specified, a default name like “Untitled Workspace” is assigned.</p>
+</li>
+<li><p>The newly created workspace will be stored in the connected database with its configuration details.</p></li>
+</ol>
+</section>
+<section id="viewing-workspaces">
+<h2>Viewing Workspaces<a class="headerlink" href="#viewing-workspaces" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#viewing-workspaces'">¶</a></h2>
+<p>To view all your workspaces:</p>
+<ol class="arabic">
+<li><p>Enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace list
+</span></code></pre></div>
+</div>
+<p>This command will list all workspaces associated with your user account.</p>
+</li>
+</ol>
+</section>
+<section id="connect-to-a-specific-workspace">
+<h2>Connect to a Specific Workspace<a class="headerlink" href="#connect-to-a-specific-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#connect-to-a-specific-workspace'">¶</a></h2>
+<p>To connect to a specific workspace:</p>
+<ol class="arabic">
+<li><p>Enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace connect &lt;workspace_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;workspace_id&gt;</span></code> with the ID of the workspace you want to view. This command provides detailed information about the specified workspace.</p>
+</li>
+</ol>
+</section>
+<section id="renaming-a-workspace">
+<h2>Renaming a Workspace<a class="headerlink" href="#renaming-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#renaming-a-workspace'">¶</a></h2>
+<p>To rename an existing workspace:</p>
+<ol class="arabic">
+<li><p>Enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace rename &lt;workspace_id&gt; &lt;new_name&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;workspace_id&gt;</span></code> with the ID of the workspace you want to rename, and <code class="docutils literal notranslate"><span class="pre">&lt;new_name&gt;</span></code> with the new name for the workspace.</p>
+</li>
+<li><p>The workspace’s name will be updated in the database.</p></li>
+</ol>
+</section>
+<section id="adding-an-agent-to-a-workspace">
+<h2>Adding an Agent to a Workspace<a class="headerlink" href="#adding-an-agent-to-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#adding-an-agent-to-a-workspace'">¶</a></h2>
+<p><strong>Quick Steps to Connect an Agent to Your Workspace:</strong></p>
+<p><strong>Step 1:</strong> Connect to Your Workspace</p>
+<blockquote>
+<div><p>Begin by establishing a connection to the workspace. Do this by typing the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace connect &lt;workspace_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;workspace_id&gt;</span></code> with the actual ID of the workspace you want to connect to.</p>
+</div></blockquote>
+<p><strong>Step 2:</strong> Add an Agent</p>
+<blockquote>
+<div><p>Once connected, you can add an agent to this workspace. Simply enter:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/add &lt;agent_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;agent_id&gt;</span></code> with the ID of the agent you wish to add.</p>
+</div></blockquote>
+</section>
+<section id="removing-an-agent-from-a-workspace">
+<h2>Removing an Agent from a Workspace<a class="headerlink" href="#removing-an-agent-from-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#removing-an-agent-from-a-workspace'">¶</a></h2>
+<p><strong>Simple Guide to Remove an Agent from Your Workspace:</strong></p>
+<p>To disassociate an agent from a workspace, follow these steps:</p>
+<ol class="arabic">
+<li><p>Begin by Establishing a Connection to the Workspace:</p>
+<p>First, ensure you are connected to the workspace from which you want to remove an agent. Once connected, proceed to the next step.</p>
+</li>
+<li><p>Enter the Remove Agent Command:</p>
+<p>Use the command to remove an agent:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/remove &lt;agent_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;agent_id&gt;</span></code> with the ID of the agent you wish to remove.</p>
+</li>
+<li><p>Confirmation of Removal:</p>
+<p>After executing the command, the specified agent will be successfully removed from the workspace.</p>
+</li>
+</ol>
+</section>
+<section id="deleting-a-workspace">
+<h2>Deleting a Workspace<a class="headerlink" href="#deleting-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#deleting-a-workspace'">¶</a></h2>
+<p>To delete a workspace:</p>
+<ol class="arabic">
+<li><p>Enter the command:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">/workspace delete &lt;workspace_id&gt;
+</span></code></pre></div>
+</div>
+<p>Replace <code class="docutils literal notranslate"><span class="pre">&lt;workspace_id&gt;</span></code> with the ID of the workspace you wish to delete.</p>
+</li>
+<li><p>The workspace and all its associated data will be removed from the database.</p></li>
+</ol>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
+<p>Workspaces are a versatile and integral part of our framework, enabling users to manage and collaborate efficiently. Through the CLI, users can easily create, configure, and interact with workspaces, tailoring them to their specific needs and workflows.</p>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#overview'" class="reference internal" href="#overview">Overview</a></li>
+<li><a :data-current="activeSection === '#what-is-a-workspace'" class="reference internal" href="#what-is-a-workspace">What is a Workspace?</a></li>
+<li><a :data-current="activeSection === '#creating-a-workspace'" class="reference internal" href="#creating-a-workspace">Creating a Workspace</a></li>
+<li><a :data-current="activeSection === '#viewing-workspaces'" class="reference internal" href="#viewing-workspaces">Viewing Workspaces</a></li>
+<li><a :data-current="activeSection === '#connect-to-a-specific-workspace'" class="reference internal" href="#connect-to-a-specific-workspace">Connect to a Specific Workspace</a></li>
+<li><a :data-current="activeSection === '#renaming-a-workspace'" class="reference internal" href="#renaming-a-workspace">Renaming a Workspace</a></li>
+<li><a :data-current="activeSection === '#adding-an-agent-to-a-workspace'" class="reference internal" href="#adding-an-agent-to-a-workspace">Adding an Agent to a Workspace</a></li>
+<li><a :data-current="activeSection === '#removing-an-agent-from-a-workspace'" class="reference internal" href="#removing-an-agent-from-a-workspace">Removing an Agent from a Workspace</a></li>
+<li><a :data-current="activeSection === '#deleting-a-workspace'" class="reference internal" href="#deleting-a-workspace">Deleting a Workspace</a></li>
+<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
