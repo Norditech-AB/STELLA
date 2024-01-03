@@ -1,2 +1,0 @@
-Sending and receiving messages
-==============================
