@@ -11,10 +11,14 @@ if not exist "%CLEAR_FILES%" (
 )
 
 :: Read the .clear_files and remove each entry
-for /f "tokens=*" %%A in ('type "%CLEAR_FILES%" ^| findstr /v /r /c:"^#"') do (
+for /f "usebackq tokens=*" %%A in ("%CLEAR_FILES%") do (
     set "line=%%A"
     if not "!line!"=="" (
-        del /q /s "!line!" 2>nul
+        if exist "!line!\\" (
+            rmdir /s /q "!line!"
+        ) else (
+            del /q "!line!"
+        )
         if !errorlevel! equ 0 (
             echo Removed !line!
         ) else (
