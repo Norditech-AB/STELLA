@@ -8,9 +8,9 @@ build-backend = "setuptools.build_meta"
 py-modules = ["stella", "app"]
 
 [project]
-name = "stella"
+name = "stella-cli"
 version = "0.1.0"
-description = "Stella is a platform for creating and managing AI agents."
+description = "STELLA is a multi-agent framework for creating and managing AI agents."
 readme = "README.md"
 authors = [{ name = "Philip Alm", email = "philip@norditech.se" },{name = "David Bacelj", email = "david.bacelj@norditech.se" },{name = "Fredric Lundberg", email = "fredric@norditech.se" }]
 license = { file = "LICENSE" }
@@ -31,8 +31,10 @@ dependencies = [
     'pymongo >= 4.6.1',
     'openai >= 0.28.1',
     'bcrypt >= 4.0.1',
-    'requests >= 2.31.0'
+    'requests >= 2.31.0',
+    'prompt-toolkit >= 3.0.43'
 ]
+
 requires-python = "~=3.9, ~=3.10"
 
 
@@ -41,4 +43,4 @@ Homepage = "https://github.com/Norditech-AB/STELLA"
 
 
 [project.scripts]
-stella = "stella.__main__:main"
+stella = "stella.__main__:init"
