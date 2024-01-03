@@ -5,7 +5,7 @@ import argparse
 from stella.client.stella_client import StellaClient
 from stella.shell import Shell
 
-from stella.commands import ServeCommand
+from stella.commands import ServeCommand, ConfigureCommand
 
 
 def setup_parser():
@@ -13,6 +13,7 @@ def setup_parser():
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
 
     ServeCommand.init_parser(subparsers)
+    ConfigureCommand.init_parser(subparsers)
 
     return parser
 

@@ -9,13 +9,14 @@ from app.models.workspace import Workspace
 from app.models.chat import Chat, ChatConnectionString
 
 # Load environment variables
-SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH')
+SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH')  # sqlite.db
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 class SQLite(DatabaseInterface, ABC):
 
     def __init__(self):
-        self.conn = sqlite3.connect(SQLITE_DB_PATH)
+        self.conn = sqlite3.connect(os.path.abspath(os.path.join(THIS_FOLDER, '../../', SQLITE_DB_PATH)))
         self.conn.row_factory = sqlite3.Row
         self.create_tables()
 
