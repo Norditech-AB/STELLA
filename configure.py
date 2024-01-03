@@ -116,6 +116,7 @@ def add_path_to_pythonpath(path):
         print("Unsupported operating system.")
 """
 
+
 def main():
     print_banner()
     print_info("Initializing STELLA Setup...")
