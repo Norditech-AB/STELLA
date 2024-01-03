@@ -1,4 +1,4 @@
-#!/Users/david/STELLA/venv/bin/python3
+#!/Users/philip/projects/PRODUCTION/STELLA/venv/bin/python
 
 # Author:
 # Contact: grubert@users.sf.net

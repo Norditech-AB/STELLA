@@ -1,4 +1,4 @@
-#!/Users/david/STELLA/venv/bin/python3
+#!/Users/philip/projects/PRODUCTION/STELLA/venv/bin/python
 
 # $Id: rstpep2html.py 4564 2006-05-21 20:44:42Z wiemann $
 # Author: David Goodger <goodger@python.org>
