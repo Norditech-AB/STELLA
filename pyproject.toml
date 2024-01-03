@@ -13,9 +13,8 @@ version = "0.1.0"
 description = "STELLA is a multi-agent framework for creating and managing AI agents."
 readme = "README.md"
 authors = [{ name = "Philip Alm", email = "philip@norditech.se" },{name = "David Bacelj", email = "david.bacelj@norditech.se" },{name = "Fredric Lundberg", email = "fredric@norditech.se" }]
-license = { file = "LICENSE" }
+license = {text = "AGPL-3.0 & Enterprise License (contact to get license)"}
 classifiers = [
-    "License :: OSI Approved :: AGPL-3.0 License and Enterprise License (contact to get license)",
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
 ]
