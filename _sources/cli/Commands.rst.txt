@@ -1,6 +1,5 @@
-====================
 CLI Commands Documentation
-====================
+==========================
 
 This document provides details on the available commands in our CLI tool.
 
