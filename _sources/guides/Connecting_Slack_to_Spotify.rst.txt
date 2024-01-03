@@ -1,2 +1,0 @@
-Connecting Slack to Spotify
-===========================
