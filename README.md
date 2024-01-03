@@ -8,7 +8,7 @@ $ ./cleanup.sh
 
 Windows
 ```bash
-$ cleanup.sh
+$ cleanup.bat
 ```
 
 ## Build the docs
