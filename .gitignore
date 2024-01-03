@@ -3,7 +3,6 @@ app/.env.backup
 app/sqlite.db
 stella/session.json
 **/__pycache__/
-venv
 *.egg-info/
 **/.DS_Store
 
