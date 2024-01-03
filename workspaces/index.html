@@ -89,13 +89,13 @@
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="current reference internal expandable" href="#">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html">Managing Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Talking_to_Agents.html">Talking to Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../agents/index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Creating a New Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../agents/Best_Practices.html">Best Practices</a></li>
 </ul>
@@ -153,8 +153,25 @@
 <h1>Workspaces<a class="headerlink" href="#workspaces" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Managing_Workspaces.html">Managing Workspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Talking_to_Agents.html">Talking to Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Managing_Workspaces.html">Managing Workspaces</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#overview">Overview</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#what-is-a-workspace">What is a Workspace?</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#creating-a-workspace">Creating a Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#viewing-workspaces">Viewing Workspaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#connect-to-a-specific-workspace">Connect to a Specific Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#renaming-a-workspace">Renaming a Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#adding-an-agent-to-a-workspace">Adding an Agent to a Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#removing-an-agent-from-a-workspace">Removing an Agent from a Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#deleting-a-workspace">Deleting a Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Managing_Workspaces.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Talking_to_Agents.html">Talk to Agents with the CLI</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Talking_to_Agents.html#setting-up-your-workspace">Setting Up Your Workspace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Talking_to_Agents.html#chatting-with-the-weather-agent">Chatting with the Weather Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Talking_to_Agents.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>

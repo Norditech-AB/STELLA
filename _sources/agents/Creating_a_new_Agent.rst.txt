@@ -1,6 +1,5 @@
-============================
-Creating a New Agent
-============================
+Create a New Agent
+==================
 
 This document explains how to create a new agent based on the `Agent` superclass.
 
@@ -96,3 +95,11 @@ Conclusion
 ----------
 
 By following these steps and using the `Agent` superclass as a base, you can create a variety of specialized agents tailored to specific tasks or functionalities.
+
+Next Steps
+----------
+
+Congratulations on setting up a new Agent! Now, you're ready to dive deeper:
+
+- Learn how to use connecting Agents in the :doc:`Connecting_Agents` guide.
+- Go further to learn how Agents communicate and use memories in the :doc:`How_Agents_Communicate_&_Memories` guide.
