@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Connecting Agents | STELLA  documentation</title>
-<meta content="Connecting Agents | STELLA  documentation" property="og:title"/>
-<meta content="Connecting Agents | STELLA  documentation" name="twitter:title"/>
+<title>Agent Connection Availability | STELLA  documentation</title>
+<meta content="Agent Connection Availability | STELLA  documentation" property="og:title"/>
+<meta content="Agent Connection Availability | STELLA  documentation" name="twitter:title"/>
 <link href="../_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=e43df443" rel="stylesheet" type="text/css"/>
 <link href="../_static/tabs.css?v=a5c4661c" rel="stylesheet" type="text/css"/>
@@ -89,13 +89,13 @@
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../workspaces/index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talking to Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Creating a New Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Connecting Agents</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
@@ -147,13 +147,62 @@
 </svg>
 </a>
 <div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Agents</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Connecting Agents</span>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Agent Connection Availability</span>
 </nav>
 <div id="content" role="main">
-<section id="connecting-agents">
-<h1>Connecting Agents<a class="headerlink" href="#connecting-agents" title="Link to this heading">¶</a></h1>
+<section id="agent-connection-availability">
+<h1>Agent Connection Availability<a class="headerlink" href="#agent-connection-availability" title="Link to this heading">¶</a></h1>
+<p>In our framework, agents can be interconnected to enhance their capabilities and access specialized functionalities.
+This interconnectivity is managed through the <cite>connections_available</cite> attribute derived from the Agent superclass.</p>
+<section id="understanding-connections-available">
+<h2>Understanding <cite>connections_available</cite><a class="headerlink" href="#understanding-connections-available" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#understanding-connections-available'">¶</a></h2>
+<p>The <cite>connections_available</cite> attribute is a dictionary that defines potential connections to other agents. Each key in this dictionary represents the ID of a child agent, indicating that the parent agent can delegate tasks or request information from these child agents. This setup allows for more in-depth and specialized information retrieval.</p>
+<p>For instance, a weather agent might connect with agents specialized in humidity, wind, and precipitation data.</p>
 </section>
-</div></div>
+<section id="example-demoweatheragent">
+<h2>Example: DemoWeatherAgent<a class="headerlink" href="#example-demoweatheragent" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example-demoweatheragent'">¶</a></h2>
+<p>The <cite>DemoWeatherAgent</cite> is an example of an agent utilizing the <cite>connections_available</cite> attribute. This agent can connect with other agents specialized in various aspects of weather data.</p>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">class</span> <span class="nc">DemoWeatherAgent</span><span class="p">(</span><span class="n">Agent</span><span class="p">):</span>
+</span><span id="line-2"><span class="w">    </span><span class="sd">"""</span>
+</span><span id="line-3"><span class="sd">    A weather agent that retrieve weather information.</span>
+</span><span id="line-4"><span class="sd">    """</span>
+</span><span id="line-5">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="line-6">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-7">            <span class="n">agent_id</span><span class="o">=</span><span class="s1">'demo_weather_agent'</span><span class="p">,</span>
+</span><span id="line-8">            <span class="n">short_description</span><span class="o">=</span><span class="s1">'Fetch weather data'</span><span class="p">,</span>
+</span><span id="line-9">            <span class="n">long_description</span><span class="o">=</span><span class="s1">'Fetch weather data'</span><span class="p">,</span>
+</span><span id="line-10">            <span class="n">display_name</span><span class="o">=</span><span class="s1">'WEATHER'</span><span class="p">,</span>
+</span><span id="line-11">            <span class="n">connections_available</span><span class="o">=</span><span class="p">{</span>
+</span><span id="line-12">                <span class="s2">"humidity_agent"</span><span class="p">:</span> <span class="p">{},</span>
+</span><span id="line-13">                <span class="s2">"wind_agent"</span><span class="p">:</span> <span class="p">{},</span>
+</span><span id="line-14">                <span class="s2">"precipitation_agent"</span><span class="p">:</span> <span class="p">{}</span>
+</span><span id="line-15">            <span class="p">}</span>
+</span><span id="line-16">        <span class="p">)</span>
+</span></code></pre></div>
+</div>
+<p>In this example, <cite>DemoWeatherAgent</cite> is configured with connections to <cite>humidity_agent</cite>, <cite>wind_agent</cite>, and <cite>precipitation_agent</cite>. These connections allow <cite>DemoWeatherAgent</cite> to access more specific weather-related data, enhancing its overall functionality.</p>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
+<p>Utilizing <cite>connections_available</cite>, agents in our framework can be interconnected to form a network of specialized functionalities. This design fosters a modular and flexible approach to building complex systems where agents can collaborate to achieve more comprehensive and detailed results.</p>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#next-steps'">¶</a></h2>
+<ul class="simple">
+<li><p>Go further to learn how Agents communicate and use memories in the <a class="reference internal" href="How_Agents_Communicate_%26_Memories.html"><span class="doc">How Agents Communicate &amp; Memories</span></a> guide.</p></li>
+</ul>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#understanding-connections-available'" class="reference internal" href="#understanding-connections-available">Understanding <cite>connections_available</cite></a></li>
+<li><a :data-current="activeSection === '#example-demoweatheragent'" class="reference internal" href="#example-demoweatheragent">Example: DemoWeatherAgent</a></li>
+<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a :data-current="activeSection === '#next-steps'" class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

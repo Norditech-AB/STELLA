@@ -18,8 +18,8 @@
 <link href="../_static/awesome-sphinx-design.css?v=a54cf077" rel="stylesheet" type="text/css"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
-<link href="Creating_a_new_Agent.html" rel="next" title="Creating a New Agent"/>
-<link href="../workspaces/Talking_to_Agents.html" rel="prev" title="Talking to Agents"/>
+<link href="Creating_a_new_Agent.html" rel="next" title="Create a New Agent"/>
+<link href="../workspaces/Talking_to_Agents.html" rel="prev" title="Talk to Agents with the CLI"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -89,13 +89,13 @@
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../workspaces/index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talking to Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="current reference internal expandable" href="#">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Creating a New Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
@@ -153,7 +153,7 @@
 <h1>Agents<a class="headerlink" href="#agents" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Creating_a_new_Agent.html">Creating a New Agent</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="Creating_a_new_Agent.html">Create a New Agent</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html#introduction">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html#prerequisites">Prerequisites</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html#steps-to-create-a-new-agent">Steps to Create a New Agent</a></li>
@@ -164,10 +164,17 @@
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html#define-additional-helper-methods">5. Define Additional Helper Methods</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html#key-methods-in-the-custom-agent">Key Methods in the Custom Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html#next-steps">Next Steps</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Connecting_Agents.html">Agent Connection Availability</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html#understanding-connections-available">Understanding <cite>connections_available</cite></a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html#example-demoweatheragent">Example: DemoWeatherAgent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l1"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
