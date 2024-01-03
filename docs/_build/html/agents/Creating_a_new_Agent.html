@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Creating a New Agent | STELLA  documentation</title>
-<meta content="Creating a New Agent | STELLA  documentation" property="og:title"/>
-<meta content="Creating a New Agent | STELLA  documentation" name="twitter:title"/>
+<title>Create a New Agent | STELLA  documentation</title>
+<meta content="Create a New Agent | STELLA  documentation" property="og:title"/>
+<meta content="Create a New Agent | STELLA  documentation" name="twitter:title"/>
 <link href="../_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=e43df443" rel="stylesheet" type="text/css"/>
 <link href="../_static/tabs.css?v=a5c4661c" rel="stylesheet" type="text/css"/>
@@ -89,13 +89,13 @@
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../workspaces/index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talking to Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Creating a New Agent</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
@@ -147,11 +147,11 @@
 </svg>
 </a>
 <div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Agents</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Creating a New Agent</span>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Create a New Agent</span>
 </nav>
 <div id="content" role="main">
-<section id="creating-a-new-agent">
-<h1>Creating a New Agent<a class="headerlink" href="#creating-a-new-agent" title="Link to this heading">¶</a></h1>
+<section id="create-a-new-agent">
+<h1>Create a New Agent<a class="headerlink" href="#create-a-new-agent" title="Link to this heading">¶</a></h1>
 <p>This document explains how to create a new agent based on the <cite>Agent</cite> superclass.</p>
 <section id="introduction">
 <h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#introduction'">¶</a></h2>
@@ -238,6 +238,14 @@ These steps are based on the <strong>DemoWeatherAgent</strong> class in the <cit
 <h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
 <p>By following these steps and using the <cite>Agent</cite> superclass as a base, you can create a variety of specialized agents tailored to specific tasks or functionalities.</p>
 </section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#next-steps'">¶</a></h2>
+<p>Congratulations on setting up a new Agent! Now, you’re ready to dive deeper:</p>
+<ul class="simple">
+<li><p>Learn how to use connecting Agents in the <a class="reference internal" href="Connecting_Agents.html"><span class="doc">Agent Connection Availability</span></a> guide.</p></li>
+<li><p>Go further to learn how Agents communicate and use memories in the <a class="reference internal" href="How_Agents_Communicate_%26_Memories.html"><span class="doc">How Agents Communicate &amp; Memories</span></a> guide.</p></li>
+</ul>
+</section>
 </section>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
 <div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
@@ -252,6 +260,7 @@ These steps are based on the <strong>DemoWeatherAgent</strong> class in the <cit
 <li><a :data-current="activeSection === '#define-additional-helper-methods'" class="reference internal" href="#define-additional-helper-methods">5. Define Additional Helper Methods</a></li>
 <li><a :data-current="activeSection === '#key-methods-in-the-custom-agent'" class="reference internal" href="#key-methods-in-the-custom-agent">Key Methods in the Custom Agent</a></li>
 <li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a :data-current="activeSection === '#next-steps'" class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </div>
 </aside>
