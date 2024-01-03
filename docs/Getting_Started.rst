@@ -134,7 +134,11 @@ Create a workspace to start chatting with STELLA. Replace `<workspace_name>` wit
 
 4. **Start chatting with STELLA:**
 
-Now you are ready to start chatting with STELLA. The default Weather agent is already installed so you can start chatting right away:
+Now you are ready to start chatting with STELLA. The default Weather agent is already installed so you can start chatting with it right away by firstly adding it to your workspace:
+
+   .. code-block:: bash
+
+       /add demo_weather_agent
 
 Lets see what the weather is like in Jönköping as an example:
 
