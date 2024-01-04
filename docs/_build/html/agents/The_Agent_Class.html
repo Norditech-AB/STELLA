@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Contributing to Documentation | STELLA  documentation</title>
-<meta content="Contributing to Documentation | STELLA  documentation" property="og:title"/>
-<meta content="Contributing to Documentation | STELLA  documentation" name="twitter:title"/>
+<title>The Agent Class | STELLA  documentation</title>
+<meta content="The Agent Class | STELLA  documentation" property="og:title"/>
+<meta content="The Agent Class | STELLA  documentation" name="twitter:title"/>
 <link href="../_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=e43df443" rel="stylesheet" type="text/css"/>
 <link href="../_static/tabs.css?v=a5c4661c" rel="stylesheet" type="text/css"/>
@@ -18,8 +18,8 @@
 <link href="../_static/awesome-sphinx-design.css?v=a54cf077" rel="stylesheet" type="text/css"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
-<link href="Share_and_Publish_Agents.html" rel="next" title="Share and Publish Agents"/>
-<link href="Contributing_to_STELLA.html" rel="prev" title="Contributing to STELLA"/>
+<link href="Best_Practices.html" rel="next" title="Best Practices"/>
+<link href="How_Agents_Communicate_%26_Memories.html" rel="prev" title="Agent Communication and Task Execution"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -92,13 +92,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
-<li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../agents/index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../agents/Creating_a_new_Agent.html">Create a New Agent</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/Connecting_Agents.html">Agent Connection Availability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/How_Agents_Communicate_%26_Memories.html">Agent Communication and Task Execution</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/The_Agent_Class.html">The Agent Class</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../agents/Best_Practices.html">Best Practices</a></li>
+<li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
+<li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Create a New Agent</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Agent Connection Availability</a></li>
+<li class="toctree-l2"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">Agent Communication and Task Execution</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Agent Class</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../chats/index.html">Chats<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
@@ -117,10 +117,10 @@
 <li class="toctree-l2"><a class="reference internal" href="../cli/Installing_External_Agents.html">Installing External Agents</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Contribution Guidelines<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="Contributing_to_STELLA.html">Contributing to STELLA</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Contributing to Documentation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Share_and_Publish_Agents.html">Share and Publish Agents</a></li>
+<li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../contribution_guidelines/index.html">Contribution Guidelines<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
+<li class="toctree-l2"><a class="reference internal" href="../contribution_guidelines/Contributing_to_STELLA.html">Contributing to STELLA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contribution_guidelines/Contributing_to_Documentation.html">Contributing to Documentation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../contribution_guidelines/Share_and_Publish_Agents.html">Share and Publish Agents</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Repository.html">Repository</a></li>
@@ -147,14 +147,102 @@
 <path d="M240 856h120V616h240v240h120V496L480 316 240 496v360Zm-80 80V456l320-240 320 240v480H520V696h-80v240H160Zm320-350Z"></path>
 </svg>
 </a>
-<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Contribution Guidelines</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Contributing to Documentation</span>
+<div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Agents</a>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">The Agent Class</span>
 </nav>
 <div id="content" role="main">
-<section id="contributing-to-documentation">
-<h1>Contributing to Documentation<a class="headerlink" href="#contributing-to-documentation" title="Link to this heading">¶</a></h1>
+<section id="the-agent-class">
+<h1>The Agent Class<a class="headerlink" href="#the-agent-class" title="Link to this heading">¶</a></h1>
+<p>The <code class="docutils literal notranslate"><span class="pre">Agent</span></code> superclass is a fundamental part of our framework, defining the core functionalities and attributes of an agent. This document provides a detailed overview of the <code class="docutils literal notranslate"><span class="pre">Agent</span></code> class and its key components.</p>
+<section id="class-overview">
+<h2>Class Overview<a class="headerlink" href="#class-overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#class-overview'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Agent</span></code> class is designed to load and store information about an agent. It includes various attributes and methods that dictate how an agent behaves, interacts, and makes decisions in the framework.</p>
 </section>
-</div></div>
+<section id="attributes">
+<h2>Attributes<a class="headerlink" href="#attributes" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#attributes'">¶</a></h2>
+<p>The following are the key attributes of the <code class="docutils literal notranslate"><span class="pre">Agent</span></code> class:</p>
+<ul class="simple">
+<li><p><strong>agent_id (str):</strong>
+A unique identifier for the agent.</p></li>
+<li><p><strong>name (str):</strong>
+The name of the agent.</p></li>
+<li><p><strong>short_description (str):</strong>
+A brief description of what the agent does.</p></li>
+<li><p><strong>model_for_action_selection (str, default=’gpt-4’):</strong>
+The model used by the agent for selecting actions.</p></li>
+<li><p><strong>model_for_response (str, default=’gpt-4’):</strong>
+The model used by the agent for generating responses.</p></li>
+<li><p><strong>wants_chat (bool, default=True):</strong>
+Indicates whether the agent requires chat history for its operations.</p></li>
+<li><p><strong>wants_memories (bool, default=True):</strong>
+Determines if the agent needs access to the task’s memories.</p></li>
+<li><p><strong>forward_all_memory_entries_to_parent (bool, default=False):</strong>
+If set to True, the agent forwards all memory entries to its parent after completing its task.</p></li>
+<li><p><strong>forward_last_memory_to_parent (bool, default=False):</strong>
+If True, only the last memory entry is forwarded to the parent agent.</p></li>
+<li><p><strong>system_action_selection_instructions (str):</strong>
+Default instructions for the agent to follow during action selection.</p></li>
+<li><p><strong>system_response_instructions (str):</strong>
+Default instructions for generating responses to user queries.</p></li>
+<li><p><strong>done_condition (str):</strong>
+The condition that defines when a user’s task has been completed.</p></li>
+<li><p><strong>skip_response (bool, default=False):</strong>
+Determines whether to skip the response generation phase.</p></li>
+<li><p><strong>skip_action_selection (bool, default=False):</strong>
+Indicates whether to bypass the action selection process.</p></li>
+<li><p><strong>connections_forced (dict, default=None):</strong>
+Specifies connections that are forcefully established with other agents.</p></li>
+<li><p><strong>connections_available (dict, default=None):</strong>
+A dictionary defining available connections to other agents.</p></li>
+<li><p><strong>max_depth (int, default=None):</strong>
+The maximum depth an agent can reach in a task hierarchy.</p></li>
+</ul>
+</section>
+<section id="key-methods">
+<h2>Key Methods<a class="headerlink" href="#key-methods" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#key-methods'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Agent</span></code> class includes several important methods:</p>
+<ul class="simple">
+<li><p><strong>select_action:</strong>
+This method allows the agent to choose an action based on the current context, chat history, and memories.</p></li>
+<li><p><strong>respond:</strong>
+Generates a response to the user’s request using the provided details and context.</p></li>
+<li><p><strong>_construct_memory_string:</strong>
+A static method to construct a string representation of the available memories.</p></li>
+<li><p><strong>_construct_chat_string:</strong>
+A static method to construct a string representation of the chat history with the user.</p></li>
+<li><p><strong>_construct_available_actions_string:</strong>
+Builds a string representation of the available actions an agent can take.</p></li>
+</ul>
+</section>
+<section id="usage-example">
+<h2>Usage Example<a class="headerlink" href="#usage-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#usage-example'">¶</a></h2>
+<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">class</span> <span class="nc">DemoAgent</span><span class="p">(</span><span class="n">Agent</span><span class="p">):</span>
+</span><span id="line-2">    <span class="k">def</span> <span class="fm">__init__</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+</span><span id="line-3">        <span class="nb">super</span><span class="p">()</span><span class="o">.</span><span class="fm">__init__</span><span class="p">(</span>
+</span><span id="line-4">            <span class="n">agent_id</span><span class="o">=</span><span class="s2">"demo_agent"</span><span class="p">,</span>
+</span><span id="line-5">            <span class="n">name</span><span class="o">=</span><span class="s2">"Demo Agent"</span><span class="p">,</span>
+</span><span id="line-6">            <span class="n">short_description</span><span class="o">=</span><span class="s2">"Demonstration agent"</span><span class="p">,</span>
+</span><span id="line-7">            <span class="c1"># Other attributes...</span>
+</span><span id="line-8">        <span class="p">)</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
+<p>The <code class="docutils literal notranslate"><span class="pre">Agent</span></code> superclass provides a comprehensive framework for creating and managing agents. Its attributes and methods enable flexible and sophisticated interactions within the system, allowing agents to make informed decisions and respond effectively to user queries.</p>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#class-overview'" class="reference internal" href="#class-overview">Class Overview</a></li>
+<li><a :data-current="activeSection === '#attributes'" class="reference internal" href="#attributes">Attributes</a></li>
+<li><a :data-current="activeSection === '#key-methods'" class="reference internal" href="#key-methods">Key Methods</a></li>
+<li><a :data-current="activeSection === '#usage-example'" class="reference internal" href="#usage-example">Usage Example</a></li>
+<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

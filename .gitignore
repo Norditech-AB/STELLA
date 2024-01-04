@@ -1,3 +1,5 @@
 # CLI
 cli/data.json
 **/.pyc
+venv/*
+venv
