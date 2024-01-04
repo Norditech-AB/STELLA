@@ -44,3 +44,4 @@ Homepage = "https://github.com/Norditech-AB/STELLA"
 
 [project.scripts]
 stella = "cli.__main__:main"
+
