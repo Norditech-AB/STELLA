@@ -26,9 +26,9 @@ def update_user():
         return jsonify({"msg": str(e)}), 404
 
     # Get the settings from the request (if they exist)
-    email = json_data.get('email', None)
-    if email is not None:
-        user.email = email
+    username = json_data.get('username', None)
+    if username is not None:
+        user.username = username
 
     return jsonify({"msg": "User updated"}), 200
 

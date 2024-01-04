@@ -37,31 +37,10 @@ class Shell:
         self.authenticated = False
         self.prompt_session = PromptSession(history=InMemoryHistory())
 
-    def authenticate_loop(self):
-        try:
-            while self.active:
-                if not self.client.waiting_for_response:
-                    message = self.prompt_session.prompt(' > ')
-
-                    # Check if command or message
-                    if message.startswith('/'):
-                        self.execute(message[1:])
-                    else:
-                        self.chat(message)
-                else:
-                    while self.client.waiting_for_response:
-                        time.sleep(0.01)
-        except KeyboardInterrupt:
-            self.shutdown()
-
     def motd(self):
         print("\n\n")
         print_banner()
         print(f"     CLI v{self.version}\n\n")
-        print(f"Welcome to STELLA ")
-        print_success(f"Connected to STELLA server running on {self.client.compose_url('')}.")
-        print_info("To chat with agents, type a message and press enter. (do not start with '/')")
-        print(f"Type /help to list commands.\n")
 
     def start(self):
 
@@ -73,19 +52,41 @@ class Shell:
             print_info("Start the server by running `stella serve` from the root directory of the project.")
             exit(1)
 
+        # Check if the user is logged in
+        self.authenticated = self.client.is_logged_in()
+
         # Show message of the day (welcome message)
         self.motd()
 
+        # If not, ask the user to login or register
+        if not self.authenticated:
+            try:
+                while not self.authenticated:
+                    print_info("Please login or register to continue.")
+                    print_info("Type /login to login or /register to create a new account.")
+                    command = input(" > ")
+
+                    if command.strip().lower() == '/login':
+                        self.execute('login')
+                    elif command.strip().lower() == '/register':
+                        self.execute('register')
+
+                    self.authenticated = self.client.is_logged_in()
+            except KeyboardInterrupt:
+                self.shutdown()
+
+        # Show message of the day (welcome message) + info
+        user = self.client.get_user()
+        self.motd()
+        print(f"Welcome to STELLA {user['username']}")
+        print_success(f"Connected to STELLA server running on {self.client.compose_url('')}.")
+        print_info("To chat with agents, type a message and press enter. (do not start with '/')")
+        print(f"Type /help to list commands.\n")
+
         # Connect to the latest workspace and chat, if any
+        self.client.connect_latest()
 
-        from cli.utils.exceptions import UserNotFoundException
-        try:
-            self.client.connect_latest()
-        except UserNotFoundException as e:
-            # No user has been found, or the user is no longer authenticated. Proceed to login/register
-            pass
-
-
+        # Once authenticated, proceed to the main loop
         try:
             while self.active:
                 if not self.client.waiting_for_response:
@@ -126,7 +127,10 @@ class Shell:
         elif args[0] == 'register':
             username = input("Username: ")
             password = getpass("Password: ")
-            self.client.register(username, password)
+            try:
+                self.client.register(username, password)
+            except Exception as e:
+                pass
             return
         elif args[0] == 'workspace' or args[0] == 'ws':
             # If the user only typed '/workspace', show the current workspace status

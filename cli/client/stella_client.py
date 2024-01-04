@@ -103,11 +103,11 @@ class StellaClient:
     def compose_url(self, endpoint):
         return f"{'https://' if self.ssl else 'http://'}{self.host}{':' if self.port else ''}{self.port}/{endpoint}"
 
-    def login(self, email, password):
+    def login(self, username, password):
         try:
             response = requests.post(
                 self.compose_url("auth/login"),
-                json={"email": email, "password": password}
+                json={"username": username, "password": password}
             )
             if response.status_code != 200:
                 print_error("Login failed, please try again. (Wrong username or password)")
@@ -163,16 +163,20 @@ class StellaClient:
         else:
             print_info("Currently not logged in.")
 
-    def register(self, email, password):
+    def register(self, username, password):
         try:
             response = requests.post(
                 self.compose_url("register"),
-                json={"email": email, "password": password}
+                json={"username": username, "password": password}
             )
             if response.status_code != 200:
                 print_error("Registration failed, please try again.")
                 return None
-            print_success("Registration successful. Please login.")
+            print_success("Registration successful. Logging in.")
+            try:
+                self.login(username, password)
+            except Exception as e:
+                return None
 
         except Exception as e:
             print_error(f"Registration failed. ({e})")
@@ -378,6 +382,18 @@ class StellaClient:
                 "Request to get a user failed with status code: {}, Message: {}".format(
                     response.status_code, response.text))
         return response.json()["user"]
+
+    def is_logged_in(self):
+        """
+        Attempts to fetch the current user information from the server.
+        If the request fails, the user is not logged in.
+        :return:
+        """
+        try:
+            self.get_user()
+            return True
+        except Exception as e:
+            return False
 
     def connect_latest(self):
         """
