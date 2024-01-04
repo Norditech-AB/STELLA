@@ -1,5 +1,4 @@
 import openai
-import openai.error
 
 import threading
 from queue import Queue
@@ -90,9 +89,6 @@ class OpenAIClient:
                 query.done.set()
             else:
                 raise NotImplementedError(f"Query type {query.query_type} not implemented")
-        except openai.error.APIError as e:
-            query.exception = e
-            query.done.set()
         except Exception as e:
             query.exception = e
             query.done.set()

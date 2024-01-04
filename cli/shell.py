@@ -51,14 +51,22 @@ class Shell:
             print_error(f"Could not connect to STELLA server ({self.client.compose_url('')}).")
             print_info("Verify that the STELLA server is running and that the CLI configuration `stella/config.json` "
                        "file matches the server configuration.")
-            print_info("Start the server by running `python cli serve` from the root directory of the project.")
+            print_info("Start the server by running `stella serve` from the root directory of the project.")
             exit(1)
 
         # Show message of the day (welcome message)
         self.motd()
 
         # Connect to the latest workspace and chat, if any
-        self.client.connect_latest()
+        """
+        from cli.utils.exceptions import UserNotFoundException
+        try:
+            self.client.connect_latest()
+        except UserNotFoundException as e:
+            # No user has been found, or the user is no longer authenticated. Proceed to login/register
+            pass
+        """
+
 
         try:
             while self.active:

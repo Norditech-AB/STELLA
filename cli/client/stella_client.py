@@ -390,7 +390,8 @@ class StellaClient:
             try:
                 user = self.get_user()
             except Exception as e:
-                return False
+                from cli.utils.exceptions import UserNotFoundException
+                raise UserNotFoundException("User not found. Please login again.".format(e))
 
             # If the user has a last workspace id, fetch it and connect.
             if user["last_workspace_id"]:
