@@ -72,8 +72,6 @@ class RequestBuilder:
             model="gpt-4",
         )
 
-        result = result['choices'][0]['message']['content']
-
         try:
             json_data = json.loads(result)
             url = json_data.get("url", "")

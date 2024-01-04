@@ -129,14 +129,10 @@ class Agent:
         ]
 
         print(f"[AGENT] {self.name} is performing action selection using OpenAI: {messages}")
-        response = openai_client.chat_completion(
+        action_selected = openai_client.chat_completion(
             messages=messages,
             model=self.model_for_action_selection,
         )
-
-        action_selected = response['choices'][0]['message']['content']
-        input_tokens = response['usage']['prompt_tokens']  # TODO: Log token usage per user
-        output_tokens = response['usage']['completion_tokens']  # TODO: Log token usage per user
 
         return action_selected
 
@@ -161,13 +157,9 @@ class Agent:
 
         print(f"[AGENT] {self.name} is responding using OpenAI: {messages}")
 
-        response = openai_client.chat_completion(
+        response_generated = openai_client.chat_completion(
             messages=messages,
             model=self.model_for_response,
         )
-
-        response_generated = response['choices'][0]['message']['content']
-        input_tokens = response['usage']['prompt_tokens']  # TODO: Log token usage per user
-        output_tokens = response['usage']['completion_tokens']  # TODO: Log token usage per user
 
         return response_generated
