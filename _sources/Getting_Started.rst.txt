@@ -64,7 +64,7 @@ Before running the server, install any necessary dependencies:
 
     .. code-block:: bash
 
-        venv\Scripts\activate
+        venv\\Scripts\\activate
 
     to activate the virtual environment.
 
@@ -89,21 +89,21 @@ This will walk you through the setup process and create a `.env` file in the roo
 Step 4: Start the Server
 -------------------------
 
-With the environment configured, start the server by running `python stella serve` script from the root folder:
+With the environment configured, start the server by running `stella serve` script from the root folder:
 
 .. code-block:: bash
 
-    python stella serve
+    stella serve
 
 .. seealso:: If you encounter issues starting the server, refer to the :doc:`Troubleshooting` guide for common problems and solutions.
 
 Step 5: Explore and create in the CLI
 --------------------------------------
-Open a new terminal window and run `python stella` from the `root` folder of the repository to move into the CLI. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+Open a **new terminal window** and run `stella` from the `root` folder of the repository to move into the CLI. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 
 .. code-block:: bash
 
-    python stella
+    stella
 
 Step 6: Create Your Account and Workspace
 ------------------------------------------
