@@ -157,7 +157,7 @@
 <h2>Prerequisites<a class="headerlink" href="#prerequisites" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#prerequisites'">¶</a></h2>
 <p>Before you begin, ensure you have the following:</p>
 <ul class="simple">
-<li><p>Python 3.9 – 3.10 installed.</p></li>
+<li><p>Python 3.9 – 3.11 installed.</p></li>
 <li><p>Git installed for cloning the repository.</p></li>
 <li><p>Basic familiarity with command-line operations.</p></li>
 </ul>
@@ -178,17 +178,21 @@
 </span></code></pre></div>
 </div>
 </section>
-<section id="step-2-install-dependencies">
-<h2>Step 2: Install Dependencies<a class="headerlink" href="#step-2-install-dependencies" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#step-2-install-dependencies'">¶</a></h2>
-<p>Before running the server, install any necessary dependencies:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<section id="step-2-upgrade-pip">
+<h2>Step 2: Upgrade pip<a class="headerlink" href="#step-2-upgrade-pip" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#step-2-upgrade-pip'">¶</a></h2>
+<p>Our framework is so modern that it needs the latest and greatest pip version <em>(23.3.2)</em> to keep up! If your pip isn’t this hip, it’s time for an upgrade party:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">pip<span class="w"> </span>install<span class="w"> </span>--upgrade<span class="w"> </span>pip
 </span></code></pre></div>
 </div>
+</section>
+<section id="step-3-install-dependencies">
+<h2>Step 3: Install Dependencies<a class="headerlink" href="#step-3-install-dependencies" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#step-3-install-dependencies'">¶</a></h2>
+<p>It is now time to install the dependencies.</p>
 <div class="admonition tip">
 <p class="admonition-title">Tip</p>
 <p>Create a virtual environment to isolate the dependencies from other projects.
 Simply run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">python3<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">python<span class="w"> </span>-m<span class="w"> </span>venv<span class="w"> </span>venv
 </span></code></pre></div>
 </div>
 <p>to create a virtual environment named <cite>venv</cite> in the current directory.</p>
@@ -197,22 +201,26 @@ Simply run</p>
 </span></code></pre></div>
 </div>
 <p>or on Windows:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">venv<span class="se">\\</span>Scripts<span class="se">\\</span>activate
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">venv<span class="se">\S</span>cripts<span class="se">\a</span>ctivate
 </span></code></pre></div>
 </div>
 <p>to activate the virtual environment.</p>
 <p>Now, install the dependencies by running:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">pip<span class="w"> </span>install<span class="w"> </span>-r<span class="w"> </span>requirements.txt
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
 </span></code></pre></div>
 </div>
 <p>More information on virtual environments can be found in the <a class="reference external" href="https://docs.python.org/3/tutorial/venv.html">Python documentation</a>.</p>
 </div>
+<p>Install dependencies by running the following command from the project directory:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">pip<span class="w"> </span>install<span class="w"> </span>-e<span class="w"> </span>.
+</span></code></pre></div>
+</div>
 </section>
-<section id="step-3-setup-the-environment">
-<h2>Step 3: Setup the Environment<a class="headerlink" href="#step-3-setup-the-environment" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#step-3-setup-the-environment'">¶</a></h2>
+<section id="step-4-setup-the-environment">
+<h2>Step 4: Setup the Environment<a class="headerlink" href="#step-4-setup-the-environment" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#step-4-setup-the-environment'">¶</a></h2>
 <p>Setup the Environment by running the <code class="file docutils literal notranslate"><span class="pre">configure.py</span></code> script from the root folder:
 This will walk you through the setup process and create a <cite>.env</cite> file in the root directory.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">python<span class="w"> </span>configure.py
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">stella<span class="w"> </span>configure.py
 </span></code></pre></div>
 </div>
 </section>
@@ -332,8 +340,9 @@ Navigate to the STELLA directory and update the <cite>.env</cite> file with your
 <ul>
 <li><a :data-current="activeSection === '#prerequisites'" class="reference internal" href="#prerequisites">Prerequisites</a></li>
 <li><a :data-current="activeSection === '#step-1-clone-the-repository'" class="reference internal" href="#step-1-clone-the-repository">Step 1: Clone the Repository</a></li>
-<li><a :data-current="activeSection === '#step-2-install-dependencies'" class="reference internal" href="#step-2-install-dependencies">Step 2: Install Dependencies</a></li>
-<li><a :data-current="activeSection === '#step-3-setup-the-environment'" class="reference internal" href="#step-3-setup-the-environment">Step 3: Setup the Environment</a></li>
+<li><a :data-current="activeSection === '#step-2-upgrade-pip'" class="reference internal" href="#step-2-upgrade-pip">Step 2: Upgrade pip</a></li>
+<li><a :data-current="activeSection === '#step-3-install-dependencies'" class="reference internal" href="#step-3-install-dependencies">Step 3: Install Dependencies</a></li>
+<li><a :data-current="activeSection === '#step-4-setup-the-environment'" class="reference internal" href="#step-4-setup-the-environment">Step 4: Setup the Environment</a></li>
 <li><a :data-current="activeSection === '#step-4-start-the-server'" class="reference internal" href="#step-4-start-the-server">Step 4: Start the Server</a></li>
 <li><a :data-current="activeSection === '#step-5-explore-and-create-in-the-cli'" class="reference internal" href="#step-5-explore-and-create-in-the-cli">Step 5: Explore and create in the CLI</a></li>
 <li><a :data-current="activeSection === '#step-6-create-your-account-and-workspace'" class="reference internal" href="#step-6-create-your-account-and-workspace">Step 6: Create Your Account and Workspace</a></li>
