@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Sending and receiving messages | STELLA  documentation</title>
-<meta content="Sending and receiving messages | STELLA  documentation" property="og:title"/>
-<meta content="Sending and receiving messages | STELLA  documentation" name="twitter:title"/>
+<title>Sending and Receiving Messages in Chat | STELLA  documentation</title>
+<meta content="Sending and Receiving Messages in Chat | STELLA  documentation" property="og:title"/>
+<meta content="Sending and Receiving Messages in Chat | STELLA  documentation" name="twitter:title"/>
 <link href="../_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=e43df443" rel="stylesheet" type="text/css"/>
 <link href="../_static/tabs.css?v=a5c4661c" rel="stylesheet" type="text/css"/>
@@ -88,7 +88,7 @@
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../workspaces/index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces in the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
@@ -103,7 +103,7 @@
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Chats<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html">Connecting to a Workspace Chat</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Sending and receiving messages</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Sending and Receiving Messages in Chat</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../guides/index.html">Guides<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
@@ -148,13 +148,60 @@
 </svg>
 </a>
 <div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Chats</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Sending and receiving messages</span>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Sending and Receiving Messages in Chat</span>
 </nav>
 <div id="content" role="main">
-<section id="sending-and-receiving-messages">
-<h1>Sending and receiving messages<a class="headerlink" href="#sending-and-receiving-messages" title="Link to this heading">¶</a></h1>
+<section id="sending-and-receiving-messages-in-chat">
+<h1>Sending and Receiving Messages in Chat<a class="headerlink" href="#sending-and-receiving-messages-in-chat" title="Link to this heading">¶</a></h1>
+<p>This section outlines the process of sending and receiving messages within a chat object, utilizing the SocketIO library for real-time communication.</p>
+<section id="sending-messages">
+<h2>Sending Messages<a class="headerlink" href="#sending-messages" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#sending-messages'">¶</a></h2>
+<p>To send a message in the chat, the following steps are executed:</p>
+<ol class="arabic simple">
+<li><p><strong>Connection Verification:</strong>
+The system checks if there is an active connection to a chat or workspace. If not connected, an error message is displayed.</p></li>
+<li><p><strong>Response Wait Check:</strong>
+If the system is waiting for a response from a previous message, it prevents sending another message to avoid overlap.</p></li>
+<li><p><strong>Chat ID Determination:</strong>
+If a chat ID is not explicitly provided, the one from the current session is used.</p></li>
+<li><p><strong>Authorization String Retrieval:</strong>
+A request is made to obtain a message authorization string. This string is used to authenticate the message.</p></li>
+<li><p><strong>Message Sending:</strong>
+The message, along with the chat ID and the message authorization string, is sent to the chat object via the SocketIO emit function.</p></li>
+</ol>
 </section>
-</div></div>
+<section id="understanding-socketio-s-emit-function">
+<h2>Understanding SocketIO’s Emit Function<a class="headerlink" href="#understanding-socketio-s-emit-function" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#understanding-socketio-s-emit-function'">¶</a></h2>
+<p>SocketIO’s <cite>emit</cite> function plays a crucial role in message transmission:</p>
+<ul class="simple">
+<li><p><strong>Purpose:</strong> The <cite>emit</cite> function is used to send custom events from the client to the server or vice versa.</p></li>
+<li><p><strong>Usage:</strong> In our chat system, <cite>emit</cite> is used to send messages to the server, where the message data is packaged in a JSON object.</p></li>
+</ul>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For a deeper understanding of SocketIO’s <cite>emit</cite> function and other key concepts, refer to the <a class="reference external" href="https://python-socketio.readthedocs.io/en/latest/">SocketIO official documentation</a>.</p>
+</div>
+</section>
+<section id="receiving-messages">
+<h2>Receiving Messages<a class="headerlink" href="#receiving-messages" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#receiving-messages'">¶</a></h2>
+<p>Messages are received in real-time, thanks to the SocketIO library’s event-driven architecture. When a message is sent to the chat object, it’s processed and, if valid, distributed to all connected clients.</p>
+<ol class="arabic simple">
+<li><p><strong>Real-Time Communication:</strong>
+SocketIO allows for real-time communication between clients and the server, ensuring that messages are promptly delivered and received.</p></li>
+<li><p><strong>Event Handling:</strong>
+The chat system listens for message events and handles them accordingly, facilitating interactive communication.</p></li>
+</ol>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#sending-messages'" class="reference internal" href="#sending-messages">Sending Messages</a></li>
+<li><a :data-current="activeSection === '#understanding-socketio-s-emit-function'" class="reference internal" href="#understanding-socketio-s-emit-function">Understanding SocketIO’s Emit Function</a></li>
+<li><a :data-current="activeSection === '#receiving-messages'" class="reference internal" href="#receiving-messages">Receiving Messages</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
