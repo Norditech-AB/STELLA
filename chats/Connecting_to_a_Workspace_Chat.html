@@ -18,7 +18,7 @@
 <link href="../_static/awesome-sphinx-design.css?v=a54cf077" rel="stylesheet" type="text/css"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
-<link href="Sending_and_Receiving_Messages.html" rel="next" title="Sending and receiving messages"/>
+<link href="Sending_and_Receiving_Messages.html" rel="next" title="Sending and Receiving Messages in Chat"/>
 <link href="index.html" rel="prev" title="Chats"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
@@ -88,7 +88,7 @@
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../workspaces/index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces in the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
@@ -103,7 +103,7 @@
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Chats<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Connecting to a Workspace Chat</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Sending_and_Receiving_Messages.html">Sending and receiving messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sending_and_Receiving_Messages.html">Sending and Receiving Messages in Chat</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../guides/index.html">Guides<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
@@ -153,8 +153,88 @@
 <div id="content" role="main">
 <section id="connecting-to-a-workspace-chat">
 <h1>Connecting to a Workspace Chat<a class="headerlink" href="#connecting-to-a-workspace-chat" title="Link to this heading">¶</a></h1>
+<p>This documentation explains the process of connecting to a workspace chat in our framework, detailing how chats are created, connected to, and how messages are sent and received. The system uses the SocketIO library to manage chat connections and interactions.</p>
+<section id="creating-a-chat">
+<h2>Creating a Chat<a class="headerlink" href="#creating-a-chat" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#creating-a-chat'">¶</a></h2>
+<p>A chat is created by making a POST request to the <cite>/chat</cite> endpoint. This process involves the following steps:</p>
+<ol class="arabic simple">
+<li><p><strong>Verifying User and Workspace:</strong>
+The user’s identity is verified, and the workspace ID is retrieved from the request.</p></li>
+<li><p><strong>Workspace Existence Check:</strong>
+The system checks if the specified workspace exists and if the user is the owner.</p></li>
+<li><p><strong>Chat Creation:</strong>
+A new chat object is created in the database.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>See all the endpoints descriptions in the <a class="reference internal" href="../API_Reference.html"><span class="doc">API Reference</span></a>.</p>
+</div>
 </section>
-</div></div>
+<section id="connecting-to-a-chat">
+<h2>Connecting to a Chat<a class="headerlink" href="#connecting-to-a-chat" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#connecting-to-a-chat'">¶</a></h2>
+<p>To establish a connection to a chat, the client interacts with the <cite>/connect</cite> endpoint of the SocketIO server:</p>
+<ol class="arabic simple">
+<li><p><strong>Obtaining a Connection String:</strong>
+The <cite>get_connection_string()</cite> function is called to generate a secret string used for validating chat connections.</p></li>
+<li><p><strong>Connection Parameters:</strong>
+The chat ID and a connection string are required to establish a connection.</p></li>
+<li><p><strong>Connection String Verification:</strong>
+The connection string is verified for authenticity and expiration.</p></li>
+<li><p><strong>Chat and Workspace Validation:</strong>
+The existence of the chat and its associated workspace is confirmed.</p></li>
+</ol>
+</section>
+<section id="underlying-connection-function">
+<h2>Underlying Connection Function<a class="headerlink" href="#underlying-connection-function" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#underlying-connection-function'">¶</a></h2>
+<p>The underlying connection function utilizes the SocketIO library to handle the chat connection:</p>
+<ol class="arabic simple">
+<li><p><strong>Disconnecting if Already Connected:</strong>
+If already connected to a chat, the client disconnects first.</p></li>
+<li><p><strong>Establishing New Connection:</strong>
+A new connection to the chat is established using the chat ID and the connection string.</p></li>
+<li><p><strong>Session Update:</strong>
+The session information is updated to reflect the new chat connection.</p></li>
+</ol>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>For more detailed information on the SocketIO library and its usage in Python, please refer to the official SocketIO documentation. The SocketIO library facilitates real-time bidirectional event-based communication, which is integral to the chat functionality in our framework. You can access the documentation at: <a class="reference external" href="https://python-socketio.readthedocs.io/en/latest/">SocketIO official documentation</a>.</p>
+</div>
+</section>
+<section id="message-handling-in-chats">
+<h2>Message Handling in Chats<a class="headerlink" href="#message-handling-in-chats" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#message-handling-in-chats'">¶</a></h2>
+<p>Every time a message is sent to a chat object, it must include a connection string for verification. The chat object compares this string to ensure the message is from an authorized source.</p>
+<ol class="arabic simple">
+<li><p><strong>Obtaining a Message String:</strong>
+The <cite>get_message_string()</cite> function is invoked to generate a secret string for each message.</p></li>
+<li><p><strong>Message Verification:</strong>
+Upon receiving a message, the chat object checks if the message string matches.</p></li>
+<li><p><strong>Message Processing:</strong>
+If the message string is valid, the message is processed; otherwise, it is ignored or rejected.</p></li>
+</ol>
+</section>
+<section id="conclusion">
+<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
+<p>The process of creating, connecting to, and interacting within a workspace chat is integral to our framework. It ensures secure and verified communication between users and workspaces, facilitated by the SocketIO library.</p>
+</section>
+<section id="next-steps">
+<h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#next-steps'">¶</a></h2>
+<ul class="simple">
+<li><p>Learn how the system sends and receives messages in the <a class="reference internal" href="Sending_and_Receiving_Messages.html"><span class="doc">Sending and Receiving Messages in Chat</span></a> section.</p></li>
+</ul>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#creating-a-chat'" class="reference internal" href="#creating-a-chat">Creating a Chat</a></li>
+<li><a :data-current="activeSection === '#connecting-to-a-chat'" class="reference internal" href="#connecting-to-a-chat">Connecting to a Chat</a></li>
+<li><a :data-current="activeSection === '#underlying-connection-function'" class="reference internal" href="#underlying-connection-function">Underlying Connection Function</a></li>
+<li><a :data-current="activeSection === '#message-handling-in-chats'" class="reference internal" href="#message-handling-in-chats">Message Handling in Chats</a></li>
+<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a :data-current="activeSection === '#next-steps'" class="reference internal" href="#next-steps">Next Steps</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
