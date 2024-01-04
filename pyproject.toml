@@ -1,7 +1,7 @@
 # pyproject.toml
 
 [build-system]
-requires      = ["setuptools>=61.0.0", "wheel", "pip >= 23.3.2"]
+requires      = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [tool.setuptools.packages.find]
@@ -26,6 +26,7 @@ classifiers = [
 ]
 keywords = ["agent", "llm", "stella"]
 dependencies = [
+    "pip >= 23.3.2",
     'gevent >= 23.9.1',
     'Flask >= 3.0.0',
     'Flask-Cors >= 4.0.0',
@@ -39,7 +40,7 @@ dependencies = [
     'prompt-toolkit >= 3.0.43'
 ]
 
-requires-python = "~=3.9, ~=3.10, ~=3.11, ~=3.12"
+requires-python = ">=3.9,<=3.12.1"
 
 
 [project.urls]
