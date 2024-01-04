@@ -1,7 +1,7 @@
 from .base_command import BaseCommand
 import time
 import os
-from stella.client.cli_design import *
+from cli.client.cli_design import *
 import sys
 
 

@@ -1,7 +1,7 @@
 app/.env
 app/.env.backup
 app/sqlite.db
-stella/session.json
+cli/session.json
 **/__pycache__/
 *.egg-info/
 **/.DS_Store

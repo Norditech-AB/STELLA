@@ -20,7 +20,7 @@ def init():
 
     add_current_directory_to_pythonpath()
 
-    from stella.main import main
+    from cli.main import main
 
     main()
 
