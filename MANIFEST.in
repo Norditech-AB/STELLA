@@ -1,2 +1,6 @@
 include LICENSE
 include README.md
+include cli/config.json
+include app/.env_template
+include app/.env
+include cli/session.json

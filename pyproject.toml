@@ -4,8 +4,9 @@
 requires      = ["setuptools>=61.0.0", "wheel"]
 build-backend = "setuptools.build_meta"
 
-[tool.setuptools]
-py-modules = ["stella", "app"]
+[tool.setuptools.packages.find]
+where = ["."]
+
 
 [project]
 name = "stella-cli"
@@ -42,4 +43,4 @@ Homepage = "https://github.com/Norditech-AB/STELLA"
 
 
 [project.scripts]
-stella = "stella.__main__:init"
+stella = "cli.__main__:main"
