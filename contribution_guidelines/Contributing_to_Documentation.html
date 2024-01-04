@@ -153,8 +153,87 @@
 <div id="content" role="main">
 <section id="contributing-to-documentation">
 <h1>Contributing to Documentation<a class="headerlink" href="#contributing-to-documentation" title="Link to this heading">¶</a></h1>
+<section id="introduction">
+<h2>Introduction<a class="headerlink" href="#introduction" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#introduction'">¶</a></h2>
+<p>Contributions to the documentation are vital to ensuring that the information remains up-to-date, accurate, and helpful for users and developers. This section provides guidelines for contributing to our project’s documentation.</p>
 </section>
-</div></div>
+<section id="getting-started">
+<h2>Getting Started<a class="headerlink" href="#getting-started" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#getting-started'">¶</a></h2>
+<p>Before you start, ensure you’re familiar with our documentation structure and standards. Familiarize yourself with reStructuredText (<cite>.rst</cite>) format, as it is the primary format used in our documentation.</p>
+</section>
+<section id="writing-guidelines">
+<h2>Writing Guidelines<a class="headerlink" href="#writing-guidelines" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#writing-guidelines'">¶</a></h2>
+<ol class="arabic simple">
+<li><p><strong>Clarity and Conciseness</strong>: Write in a clear and concise manner. Avoid jargon and complex language to ensure the documentation is accessible to users of all levels.</p></li>
+<li><p><strong>Consistency</strong>: Follow the existing format, style, and tone of the documentation. This includes adhering to the structure of headings, code blocks, and naming conventions.</p></li>
+<li><p><strong>Accuracy</strong>: Ensure all technical details are correct. Double-check command examples, URLs, and configuration settings.</p></li>
+<li><p><strong>Relevance</strong>: Only include information that is relevant to the topic at hand. Avoid unnecessary details that may confuse the reader.</p></li>
+<li><p><strong>Code Examples</strong>: Where applicable, include code examples. Ensure these examples are tested and functional.</p></li>
+</ol>
+</section>
+<section id="git-workflow-guidelines">
+<h2>Git Workflow Guidelines<a class="headerlink" href="#git-workflow-guidelines" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#git-workflow-guidelines'">¶</a></h2>
+<ol class="arabic">
+<li><p><strong>Create a Branch from `gh-pages`</strong>:
+- Start by creating a new branch from the <cite>gh-pages</cite> branch. This ensures that you are working with the latest version of the documentation.
+- Use a descriptive name for your branch that reflects the changes you are making.</p></li>
+<li><p><strong>Write Documentation in reStructuredText Format</strong>:
+- Write your documentation using reStructuredText (<cite>.rst</cite>) format. Ensure it follows our writing guidelines mentioned earlier.</p></li>
+<li><p><strong>Test Your Changes</strong>:
+- After writing or updating the documentation, test your changes locally by following these steps:</p>
+<dl class="simple">
+<dt>For Windows:</dt><dd><ol class="arabic simple">
+<li><p>Run <cite>cleanup.bat</cite> to clean up any previous builds.</p></li>
+<li><p>Navigate to the <cite>docs</cite> directory with <cite>cd docs</cite>.</p></li>
+<li><p>Build the documentation using <cite>make html</cite>.</p></li>
+<li><p>Copy the built HTML files to the root directory using <cite>xcopy _build\html\* ..\ /E /I</cite>.</p></li>
+<li><p>Open the <cite>index.html</cite> file in a web browser to view the changes.</p></li>
+</ol>
+</dd>
+<dt>For Mac/Unix:</dt><dd><ol class="arabic simple">
+<li><p>Run <cite>./cleanup.sh</cite> to clean up any previous builds.</p></li>
+<li><p>Navigate to the <cite>docs</cite> directory.</p></li>
+<li><p>Build the documentation using <cite>make html</cite>.</p></li>
+<li><p>Copy the built HTML files to the root directory using <cite>$ cp -r _build/html/* ../</cite>.</p></li>
+<li><p>Open the <cite>index.html</cite> file in a web browser to view the changes.</p></li>
+</ol>
+</dd>
+</dl>
+<ul class="simple">
+<li><p>Ensure that all changes render correctly and that there are no formatting errors.</p></li>
+</ul>
+</li>
+<li><p><strong>Create a Pull Request</strong>:
+- Once you have tested your changes, commit them to your branch. Push the branch to the repository and create a pull request against the <cite>gh-pages</cite> branch.
+- In your pull request description, provide a clear and comprehensive summary of the changes you have made.</p></li>
+</ol>
+</section>
+<section id="review-process">
+<h2>Review Process<a class="headerlink" href="#review-process" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#review-process'">¶</a></h2>
+<p>All documentation contributions undergo a review process. When you submit a change, it will be reviewed by a member of our team. Feedback or requests for changes should be addressed to allow updates to the documentation.</p>
+</section>
+<section id="submission">
+<h2>Submission<a class="headerlink" href="#submission" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#submission'">¶</a></h2>
+<p>Submit your documentation changes via a pull request to the appropriate repository. Ensure you provide a clear and descriptive commit message that outlines the changes and the reasons for them.</p>
+</section>
+<section id="questions-and-assistance">
+<h2>Questions and Assistance<a class="headerlink" href="#questions-and-assistance" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#questions-and-assistance'">¶</a></h2>
+<p>If you have questions or need help while contributing to the documentation, please reach out to our team through [discord?].</p>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#introduction'" class="reference internal" href="#introduction">Introduction</a></li>
+<li><a :data-current="activeSection === '#getting-started'" class="reference internal" href="#getting-started">Getting Started</a></li>
+<li><a :data-current="activeSection === '#writing-guidelines'" class="reference internal" href="#writing-guidelines">Writing Guidelines</a></li>
+<li><a :data-current="activeSection === '#git-workflow-guidelines'" class="reference internal" href="#git-workflow-guidelines">Git Workflow Guidelines</a></li>
+<li><a :data-current="activeSection === '#review-process'" class="reference internal" href="#review-process">Review Process</a></li>
+<li><a :data-current="activeSection === '#submission'" class="reference internal" href="#submission">Submission</a></li>
+<li><a :data-current="activeSection === '#questions-and-assistance'" class="reference internal" href="#questions-and-assistance">Questions and Assistance</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">

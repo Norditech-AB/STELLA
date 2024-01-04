@@ -152,9 +152,1398 @@
 <div id="content" role="main">
 <section id="api-reference">
 <h1>API Reference<a class="headerlink" href="#api-reference" title="Link to this heading">¶</a></h1>
-<p>Hello, this is how you work with the CLI</p>
+<section id="creating-a-new-user">
+<h2>Creating a New User<a class="headerlink" href="#creating-a-new-user" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#creating-a-new-user'">¶</a></h2>
+<p>This document explains how to create a new user in our framework using the user registration endpoint.</p>
+<section id="endpoint-overview">
+<h3>Endpoint Overview<a class="headerlink" href="#endpoint-overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#endpoint-overview'">¶</a></h3>
+<p>The user registration endpoint is accessible at <cite>/register</cite> and expects a <cite>POST</cite> request with JSON data containing the user’s email and password.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">POST /register
+</span></code></pre></div>
+</div>
 </section>
-</div></div>
+<section id="payload-requirements">
+<h3>Payload Requirements<a class="headerlink" href="#payload-requirements" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#payload-requirements'">¶</a></h3>
+<p>The request payload must be in JSON format and include the following fields:
+- <code class="docutils literal notranslate"><span class="pre">email</span></code>: The email address of the new user.
+- <code class="docutils literal notranslate"><span class="pre">password</span></code>: The password for the new user’s account.</p>
+</section>
+<section id="request-example">
+<h3>Request Example<a class="headerlink" href="#request-example" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#request-example'">¶</a></h3>
+<p>Here is an example of a JSON payload for creating a new user:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"securepassword123"</span>
+</span><span id="line-4"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="error-handling">
+<h3>Error Handling<a class="headerlink" href="#error-handling" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#error-handling'">¶</a></h3>
+<p>The endpoint performs several checks and may return error responses in the following scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Missing JSON in Request:</strong>
+If the request does not contain JSON data, the response will be:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing JSON in request"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>Missing Email or Password:</strong>
+If the <cite>email</cite> or <cite>password</cite> field is missing from the JSON data:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing email/password parameter"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>User Already Exists:</strong>
+If a user with the provided email already exists:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User already exists"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+</ol>
+</section>
+<section id="success-response">
+<h3>Success Response<a class="headerlink" href="#success-response" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#success-response'">¶</a></h3>
+<p>Upon successful creation of a new user, the endpoint will return:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User created successfully"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span>
+</span><span id="line-4"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="conclusion">
+<h3>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h3>
+<p>Creating a new user is a straightforward process that involves sending a POST request with the necessary credentials. Ensure that the email and password fields are provided in the JSON payload, and handle any error responses appropriately.</p>
+</section>
+</section>
+<section id="user-login">
+<h2>User Login<a class="headerlink" href="#user-login" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#user-login'">¶</a></h2>
+<p>This section explains the process of user login in our system using the login endpoint.</p>
+<section id="id1">
+<h3>Endpoint Overview<a class="headerlink" href="#id1" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id1'">¶</a></h3>
+<p>The login endpoint is located at <cite>/auth/login</cite> and handles <cite>POST</cite> requests. It requires JSON data in the request body, including the user’s email and password.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">POST /auth/login
+</span></code></pre></div>
+</div>
+</section>
+<section id="id2">
+<h3>Payload Requirements<a class="headerlink" href="#id2" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id2'">¶</a></h3>
+<p>The request payload must be in JSON format and contain the following fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">email</span></code>: The email address of the user attempting to log in.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">password</span></code>: The password of the user.</p></li>
+</ul>
+</section>
+<section id="id3">
+<h3>Request Example<a class="headerlink" href="#id3" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id3'">¶</a></h3>
+<p>Here is an example of a JSON payload for logging in a user:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user@example.com"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"password"</span><span class="p">:</span><span class="w"> </span><span class="s2">"userpassword"</span>
+</span><span id="line-4"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="id4">
+<h3>Error Handling<a class="headerlink" href="#id4" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id4'">¶</a></h3>
+<p>The endpoint performs various checks and may return error responses in the following cases:</p>
+<ol class="arabic">
+<li><p><strong>Missing JSON in Request:</strong>
+If the request body does not contain JSON data, the response will be:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing JSON in request"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>Missing Email or Password:</strong>
+If either the <cite>email</cite> or <cite>password</cite> field is missing in the JSON data:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing email/password parameter"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>User Not Found:</strong>
+If no user is found with the provided email:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Incorrect Password:</strong>
+If the password provided is incorrect:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Incorrect password."</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 401 Unauthorized</p>
+</li>
+</ol>
+</section>
+<section id="id5">
+<h3>Success Response<a class="headerlink" href="#id5" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id5'">¶</a></h3>
+<p>Upon successful login, the endpoint will return an access token:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"access_token"</span><span class="p">:</span><span class="w"> </span><span class="s2">"&lt;JWT_TOKEN&gt;"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id6">
+<h3>Conclusion<a class="headerlink" href="#id6" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id6'">¶</a></h3>
+<p>Logging in a user requires a <cite>POST</cite> request with the user’s credentials in JSON format. Proper error handling is crucial for identifying common issues such as missing data, incorrect credentials, or user not found.</p>
+</section>
+</section>
+<section id="updating-user-settings">
+<h2>Updating User Settings<a class="headerlink" href="#updating-user-settings" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#updating-user-settings'">¶</a></h2>
+<p>This section describes how to update user settings using the update user endpoint.</p>
+<section id="id7">
+<h3>Endpoint Overview<a class="headerlink" href="#id7" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id7'">¶</a></h3>
+<p>The update user endpoint is located at <cite>/user</cite> and handles <cite>PUT</cite> requests. It requires a JWT token for authentication and JSON data containing the settings to be updated.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">PUT /user
+</span></code></pre></div>
+</div>
+</section>
+<section id="id8">
+<h3>Payload Requirements<a class="headerlink" href="#id8" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id8'">¶</a></h3>
+<p>The request payload should be a JSON object with the following fields:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">email</span></code>: The new email address of the user. (Optional)</p></li>
+</ul>
+</section>
+<section id="id9">
+<h3>Request Example<a class="headerlink" href="#id9" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id9'">¶</a></h3>
+<p>Here is an example of a JSON payload to update a user’s email:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"newemail@example.com"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="id10">
+<h3>Error Handling<a class="headerlink" href="#id10" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id10'">¶</a></h3>
+<p>The endpoint may return error responses in the following scenarios:</p>
+<ol class="arabic">
+<li><p><strong>User Not Found:</strong>
+If no user is found with the authenticated user ID:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+</ol>
+</section>
+<section id="id11">
+<h3>Success Response<a class="headerlink" href="#id11" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id11'">¶</a></h3>
+<p>Upon successful update of user settings, the endpoint will return:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User updated"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id12">
+<h3>Conclusion<a class="headerlink" href="#id12" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id12'">¶</a></h3>
+<p>Updating user settings requires a <cite>PUT</cite> request with the necessary data in JSON format. The user must be authenticated, and the provided information will be used to update the user’s settings in the system.</p>
+</section>
+</section>
+<section id="retrieving-user-settings">
+<h2>Retrieving User Settings<a class="headerlink" href="#retrieving-user-settings" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#retrieving-user-settings'">¶</a></h2>
+<p>This section explains how to retrieve the settings of a user using the get user endpoint.</p>
+<section id="id13">
+<h3>Endpoint Overview<a class="headerlink" href="#id13" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id13'">¶</a></h3>
+<p>The get user endpoint is accessible at <cite>/user</cite> and processes <cite>GET</cite> requests. It requires a JWT token for authentication.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /user
+</span></code></pre></div>
+</div>
+</section>
+<section id="id14">
+<h3>Request Example<a class="headerlink" href="#id14" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id14'">¶</a></h3>
+<p>Below is an example of a request to retrieve the settings of the authenticated user:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /user
+</span></code></pre></div>
+</div>
+</section>
+<section id="id15">
+<h3>Error Handling<a class="headerlink" href="#id15" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id15'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>User Not Found:</strong>
+If no user is found with the authenticated user ID:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+</ol>
+</section>
+<section id="id16">
+<h3>Success Response<a class="headerlink" href="#id16" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id16'">¶</a></h3>
+<p>Upon successful retrieval, the endpoint will return the settings of the user:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"user"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-3"><span class="w">        </span><span class="nt">"user_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">        </span><span class="nt">"email"</span><span class="p">:</span><span class="w"> </span><span class="s2">"email@example.com"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">    </span><span class="p">}</span>
+</span><span id="line-6"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id17">
+<h3>Conclusion<a class="headerlink" href="#id17" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id17'">¶</a></h3>
+<p>Retrieving user settings involves sending a <cite>GET</cite> request. The user must be authenticated to access their own settings. The successful response includes the user’s settings in JSON format.</p>
+</section>
+</section>
+<section id="chat-authorization">
+<h2>Chat Authorization<a class="headerlink" href="#chat-authorization" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#chat-authorization'">¶</a></h2>
+<p>This section describes the process for authorizing a chat session using the chat authorization endpoint.</p>
+<section id="id18">
+<h3>Endpoint Overview<a class="headerlink" href="#id18" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id18'">¶</a></h3>
+<p>The chat authorization endpoint is located at <cite>/chat/authorize</cite> and handles <cite>GET</cite> requests. It requires a JWT token for authentication and a <cite>chat_id</cite> query parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /chat/authorize
+</span></code></pre></div>
+</div>
+</section>
+<section id="query-parameters">
+<h3>Query Parameters<a class="headerlink" href="#query-parameters" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#query-parameters'">¶</a></h3>
+<p>The endpoint expects the following query parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chat_id</span></code>: The unique identifier of the chat session to be authorized.</p></li>
+</ul>
+</section>
+<section id="id19">
+<h3>Request Example<a class="headerlink" href="#id19" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id19'">¶</a></h3>
+<p>Here is an example of a request to authorize a chat session:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /chat/authorize?chat_id=12345
+</span></code></pre></div>
+</div>
+</section>
+<section id="id20">
+<h3>Error Handling<a class="headerlink" href="#id20" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id20'">¶</a></h3>
+<p>The endpoint may return error responses in various scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Chat Not Found:</strong>
+If no chat is found with the specified <cite>chat_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chat not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user is not the owner of the chat:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the chat"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 401 Unauthorized</p>
+</li>
+</ol>
+</section>
+<section id="id21">
+<h3>Success Response<a class="headerlink" href="#id21" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id21'">¶</a></h3>
+<p>Upon successful authorization, the endpoint will return a connection string for the chat session:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"connection_string"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generated_string"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timestamp"</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">    </span><span class="nt">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timestamp"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">    </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span>
+</span><span id="line-6"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id22">
+<h3>Conclusion<a class="headerlink" href="#id22" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id22'">¶</a></h3>
+<p>Authorizing a chat session involves sending a <cite>GET</cite> request with a valid <cite>chat_id</cite> query parameter. The user must be authenticated and authorized to access the specific chat session. The successful response includes a connection string with an expiration time.</p>
+</section>
+</section>
+<section id="authorizing-a-chat-message">
+<h2>Authorizing a Chat Message<a class="headerlink" href="#authorizing-a-chat-message" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#authorizing-a-chat-message'">¶</a></h2>
+<p>This section describes how to obtain authorization for sending a message in a chat using the authorize chat message endpoint.</p>
+<section id="id23">
+<h3>Endpoint Overview<a class="headerlink" href="#id23" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id23'">¶</a></h3>
+<p>The authorize chat message endpoint is located at <cite>/chat/authorize/message</cite> and handles <cite>GET</cite> requests. It requires a JWT token for authentication and a <cite>chat_id</cite> query parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /chat/authorize/message
+</span></code></pre></div>
+</div>
+</section>
+<section id="id24">
+<h3>Query Parameters<a class="headerlink" href="#id24" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id24'">¶</a></h3>
+<p>The endpoint expects the following query parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chat_id</span></code>: The unique identifier of the chat session for which the message authorization is requested.</p></li>
+</ul>
+</section>
+<section id="id25">
+<h3>Request Example<a class="headerlink" href="#id25" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id25'">¶</a></h3>
+<p>Here is an example of a request to authorize a message in a chat:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /chat/authorize/message?chat_id=12345
+</span></code></pre></div>
+</div>
+</section>
+<section id="id26">
+<h3>Error Handling<a class="headerlink" href="#id26" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id26'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Chat Not Found:</strong>
+If no chat is found with the specified <cite>chat_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chat not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user is not the owner of the chat:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the chat"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 401 Unauthorized</p>
+</li>
+</ol>
+</section>
+<section id="id27">
+<h3>Success Response<a class="headerlink" href="#id27" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id27'">¶</a></h3>
+<p>Upon successful authorization, the endpoint will return a secret string for message authorization:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"message_string"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generated_string"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"created_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timestamp"</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">    </span><span class="nt">"expires_at"</span><span class="p">:</span><span class="w"> </span><span class="s2">"timestamp"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">    </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span>
+</span><span id="line-6"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id28">
+<h3>Conclusion<a class="headerlink" href="#id28" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id28'">¶</a></h3>
+<p>Authorizing a message in a chat involves sending a <cite>GET</cite> request with the <cite>chat_id</cite> query parameter. The user must be authenticated and authorized as the owner of the chat. The successful response includes a secret string with an expiration time, which must be passed when sending messages through SocketIO.
+“””</p>
+</section>
+</section>
+<section id="creating-a-chat">
+<h2>Creating a Chat<a class="headerlink" href="#creating-a-chat" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#creating-a-chat'">¶</a></h2>
+<p>This section outlines the process for creating a new chat in a workspace using the create chat endpoint.</p>
+<section id="id29">
+<h3>Endpoint Overview<a class="headerlink" href="#id29" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id29'">¶</a></h3>
+<p>The create chat endpoint is found at <cite>/chat</cite> and accepts <cite>POST</cite> requests. It requires a JWT token for authentication and a <cite>workspace_id</cite> query parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">POST /chat
+</span></code></pre></div>
+</div>
+</section>
+<section id="id30">
+<h3>Query Parameters<a class="headerlink" href="#id30" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id30'">¶</a></h3>
+<p>The endpoint requires the following query parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workspace_id</span></code>: The unique identifier of the workspace in which the chat will be created.</p></li>
+</ul>
+</section>
+<section id="id31">
+<h3>Request Example<a class="headerlink" href="#id31" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id31'">¶</a></h3>
+<p>Below is an example of a request to create a chat in a specific workspace:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">POST /chat?workspace_id=12345
+</span></code></pre></div>
+</div>
+</section>
+<section id="id32">
+<h3>Error Handling<a class="headerlink" href="#id32" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id32'">¶</a></h3>
+<p>The endpoint may return error responses in several scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Missing Workspace ID:</strong>
+If the <cite>workspace_id</cite> parameter is missing:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing workspace id"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>Workspace Not Found:</strong>
+If no workspace is found with the provided ID:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user is not the owner of the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the workspace"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 401 Unauthorized</p>
+</li>
+</ol>
+</section>
+<section id="id33">
+<h3>Success Response<a class="headerlink" href="#id33" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id33'">¶</a></h3>
+<p>Upon successful creation of a chat, the endpoint will return details of the created chat and its associated workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chat created successfully"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"chat"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-4"><span class="w">        </span><span class="nt">"chat_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generated_chat_id"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">        </span><span class="nt">"workspace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_id"</span><span class="p">,</span>
+</span><span id="line-6"><span class="w">        </span><span class="nt">"created_by"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span>
+</span><span id="line-7"><span class="w">    </span><span class="p">},</span>
+</span><span id="line-8"><span class="w">    </span><span class="nt">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-9"><span class="w">        </span><span class="nt">"workspace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_id"</span><span class="p">,</span>
+</span><span id="line-10"><span class="w">        </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span>
+</span><span id="line-11"><span class="w">    </span><span class="p">}</span>
+</span><span id="line-12"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id34">
+<h3>Conclusion<a class="headerlink" href="#id34" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id34'">¶</a></h3>
+<p>Creating a chat requires a <cite>POST</cite> request with the necessary <cite>workspace_id</cite> query parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response includes detailed information about the newly created chat and its workspace.</p>
+</section>
+</section>
+<section id="retrieving-a-chat">
+<h2>Retrieving a Chat<a class="headerlink" href="#retrieving-a-chat" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#retrieving-a-chat'">¶</a></h2>
+<p>This section explains how to retrieve details of a specific chat using the get chat endpoint.</p>
+<section id="id35">
+<h3>Endpoint Overview<a class="headerlink" href="#id35" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id35'">¶</a></h3>
+<p>The get chat endpoint is located at <cite>/chat</cite> and accepts <cite>GET</cite> requests. It requires a JWT token for authentication and a <cite>chat_id</cite> query parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /chat
+</span></code></pre></div>
+</div>
+</section>
+<section id="id36">
+<h3>Query Parameters<a class="headerlink" href="#id36" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id36'">¶</a></h3>
+<p>The endpoint expects the following query parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chat_id</span></code>: The unique identifier of the chat session to be retrieved.</p></li>
+</ul>
+</section>
+<section id="id37">
+<h3>Request Example<a class="headerlink" href="#id37" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id37'">¶</a></h3>
+<p>Here is an example of a request to retrieve a specific chat:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /chat?chat_id=12345
+</span></code></pre></div>
+</div>
+</section>
+<section id="id38">
+<h3>Error Handling<a class="headerlink" href="#id38" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id38'">¶</a></h3>
+<p>The endpoint may return error responses in various scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Chat Not Found:</strong>
+If no chat is found with the specified <cite>chat_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chat not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user is not the owner of the chat:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the chat"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 401 Unauthorized</p>
+</li>
+</ol>
+</section>
+<section id="id39">
+<h3>Success Response<a class="headerlink" href="#id39" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id39'">¶</a></h3>
+<p>Upon successful retrieval, the endpoint will return the details of the requested chat:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"chat_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"chat_id"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">    </span><span class="nt">"workspace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_id"</span><span class="p">,</span>
+</span><span id="line-5"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id40">
+<h3>Conclusion<a class="headerlink" href="#id40" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id40'">¶</a></h3>
+<p>Retrieving a chat involves sending a <cite>GET</cite> request with a valid <cite>chat_id</cite> query parameter. The user must be authenticated and authorized to access the specific chat session. The successful response includes detailed information about the chat.</p>
+</section>
+</section>
+<section id="deleting-a-chat">
+<h2>Deleting a Chat<a class="headerlink" href="#deleting-a-chat" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#deleting-a-chat'">¶</a></h2>
+<p>This section outlines the procedure for deleting a chat using the delete chat endpoint.</p>
+<section id="id41">
+<h3>Endpoint Overview<a class="headerlink" href="#id41" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id41'">¶</a></h3>
+<p>The delete chat endpoint is accessible at <cite>/chat</cite> and processes <cite>DELETE</cite> requests. It requires a JWT token for authentication and a <cite>chat_id</cite> query parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">DELETE /chat
+</span></code></pre></div>
+</div>
+</section>
+<section id="id42">
+<h3>Query Parameters<a class="headerlink" href="#id42" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id42'">¶</a></h3>
+<p>The endpoint expects the following query parameter:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">chat_id</span></code>: The unique identifier of the chat session to be deleted.</p></li>
+</ul>
+</section>
+<section id="id43">
+<h3>Request Example<a class="headerlink" href="#id43" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id43'">¶</a></h3>
+<p>Below is an example of a request to delete a specific chat:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">DELETE /chat?chat_id=12345
+</span></code></pre></div>
+</div>
+</section>
+<section id="id44">
+<h3>Error Handling<a class="headerlink" href="#id44" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id44'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Chat Not Found:</strong>
+If no chat is found with the provided <cite>chat_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chat not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user attempting the deletion is not the owner of the chat:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the chat"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 401 Unauthorized</p>
+</li>
+<li><p><strong>Deletion Error:</strong>
+If there is an issue while deleting the chat:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server error or specific error message"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 500 Internal Server Error</p>
+</li>
+</ol>
+</section>
+<section id="id45">
+<h3>Success Response<a class="headerlink" href="#id45" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id45'">¶</a></h3>
+<p>Upon successful deletion of the chat, the endpoint will return:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Chat deleted successfully"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id46">
+<h3>Conclusion<a class="headerlink" href="#id46" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id46'">¶</a></h3>
+<p>Deleting a chat involves sending a <cite>DELETE</cite> request with the necessary <cite>chat_id</cite> query parameter. The user must be authenticated and authorized as the owner of the chat. The successful response confirms the deletion of the chat.</p>
+</section>
+</section>
+<section id="creating-a-workspace">
+<h2>Creating a Workspace<a class="headerlink" href="#creating-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#creating-a-workspace'">¶</a></h2>
+<p>This section outlines the process for creating a new workspace using the create workspace endpoint.</p>
+<section id="id47">
+<h3>Endpoint Overview<a class="headerlink" href="#id47" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id47'">¶</a></h3>
+<p>The create workspace endpoint is found at <cite>/workspace</cite> and accepts <cite>POST</cite> requests. It requires a JWT token for authentication and, optionally, JSON data containing the desired workspace name.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">POST /workspace
+</span></code></pre></div>
+</div>
+</section>
+<section id="id48">
+<h3>Payload Requirements<a class="headerlink" href="#id48" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id48'">¶</a></h3>
+<p>The request payload should be a JSON object with the following field:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The name of the workspace. If not provided, “Untitled Workspace” is used as the default name.</p></li>
+</ul>
+</section>
+<section id="id49">
+<h3>Request Example<a class="headerlink" href="#id49" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id49'">¶</a></h3>
+<p>Below is an example of a JSON payload to create a workspace with a specified name:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My New Workspace"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="id50">
+<h3>Error Handling<a class="headerlink" href="#id50" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id50'">¶</a></h3>
+<p>Currently, this endpoint does not specify error responses for missing or invalid data. It defaults to creating a workspace with a generic name if none is provided.</p>
+</section>
+<section id="id51">
+<h3>Success Response<a class="headerlink" href="#id51" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id51'">¶</a></h3>
+<p>Upon successful creation of a workspace, the endpoint will return the details of the newly created workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace created"</span><span class="p">,</span>
+</span><span id="line-3"><span class="w">    </span><span class="nt">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-4"><span class="w">        </span><span class="nt">"workspace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"generated_workspace_id"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"My New Workspace"</span><span class="p">,</span>
+</span><span id="line-6"><span class="w">        </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span>
+</span><span id="line-7">
+</span><span id="line-8"><span class="w">    </span><span class="p">}</span>
+</span><span id="line-9"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id52">
+<h3>Conclusion<a class="headerlink" href="#id52" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id52'">¶</a></h3>
+<p>Creating a workspace involves sending a <cite>POST</cite> request with an optional <cite>name</cite> field in the JSON payload. The user must be authenticated to create a workspace. The successful response includes information about the newly created workspace.</p>
+</section>
+</section>
+<section id="retrieving-user-workspaces">
+<h2>Retrieving User Workspaces<a class="headerlink" href="#retrieving-user-workspaces" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#retrieving-user-workspaces'">¶</a></h2>
+<p>This section describes how to retrieve all workspaces associated with a user using the get workspaces endpoint.</p>
+<section id="id53">
+<h3>Endpoint Overview<a class="headerlink" href="#id53" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id53'">¶</a></h3>
+<p>The get workspaces endpoint is located at <cite>/workspace</cite> and processes <cite>GET</cite> requests. It requires a JWT token for authentication.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /workspace
+</span></code></pre></div>
+</div>
+</section>
+<section id="id54">
+<h3>Request Example<a class="headerlink" href="#id54" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id54'">¶</a></h3>
+<p>Below is an example of a request to retrieve all workspaces for the authenticated user:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /workspace
+</span></code></pre></div>
+</div>
+</section>
+<section id="id55">
+<h3>Success Response<a class="headerlink" href="#id55" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id55'">¶</a></h3>
+<p>Upon successful retrieval, the endpoint will return a list of workspaces associated with the user:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"workspaces"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-3"><span class="w">        </span><span class="p">{</span>
+</span><span id="line-4"><span class="w">            </span><span class="nt">"workspace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_id"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">            </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace Name"</span><span class="p">,</span>
+</span><span id="line-6"><span class="w">            </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span>
+</span><span id="line-7">
+</span><span id="line-8"><span class="w">        </span><span class="p">},</span>
+</span><span id="line-9">
+</span><span id="line-10"><span class="w">    </span><span class="p">]</span>
+</span><span id="line-11"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id56">
+<h3>Conclusion<a class="headerlink" href="#id56" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id56'">¶</a></h3>
+<p>Retrieving user workspaces involves sending a <cite>GET</cite> request. The user must be authenticated to access their associated workspaces. The successful response includes a list of workspaces in JSON format.</p>
+</section>
+</section>
+<section id="retrieving-a-specific-workspace">
+<h2>Retrieving a Specific Workspace<a class="headerlink" href="#retrieving-a-specific-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#retrieving-a-specific-workspace'">¶</a></h2>
+<p>This section covers the procedure for retrieving details of a specific workspace using the get workspace endpoint.</p>
+<section id="id57">
+<h3>Endpoint Overview<a class="headerlink" href="#id57" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id57'">¶</a></h3>
+<p>The get workspace endpoint is located at <cite>/workspace/&lt;workspace_id&gt;</cite> and handles <cite>GET</cite> requests. It requires a JWT token for authentication and the workspace ID as a path parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /workspace/&lt;workspace_id&gt;
+</span></code></pre></div>
+</div>
+</section>
+<section id="path-parameters">
+<h3>Path Parameters<a class="headerlink" href="#path-parameters" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#path-parameters'">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workspace_id</span></code>: The unique identifier of the workspace to be retrieved.</p></li>
+</ul>
+</section>
+<section id="id58">
+<h3>Request Example<a class="headerlink" href="#id58" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id58'">¶</a></h3>
+<p>Here is an example of a request to retrieve a specific workspace:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /workspace/12345
+</span></code></pre></div>
+</div>
+</section>
+<section id="id59">
+<h3>Error Handling<a class="headerlink" href="#id59" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id59'">¶</a></h3>
+<p>The endpoint may return error responses in the following scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Workspace Not Found:</strong>
+If no workspace is found with the given <cite>workspace_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized Access:</strong>
+If the user does not have access to the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User does not have access to the workspace"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 403 Forbidden</p>
+</li>
+</ol>
+</section>
+<section id="id60">
+<h3>Success Response<a class="headerlink" href="#id60" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id60'">¶</a></h3>
+<p>Upon successful retrieval, the endpoint will return the details of the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"workspace"</span><span class="p">:</span><span class="w"> </span><span class="p">{</span>
+</span><span id="line-3"><span class="w">        </span><span class="nt">"workspace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_id"</span><span class="p">,</span>
+</span><span id="line-4"><span class="w">        </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace Name"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">        </span><span class="nt">"owner"</span><span class="p">:</span><span class="w"> </span><span class="s2">"user_id"</span><span class="p">,</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="w">    </span><span class="p">}</span>
+</span><span id="line-8"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id61">
+<h3>Conclusion<a class="headerlink" href="#id61" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id61'">¶</a></h3>
+<p>Retrieving a specific workspace requires a <cite>GET</cite> request with the workspace ID as a path parameter. The user must be authenticated and authorized to access the particular workspace. The successful response includes detailed information about the workspace.</p>
+</section>
+</section>
+<section id="deleting-a-workspace">
+<h2>Deleting a Workspace<a class="headerlink" href="#deleting-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#deleting-a-workspace'">¶</a></h2>
+<p>This section describes the procedure for deleting a specific workspace using the delete workspace endpoint.</p>
+<section id="id62">
+<h3>Endpoint Overview<a class="headerlink" href="#id62" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id62'">¶</a></h3>
+<p>The delete workspace endpoint is accessible at <cite>/workspace/&lt;workspace_id&gt;</cite> and processes <cite>DELETE</cite> requests. It requires a JWT token for authentication and the workspace ID as a path parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">DELETE /workspace/&lt;workspace_id&gt;
+</span></code></pre></div>
+</div>
+</section>
+<section id="id63">
+<h3>Path Parameters<a class="headerlink" href="#id63" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id63'">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workspace_id</span></code>: The unique identifier of the workspace to be deleted.</p></li>
+</ul>
+</section>
+<section id="id64">
+<h3>Request Example<a class="headerlink" href="#id64" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id64'">¶</a></h3>
+<p>Here is an example of a request to delete a specific workspace:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">DELETE /workspace/12345
+</span></code></pre></div>
+</div>
+</section>
+<section id="id65">
+<h3>Error Handling<a class="headerlink" href="#id65" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id65'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Workspace Not Found:</strong>
+If no workspace is found with the provided <cite>workspace_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized Access:</strong>
+If the user does not have access to the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User does not have access to the workspace"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 403 Forbidden</p>
+</li>
+<li><p><strong>Deletion Error:</strong>
+If there is an issue while deleting the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server error or specific error message"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 500 Internal Server Error</p>
+</li>
+</ol>
+</section>
+<section id="id66">
+<h3>Success Response<a class="headerlink" href="#id66" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id66'">¶</a></h3>
+<p>Upon successful deletion of the workspace, the endpoint will return:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace deleted"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id67">
+<h3>Conclusion<a class="headerlink" href="#id67" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id67'">¶</a></h3>
+<p>Deleting a workspace involves sending a <cite>DELETE</cite> request with the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the deletion of the workspace.</p>
+</section>
+</section>
+<section id="retrieving-workspace-chats">
+<h2>Retrieving Workspace Chats<a class="headerlink" href="#retrieving-workspace-chats" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#retrieving-workspace-chats'">¶</a></h2>
+<p>This section explains how to retrieve all chats associated with a specific workspace using the get workspace chats endpoint.</p>
+<section id="id68">
+<h3>Endpoint Overview<a class="headerlink" href="#id68" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id68'">¶</a></h3>
+<p>The get workspace chats endpoint is located at <cite>/workspace/&lt;workspace_id&gt;/chats</cite> and handles <cite>GET</cite> requests. It requires a JWT token for authentication and the workspace ID as a path parameter.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /workspace/&lt;workspace_id&gt;/chats
+</span></code></pre></div>
+</div>
+</section>
+<section id="id69">
+<h3>Path Parameters<a class="headerlink" href="#id69" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id69'">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workspace_id</span></code>: The unique identifier of the workspace whose chats are to be retrieved.</p></li>
+</ul>
+</section>
+<section id="id70">
+<h3>Request Example<a class="headerlink" href="#id70" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id70'">¶</a></h3>
+<p>Here is an example of a request to retrieve all chats for a specific workspace:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /workspace/12345/chats
+</span></code></pre></div>
+</div>
+</section>
+<section id="id71">
+<h3>Error Handling<a class="headerlink" href="#id71" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id71'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Workspace Not Found:</strong>
+If no workspace is found with the given <cite>workspace_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized Access:</strong>
+If the user does not have access to the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User does not have access to the workspace"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 403 Forbidden</p>
+</li>
+<li><p><strong>Retrieval Error:</strong>
+If there is an issue while retrieving the chats:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server error or specific error message"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 500 Internal Server Error</p>
+</li>
+</ol>
+</section>
+<section id="id72">
+<h3>Success Response<a class="headerlink" href="#id72" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id72'">¶</a></h3>
+<p>Upon successful retrieval, the endpoint will return a list of all chats associated with the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"chats"</span><span class="p">:</span><span class="w"> </span><span class="p">[</span>
+</span><span id="line-3"><span class="w">        </span><span class="p">{</span>
+</span><span id="line-4"><span class="w">            </span><span class="nt">"chat_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"chat_id"</span><span class="p">,</span>
+</span><span id="line-5"><span class="w">            </span><span class="nt">"workspace_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"workspace_id"</span><span class="p">,</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="w">        </span><span class="p">},</span>
+</span><span id="line-8">
+</span><span id="line-9"><span class="w">    </span><span class="p">]</span>
+</span><span id="line-10"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id73">
+<h3>Conclusion<a class="headerlink" href="#id73" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id73'">¶</a></h3>
+<p>Retrieving workspace chats involves sending a <cite>GET</cite> request with the workspace ID as a path parameter. The user must be authenticated and authorized to access the particular workspace. The successful response includes a list of all chats associated with the workspace.</p>
+</section>
+</section>
+<section id="adding-an-agent-to-workspace">
+<h2>Adding an Agent to Workspace<a class="headerlink" href="#adding-an-agent-to-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#adding-an-agent-to-workspace'">¶</a></h2>
+<p>This section explains how to add an agent to a specific workspace using the add agent endpoint.</p>
+<section id="id74">
+<h3>Endpoint Overview<a class="headerlink" href="#id74" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id74'">¶</a></h3>
+<p>The add agent to workspace endpoint is located at <cite>/workspace/&lt;workspace_id&gt;/agent</cite> and processes <cite>POST</cite> requests. It requires a JWT token for authentication, the workspace ID as a path parameter, and JSON data containing the agent ID.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">POST /workspace/&lt;workspace_id&gt;/agent
+</span></code></pre></div>
+</div>
+</section>
+<section id="id75">
+<h3>Path Parameters<a class="headerlink" href="#id75" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id75'">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workspace_id</span></code>: The unique identifier of the workspace to which the agent is being added.</p></li>
+</ul>
+</section>
+<section id="id76">
+<h3>Payload Requirements<a class="headerlink" href="#id76" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id76'">¶</a></h3>
+<p>The request payload must be in JSON format and include the following field:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_id</span></code>: The unique identifier of the agent to be added to the workspace.</p></li>
+</ul>
+</section>
+<section id="id77">
+<h3>Request Example<a class="headerlink" href="#id77" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id77'">¶</a></h3>
+<p>Here is an example of a JSON payload to add an agent to a workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"agent_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="id78">
+<h3>Error Handling<a class="headerlink" href="#id78" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id78'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Missing JSON in Request or Missing agent_id:</strong>
+If the request does not contain JSON data or if <cite>agent_id</cite> is missing:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">   </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing JSON in request"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span><span id="line-4">
+</span><span id="line-5"><span class="c1">// or</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="p">{</span>
+</span><span id="line-8"><span class="w">    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing agent_id parameter"</span>
+</span><span id="line-9"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>Workspace Not Found:</strong>
+If no workspace is found with the provided <cite>workspace_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user is not the owner of the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the workspace"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 403 Forbidden</p>
+</li>
+<li><p><strong>Update Failure:</strong>
+If there is an issue while updating the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server error or specific error message"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 500 Internal Server Error</p>
+</li>
+</ol>
+</section>
+<section id="id79">
+<h3>Success Response<a class="headerlink" href="#id79" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id79'">¶</a></h3>
+<p>Upon successful addition of the agent to the workspace, the endpoint will return:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Agent added to Workspace."</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id80">
+<h3>Conclusion<a class="headerlink" href="#id80" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id80'">¶</a></h3>
+<p>Adding an agent to a workspace involves sending a <cite>POST</cite> request with the agent ID in JSON format and the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the addition of the agent to the workspace.</p>
+</section>
+</section>
+<section id="removing-an-agent-from-workspace">
+<h2>Removing an Agent from Workspace<a class="headerlink" href="#removing-an-agent-from-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#removing-an-agent-from-workspace'">¶</a></h2>
+<p>This section describes the process of removing an agent from a specific workspace using the remove agent endpoint.</p>
+<section id="id81">
+<h3>Endpoint Overview<a class="headerlink" href="#id81" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id81'">¶</a></h3>
+<p>The remove agent from workspace endpoint is found at <cite>/workspace/&lt;workspace_id&gt;/agent</cite> and accepts <cite>DELETE</cite> requests. It requires a JWT token for authentication, the workspace ID as a path parameter, and JSON data containing the agent ID.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">DELETE /workspace/&lt;workspace_id&gt;/agent
+</span></code></pre></div>
+</div>
+</section>
+<section id="id82">
+<h3>Path Parameters<a class="headerlink" href="#id82" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id82'">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workspace_id</span></code>: The unique identifier of the workspace from which the agent is being removed.</p></li>
+</ul>
+</section>
+<section id="id83">
+<h3>Payload Requirements<a class="headerlink" href="#id83" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id83'">¶</a></h3>
+<p>The request payload must be in JSON format and include the following field:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">agent_id</span></code>: The unique identifier of the agent to be removed from the workspace.</p></li>
+</ul>
+</section>
+<section id="id84">
+<h3>Request Example<a class="headerlink" href="#id84" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id84'">¶</a></h3>
+<p>Here is an example of a JSON payload to remove an agent from a workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"agent_id"</span><span class="p">:</span><span class="w"> </span><span class="s2">"12345"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="id85">
+<h3>Error Handling<a class="headerlink" href="#id85" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id85'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Missing JSON in Request or Missing agent_id:</strong>
+If the request does not contain JSON data or if <cite>agent_id</cite> is missing:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">   </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing JSON in request"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span><span id="line-4">
+</span><span id="line-5"><span class="c1">// or</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="p">{</span>
+</span><span id="line-8"><span class="w">    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing agent_id parameter"</span>
+</span><span id="line-9"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>Workspace Not Found:</strong>
+If no workspace is found with the provided <cite>workspace_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user is not the owner of the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the workspace"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 403 Forbidden</p>
+</li>
+<li><p><strong>Update Failure:</strong>
+If there is an issue while updating the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server error or specific error message"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 500 Internal Server Error</p>
+</li>
+</ol>
+</section>
+<section id="id86">
+<h3>Success Response<a class="headerlink" href="#id86" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id86'">¶</a></h3>
+<p>Upon successful removal of the agent from the workspace, the endpoint will return:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Agent removed"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id87">
+<h3>Conclusion<a class="headerlink" href="#id87" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id87'">¶</a></h3>
+<p>Removing an agent from a workspace involves sending a <cite>DELETE</cite> request with the agent ID in JSON format and the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the removal of the agent from the workspace.</p>
+</section>
+</section>
+<section id="renaming-a-workspace">
+<h2>Renaming a Workspace<a class="headerlink" href="#renaming-a-workspace" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#renaming-a-workspace'">¶</a></h2>
+<p>This section details the process for renaming a workspace using the rename workspace endpoint.</p>
+<section id="id88">
+<h3>Endpoint Overview<a class="headerlink" href="#id88" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id88'">¶</a></h3>
+<p>The rename workspace endpoint is located at <cite>/workspace/&lt;workspace_id&gt;/rename</cite> and handles <cite>PUT</cite> requests. It requires a JWT token for authentication, the workspace ID as a path parameter, and JSON data containing the new workspace name.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">PUT /workspace/&lt;workspace_id&gt;/rename
+</span></code></pre></div>
+</div>
+</section>
+<section id="id89">
+<h3>Path Parameters<a class="headerlink" href="#id89" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id89'">¶</a></h3>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">workspace_id</span></code>: The unique identifier of the workspace to be renamed.</p></li>
+</ul>
+</section>
+<section id="id90">
+<h3>Payload Requirements<a class="headerlink" href="#id90" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id90'">¶</a></h3>
+<p>The request payload must be in JSON format and include the following field:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">name</span></code>: The new name for the workspace.</p></li>
+</ul>
+</section>
+<section id="id91">
+<h3>Request Example<a class="headerlink" href="#id91" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id91'">¶</a></h3>
+<p>Here is an example of a JSON payload to rename a workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">    </span><span class="nt">"name"</span><span class="p">:</span><span class="w"> </span><span class="s2">"New Workspace Name"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+</section>
+<section id="id92">
+<h3>Error Handling<a class="headerlink" href="#id92" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id92'">¶</a></h3>
+<p>The endpoint may return error responses in specific scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Missing JSON in Request or Missing Name:</strong>
+If the request does not contain JSON data or if <cite>name</cite> is missing:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span>
+</span><span id="line-2"><span class="w">   </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing JSON in request"</span>
+</span><span id="line-3"><span class="p">}</span>
+</span><span id="line-4">
+</span><span id="line-5"><span class="c1">// or</span>
+</span><span id="line-6">
+</span><span id="line-7"><span class="p">{</span>
+</span><span id="line-8"><span class="w">    </span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing name parameter"</span>
+</span><span id="line-9"><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>Workspace Not Found:</strong>
+If no workspace is found with the provided <cite>workspace_id</cite>:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace not found"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Unauthorized User:</strong>
+If the user is not the owner of the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"User is not the owner of the workspace"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 403 Forbidden</p>
+</li>
+<li><p><strong>Update Failure:</strong>
+If there is an issue while updating the workspace:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Internal server error or specific error message"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 500 Internal Server Error</p>
+</li>
+</ol>
+</section>
+<section id="id93">
+<h3>Success Response<a class="headerlink" href="#id93" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id93'">¶</a></h3>
+<p>Upon successful renaming of the workspace, the endpoint will return:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Workspace renamed"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id94">
+<h3>Conclusion<a class="headerlink" href="#id94" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id94'">¶</a></h3>
+<p>Renaming a workspace involves sending a <cite>PUT</cite> request with the new name in JSON format and the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the renaming of the workspace.</p>
+</section>
+</section>
+<section id="agent-package-download">
+<h2>Agent Package Download<a class="headerlink" href="#agent-package-download" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#agent-package-download'">¶</a></h2>
+<p>This section details the process for downloading an agent package using the agent download endpoint.</p>
+<section id="id95">
+<h3>Endpoint Overview<a class="headerlink" href="#id95" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id95'">¶</a></h3>
+<p>The agent package download endpoint is located at <cite>/agent/download</cite> and is designed to handle <cite>GET</cite> requests. It requires query parameters for specifying the package name and version.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /agent/download
+</span></code></pre></div>
+</div>
+</section>
+<section id="id96">
+<h3>Query Parameters<a class="headerlink" href="#id96" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id96'">¶</a></h3>
+<p>The endpoint expects the following query parameters:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">query</span></code>: The name of the package to download.</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">version</span></code>: The specific version of the package to download. If omitted, the latest version is downloaded.</p></li>
+</ul>
+</section>
+<section id="id97">
+<h3>Request Example<a class="headerlink" href="#id97" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id97'">¶</a></h3>
+<p>Below is an example of a request to download a specific version of an agent package:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /agent/download?query=agentName&amp;version=1.2.3
+</span></code></pre></div>
+</div>
+</section>
+<section id="id98">
+<h3>Error Handling<a class="headerlink" href="#id98" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id98'">¶</a></h3>
+<p>The endpoint may return error responses in the following scenarios:</p>
+<ol class="arabic">
+<li><p><strong>Missing Package Name:</strong>
+If the <cite>query</cite> parameter is missing:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"error"</span><span class="p">:</span><span class="w"> </span><span class="s2">"Missing param 'query'"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 400 Bad Request</p>
+</li>
+<li><p><strong>Package Not Found:</strong>
+If no package is found with the specified name and version:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">"Package not found: agentName:1.2.3"
+</span></code></pre></div>
+</div>
+<p>Status Code: 404 Not Found</p>
+</li>
+<li><p><strong>Download Failure:</strong>
+If there is a failure in downloading the package:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">"Failed to download package: agentName:1.2.3, [Error Details]"
+</span></code></pre></div>
+</div>
+<p>Status Code: Corresponding HTTP status code</p>
+</li>
+</ol>
+</section>
+<section id="id99">
+<h3>Success Response<a class="headerlink" href="#id99" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id99'">¶</a></h3>
+<p>Upon successful download of the package, the endpoint will return:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">"Successfully installed agentName:downloaded_version"
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id100">
+<h3>Conclusion<a class="headerlink" href="#id100" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id100'">¶</a></h3>
+<p>Downloading an agent package involves sending a <cite>GET</cite> request with the required package name and version as query parameters. Appropriate error handling ensures smooth operation and informs the user of any issues encountered during the download process.</p>
+</section>
+</section>
+<section id="ping-utility">
+<h2>Ping Utility<a class="headerlink" href="#ping-utility" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#ping-utility'">¶</a></h2>
+<p>This section describes the use of the ping utility endpoint, which is designed to check the responsiveness of the service.</p>
+<section id="id101">
+<h3>Endpoint Overview<a class="headerlink" href="#id101" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id101'">¶</a></h3>
+<p>The ping utility endpoint is located at <cite>/ping</cite> and handles <cite>GET</cite> requests. It is used to verify that the service is operational.</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /ping
+</span></code></pre></div>
+</div>
+</section>
+<section id="id102">
+<h3>Request Example<a class="headerlink" href="#id102" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id102'">¶</a></h3>
+<p>Here is an example of a request to the ping endpoint:</p>
+<div class="highlight-none notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">GET /ping
+</span></code></pre></div>
+</div>
+</section>
+<section id="id103">
+<h3>Success Response<a class="headerlink" href="#id103" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id103'">¶</a></h3>
+<p>The endpoint responds with a simple message to indicate that the service is operational:</p>
+<div class="highlight-json notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="p">{</span><span class="nt">"msg"</span><span class="p">:</span><span class="w"> </span><span class="s2">"pong"</span><span class="p">}</span>
+</span></code></pre></div>
+</div>
+<p>Status Code: 200 OK</p>
+</section>
+<section id="id104">
+<h3>Conclusion<a class="headerlink" href="#id104" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#id104'">¶</a></h3>
+<p>The ping utility is a simple endpoint used to check the health and responsiveness of the service. A successful response indicates that the service is functioning correctly.</p>
+</section>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#creating-a-new-user'" class="reference internal" href="#creating-a-new-user">Creating a New User</a><ul>
+<li><a :data-current="activeSection === '#endpoint-overview'" class="reference internal" href="#endpoint-overview">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#payload-requirements'" class="reference internal" href="#payload-requirements">Payload Requirements</a></li>
+<li><a :data-current="activeSection === '#request-example'" class="reference internal" href="#request-example">Request Example</a></li>
+<li><a :data-current="activeSection === '#error-handling'" class="reference internal" href="#error-handling">Error Handling</a></li>
+<li><a :data-current="activeSection === '#success-response'" class="reference internal" href="#success-response">Success Response</a></li>
+<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#user-login'" class="reference internal" href="#user-login">User Login</a><ul>
+<li><a :data-current="activeSection === '#id1'" class="reference internal" href="#id1">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id2'" class="reference internal" href="#id2">Payload Requirements</a></li>
+<li><a :data-current="activeSection === '#id3'" class="reference internal" href="#id3">Request Example</a></li>
+<li><a :data-current="activeSection === '#id4'" class="reference internal" href="#id4">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id5'" class="reference internal" href="#id5">Success Response</a></li>
+<li><a :data-current="activeSection === '#id6'" class="reference internal" href="#id6">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#updating-user-settings'" class="reference internal" href="#updating-user-settings">Updating User Settings</a><ul>
+<li><a :data-current="activeSection === '#id7'" class="reference internal" href="#id7">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id8'" class="reference internal" href="#id8">Payload Requirements</a></li>
+<li><a :data-current="activeSection === '#id9'" class="reference internal" href="#id9">Request Example</a></li>
+<li><a :data-current="activeSection === '#id10'" class="reference internal" href="#id10">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id11'" class="reference internal" href="#id11">Success Response</a></li>
+<li><a :data-current="activeSection === '#id12'" class="reference internal" href="#id12">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#retrieving-user-settings'" class="reference internal" href="#retrieving-user-settings">Retrieving User Settings</a><ul>
+<li><a :data-current="activeSection === '#id13'" class="reference internal" href="#id13">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id14'" class="reference internal" href="#id14">Request Example</a></li>
+<li><a :data-current="activeSection === '#id15'" class="reference internal" href="#id15">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id16'" class="reference internal" href="#id16">Success Response</a></li>
+<li><a :data-current="activeSection === '#id17'" class="reference internal" href="#id17">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#chat-authorization'" class="reference internal" href="#chat-authorization">Chat Authorization</a><ul>
+<li><a :data-current="activeSection === '#id18'" class="reference internal" href="#id18">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#query-parameters'" class="reference internal" href="#query-parameters">Query Parameters</a></li>
+<li><a :data-current="activeSection === '#id19'" class="reference internal" href="#id19">Request Example</a></li>
+<li><a :data-current="activeSection === '#id20'" class="reference internal" href="#id20">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id21'" class="reference internal" href="#id21">Success Response</a></li>
+<li><a :data-current="activeSection === '#id22'" class="reference internal" href="#id22">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#authorizing-a-chat-message'" class="reference internal" href="#authorizing-a-chat-message">Authorizing a Chat Message</a><ul>
+<li><a :data-current="activeSection === '#id23'" class="reference internal" href="#id23">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id24'" class="reference internal" href="#id24">Query Parameters</a></li>
+<li><a :data-current="activeSection === '#id25'" class="reference internal" href="#id25">Request Example</a></li>
+<li><a :data-current="activeSection === '#id26'" class="reference internal" href="#id26">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id27'" class="reference internal" href="#id27">Success Response</a></li>
+<li><a :data-current="activeSection === '#id28'" class="reference internal" href="#id28">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#creating-a-chat'" class="reference internal" href="#creating-a-chat">Creating a Chat</a><ul>
+<li><a :data-current="activeSection === '#id29'" class="reference internal" href="#id29">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id30'" class="reference internal" href="#id30">Query Parameters</a></li>
+<li><a :data-current="activeSection === '#id31'" class="reference internal" href="#id31">Request Example</a></li>
+<li><a :data-current="activeSection === '#id32'" class="reference internal" href="#id32">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id33'" class="reference internal" href="#id33">Success Response</a></li>
+<li><a :data-current="activeSection === '#id34'" class="reference internal" href="#id34">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#retrieving-a-chat'" class="reference internal" href="#retrieving-a-chat">Retrieving a Chat</a><ul>
+<li><a :data-current="activeSection === '#id35'" class="reference internal" href="#id35">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id36'" class="reference internal" href="#id36">Query Parameters</a></li>
+<li><a :data-current="activeSection === '#id37'" class="reference internal" href="#id37">Request Example</a></li>
+<li><a :data-current="activeSection === '#id38'" class="reference internal" href="#id38">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id39'" class="reference internal" href="#id39">Success Response</a></li>
+<li><a :data-current="activeSection === '#id40'" class="reference internal" href="#id40">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#deleting-a-chat'" class="reference internal" href="#deleting-a-chat">Deleting a Chat</a><ul>
+<li><a :data-current="activeSection === '#id41'" class="reference internal" href="#id41">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id42'" class="reference internal" href="#id42">Query Parameters</a></li>
+<li><a :data-current="activeSection === '#id43'" class="reference internal" href="#id43">Request Example</a></li>
+<li><a :data-current="activeSection === '#id44'" class="reference internal" href="#id44">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id45'" class="reference internal" href="#id45">Success Response</a></li>
+<li><a :data-current="activeSection === '#id46'" class="reference internal" href="#id46">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#creating-a-workspace'" class="reference internal" href="#creating-a-workspace">Creating a Workspace</a><ul>
+<li><a :data-current="activeSection === '#id47'" class="reference internal" href="#id47">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id48'" class="reference internal" href="#id48">Payload Requirements</a></li>
+<li><a :data-current="activeSection === '#id49'" class="reference internal" href="#id49">Request Example</a></li>
+<li><a :data-current="activeSection === '#id50'" class="reference internal" href="#id50">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id51'" class="reference internal" href="#id51">Success Response</a></li>
+<li><a :data-current="activeSection === '#id52'" class="reference internal" href="#id52">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#retrieving-user-workspaces'" class="reference internal" href="#retrieving-user-workspaces">Retrieving User Workspaces</a><ul>
+<li><a :data-current="activeSection === '#id53'" class="reference internal" href="#id53">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id54'" class="reference internal" href="#id54">Request Example</a></li>
+<li><a :data-current="activeSection === '#id55'" class="reference internal" href="#id55">Success Response</a></li>
+<li><a :data-current="activeSection === '#id56'" class="reference internal" href="#id56">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#retrieving-a-specific-workspace'" class="reference internal" href="#retrieving-a-specific-workspace">Retrieving a Specific Workspace</a><ul>
+<li><a :data-current="activeSection === '#id57'" class="reference internal" href="#id57">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#path-parameters'" class="reference internal" href="#path-parameters">Path Parameters</a></li>
+<li><a :data-current="activeSection === '#id58'" class="reference internal" href="#id58">Request Example</a></li>
+<li><a :data-current="activeSection === '#id59'" class="reference internal" href="#id59">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id60'" class="reference internal" href="#id60">Success Response</a></li>
+<li><a :data-current="activeSection === '#id61'" class="reference internal" href="#id61">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#deleting-a-workspace'" class="reference internal" href="#deleting-a-workspace">Deleting a Workspace</a><ul>
+<li><a :data-current="activeSection === '#id62'" class="reference internal" href="#id62">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id63'" class="reference internal" href="#id63">Path Parameters</a></li>
+<li><a :data-current="activeSection === '#id64'" class="reference internal" href="#id64">Request Example</a></li>
+<li><a :data-current="activeSection === '#id65'" class="reference internal" href="#id65">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id66'" class="reference internal" href="#id66">Success Response</a></li>
+<li><a :data-current="activeSection === '#id67'" class="reference internal" href="#id67">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#retrieving-workspace-chats'" class="reference internal" href="#retrieving-workspace-chats">Retrieving Workspace Chats</a><ul>
+<li><a :data-current="activeSection === '#id68'" class="reference internal" href="#id68">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id69'" class="reference internal" href="#id69">Path Parameters</a></li>
+<li><a :data-current="activeSection === '#id70'" class="reference internal" href="#id70">Request Example</a></li>
+<li><a :data-current="activeSection === '#id71'" class="reference internal" href="#id71">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id72'" class="reference internal" href="#id72">Success Response</a></li>
+<li><a :data-current="activeSection === '#id73'" class="reference internal" href="#id73">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#adding-an-agent-to-workspace'" class="reference internal" href="#adding-an-agent-to-workspace">Adding an Agent to Workspace</a><ul>
+<li><a :data-current="activeSection === '#id74'" class="reference internal" href="#id74">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id75'" class="reference internal" href="#id75">Path Parameters</a></li>
+<li><a :data-current="activeSection === '#id76'" class="reference internal" href="#id76">Payload Requirements</a></li>
+<li><a :data-current="activeSection === '#id77'" class="reference internal" href="#id77">Request Example</a></li>
+<li><a :data-current="activeSection === '#id78'" class="reference internal" href="#id78">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id79'" class="reference internal" href="#id79">Success Response</a></li>
+<li><a :data-current="activeSection === '#id80'" class="reference internal" href="#id80">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#removing-an-agent-from-workspace'" class="reference internal" href="#removing-an-agent-from-workspace">Removing an Agent from Workspace</a><ul>
+<li><a :data-current="activeSection === '#id81'" class="reference internal" href="#id81">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id82'" class="reference internal" href="#id82">Path Parameters</a></li>
+<li><a :data-current="activeSection === '#id83'" class="reference internal" href="#id83">Payload Requirements</a></li>
+<li><a :data-current="activeSection === '#id84'" class="reference internal" href="#id84">Request Example</a></li>
+<li><a :data-current="activeSection === '#id85'" class="reference internal" href="#id85">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id86'" class="reference internal" href="#id86">Success Response</a></li>
+<li><a :data-current="activeSection === '#id87'" class="reference internal" href="#id87">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#renaming-a-workspace'" class="reference internal" href="#renaming-a-workspace">Renaming a Workspace</a><ul>
+<li><a :data-current="activeSection === '#id88'" class="reference internal" href="#id88">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id89'" class="reference internal" href="#id89">Path Parameters</a></li>
+<li><a :data-current="activeSection === '#id90'" class="reference internal" href="#id90">Payload Requirements</a></li>
+<li><a :data-current="activeSection === '#id91'" class="reference internal" href="#id91">Request Example</a></li>
+<li><a :data-current="activeSection === '#id92'" class="reference internal" href="#id92">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id93'" class="reference internal" href="#id93">Success Response</a></li>
+<li><a :data-current="activeSection === '#id94'" class="reference internal" href="#id94">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#agent-package-download'" class="reference internal" href="#agent-package-download">Agent Package Download</a><ul>
+<li><a :data-current="activeSection === '#id95'" class="reference internal" href="#id95">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id96'" class="reference internal" href="#id96">Query Parameters</a></li>
+<li><a :data-current="activeSection === '#id97'" class="reference internal" href="#id97">Request Example</a></li>
+<li><a :data-current="activeSection === '#id98'" class="reference internal" href="#id98">Error Handling</a></li>
+<li><a :data-current="activeSection === '#id99'" class="reference internal" href="#id99">Success Response</a></li>
+<li><a :data-current="activeSection === '#id100'" class="reference internal" href="#id100">Conclusion</a></li>
+</ul>
+</li>
+<li><a :data-current="activeSection === '#ping-utility'" class="reference internal" href="#ping-utility">Ping Utility</a><ul>
+<li><a :data-current="activeSection === '#id101'" class="reference internal" href="#id101">Endpoint Overview</a></li>
+<li><a :data-current="activeSection === '#id102'" class="reference internal" href="#id102">Request Example</a></li>
+<li><a :data-current="activeSection === '#id103'" class="reference internal" href="#id103">Success Response</a></li>
+<li><a :data-current="activeSection === '#id104'" class="reference internal" href="#id104">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
