@@ -55,11 +55,10 @@ class Shell:
         # Check if the user is logged in
         self.authenticated = self.client.is_logged_in()
 
-        # Show message of the day (welcome message)
-        self.motd()
-
         # If not, ask the user to login or register
         if not self.authenticated:
+            # Show message of the day (welcome message)
+            self.motd()
             try:
                 while not self.authenticated:
                     print_info("Please login or register to continue.")
@@ -130,7 +129,20 @@ class Shell:
             try:
                 self.client.register(username, password)
             except Exception as e:
-                pass
+                return None
+
+            try:
+                self.client.login(username, password)
+            except Exception as e:
+                return None
+
+            try:
+                workspace_id = self.client.create_workspace()
+            except Exception as e:
+                return None
+
+            if workspace_id:
+                self.client.connect_to_workspace(workspace_id)
             return
         elif args[0] == 'workspace' or args[0] == 'ws':
             # If the user only typed '/workspace', show the current workspace status

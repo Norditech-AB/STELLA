@@ -172,11 +172,7 @@ class StellaClient:
             if response.status_code != 200:
                 print_error("Registration failed, please try again.")
                 return None
-            print_success("Registration successful. Logging in.")
-            try:
-                self.login(username, password)
-            except Exception as e:
-                return None
+            print_success("Registration successful.")
 
         except Exception as e:
             print_error(f"Registration failed. ({e})")
@@ -257,7 +253,7 @@ class StellaClient:
         elif response.status_code != 200:
             print_error("Failed to add agent. ({}).".format(response.status_code))
         else:
-            print_success(f"Agent ({agent_id}) removed from current workspace successfully.")
+            print_success(f"Agent ({agent_id}) added to current workspace successfully.")
 
     def remove_agent(self, agent_id):
         response = requests.delete(self.compose_url(f"workspace/{self.session.workspace_id}/agent"), headers=self.auth_headers(),
