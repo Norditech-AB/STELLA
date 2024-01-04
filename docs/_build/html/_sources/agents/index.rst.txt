@@ -8,4 +8,5 @@ Agents
    Adding_Agents_to_Workspaces.rst
    Connecting_Agents.rst
    How_Agents_Communicate_&_Memories.rst
+   The_Agent_Class.rst
    Best_Practices.rst
