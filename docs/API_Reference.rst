@@ -1,5 +1,1357 @@
 API Reference
 =============
 
+Creating a New User
+-------------------
+This document explains how to create a new user in our framework using the user registration endpoint.
 
-Hello, this is how you work with the CLI
+Endpoint Overview
+^^^^^^^^^^^^^^^^^
+The user registration endpoint is accessible at `/register` and expects a `POST` request with JSON data containing the user's email and password.
+
+.. code-block:: none
+
+    POST /register
+
+Payload Requirements
+^^^^^^^^^^^^^^^^^^^^
+The request payload must be in JSON format and include the following fields:
+- ``email``: The email address of the new user.
+- ``password``: The password for the new user's account.
+
+Request Example
+^^^^^^^^^^^^^^^
+Here is an example of a JSON payload for creating a new user:
+
+.. code-block:: json
+
+    {
+        "email": "user@example.com",
+        "password": "securepassword123"
+    }
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint performs several checks and may return error responses in the following scenarios:
+
+1. **Missing JSON in Request:**
+   If the request does not contain JSON data, the response will be:
+
+   .. code-block:: json
+
+       {"msg": "Missing JSON in request"}
+
+   Status Code: 400 Bad Request
+2. **Missing Email or Password:**
+   If the `email` or `password` field is missing from the JSON data:
+
+   .. code-block:: json
+
+       {"msg": "Missing email/password parameter"}
+
+   Status Code: 400 Bad Request
+3. **User Already Exists:**
+   If a user with the provided email already exists:
+
+   .. code-block:: json
+
+       {"msg": "User already exists"}
+
+   Status Code: 400 Bad Request
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful creation of a new user, the endpoint will return:
+
+.. code-block:: json
+
+    {
+        "msg": "User created successfully",
+        "email": "user@example.com"
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Creating a new user is a straightforward process that involves sending a POST request with the necessary credentials. Ensure that the email and password fields are provided in the JSON payload, and handle any error responses appropriately.
+
+
+User Login
+----------
+This section explains the process of user login in our system using the login endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The login endpoint is located at `/auth/login` and handles `POST` requests. It requires JSON data in the request body, including the user's email and password.
+
+.. code-block:: none
+
+    POST /auth/login
+
+Payload Requirements
+^^^^^^^^^^^^^^^^^^^^
+The request payload must be in JSON format and contain the following fields:
+
+- ``email``: The email address of the user attempting to log in.
+- ``password``: The password of the user.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a JSON payload for logging in a user:
+
+.. code-block:: json
+
+    {
+        "email": "user@example.com",
+        "password": "userpassword"
+    }
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint performs various checks and may return error responses in the following cases:
+
+1. **Missing JSON in Request:**
+   If the request body does not contain JSON data, the response will be:
+   
+   .. code-block:: json
+
+       {"msg": "Missing JSON in request"}
+   
+   Status Code: 400 Bad Request
+
+2. **Missing Email or Password:**
+   If either the `email` or `password` field is missing in the JSON data:
+   
+   .. code-block:: json
+
+       {"msg": "Missing email/password parameter"}
+   
+   Status Code: 400 Bad Request
+
+3. **User Not Found:**
+   If no user is found with the provided email:
+   
+   .. code-block:: json
+
+       {"msg": "User not found"}
+   
+   Status Code: 404 Not Found
+
+4. **Incorrect Password:**
+   If the password provided is incorrect:
+   
+   .. code-block:: json
+
+       {"msg": "Incorrect password."}
+   
+   Status Code: 401 Unauthorized
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful login, the endpoint will return an access token:
+
+.. code-block:: json
+
+    {
+        "access_token": "<JWT_TOKEN>"
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Logging in a user requires a `POST` request with the user's credentials in JSON format. Proper error handling is crucial for identifying common issues such as missing data, incorrect credentials, or user not found.
+
+
+
+Updating User Settings
+----------------------
+This section describes how to update user settings using the update user endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The update user endpoint is located at `/user` and handles `PUT` requests. It requires a JWT token for authentication and JSON data containing the settings to be updated.
+
+.. code-block:: none
+
+    PUT /user
+
+Payload Requirements
+^^^^^^^^^^^^^^^^^^^^
+The request payload should be a JSON object with the following fields:
+
+- ``email``: The new email address of the user. (Optional)
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a JSON payload to update a user's email:
+
+.. code-block:: json
+
+    {
+        "email": "newemail@example.com"
+    }
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in the following scenarios:
+
+1. **User Not Found:**
+   If no user is found with the authenticated user ID:
+   
+   .. code-block:: json
+
+       {"msg": "User not found"}
+   
+   Status Code: 404 Not Found
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful update of user settings, the endpoint will return:
+
+.. code-block:: json
+
+    {"msg": "User updated"}
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Updating user settings requires a `PUT` request with the necessary data in JSON format. The user must be authenticated, and the provided information will be used to update the user's settings in the system.
+
+
+Retrieving User Settings
+------------------------
+This section explains how to retrieve the settings of a user using the get user endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The get user endpoint is accessible at `/user` and processes `GET` requests. It requires a JWT token for authentication.
+
+.. code-block:: none
+
+    GET /user
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Below is an example of a request to retrieve the settings of the authenticated user:
+
+.. code-block:: none
+
+    GET /user
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **User Not Found:**
+   If no user is found with the authenticated user ID:
+   
+   .. code-block:: json
+
+       {"msg": "User not found"}
+   
+   Status Code: 404 Not Found
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful retrieval, the endpoint will return the settings of the user:
+
+.. code-block:: json
+
+    {
+        "user": {
+            "user_id": "user_id",
+            "email": "email@example.com",
+        }
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Retrieving user settings involves sending a `GET` request. The user must be authenticated to access their own settings. The successful response includes the user's settings in JSON format.
+
+
+
+Chat Authorization
+------------------
+This section describes the process for authorizing a chat session using the chat authorization endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The chat authorization endpoint is located at `/chat/authorize` and handles `GET` requests. It requires a JWT token for authentication and a `chat_id` query parameter.
+
+.. code-block:: none
+
+    GET /chat/authorize
+
+Query Parameters
+^^^^^^^^^^^^^^^^^^^^
+The endpoint expects the following query parameter:
+
+- ``chat_id``: The unique identifier of the chat session to be authorized.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a request to authorize a chat session:
+
+.. code-block:: none
+
+    GET /chat/authorize?chat_id=12345
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in various scenarios:
+
+1. **Chat Not Found:**
+   If no chat is found with the specified `chat_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Chat not found"}
+   
+   Status Code: 404 Not Found
+
+2. **Unauthorized User:**
+   If the user is not the owner of the chat:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the chat"}
+   
+   Status Code: 401 Unauthorized
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful authorization, the endpoint will return a connection string for the chat session:
+
+.. code-block:: json
+
+    {
+        "connection_string": "generated_string",
+        "created_at": "timestamp",
+        "expires_at": "timestamp",
+        "created_by": "user_id"
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Authorizing a chat session involves sending a `GET` request with a valid `chat_id` query parameter. The user must be authenticated and authorized to access the specific chat session. The successful response includes a connection string with an expiration time.
+
+
+Authorizing a Chat Message
+--------------------------
+This section describes how to obtain authorization for sending a message in a chat using the authorize chat message endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The authorize chat message endpoint is located at `/chat/authorize/message` and handles `GET` requests. It requires a JWT token for authentication and a `chat_id` query parameter.
+
+.. code-block:: none
+
+    GET /chat/authorize/message
+
+Query Parameters
+^^^^^^^^^^^^^^^^^^^^
+The endpoint expects the following query parameter:
+
+- ``chat_id``: The unique identifier of the chat session for which the message authorization is requested.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a request to authorize a message in a chat:
+
+.. code-block:: none
+
+    GET /chat/authorize/message?chat_id=12345
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **Chat Not Found:**
+   If no chat is found with the specified `chat_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Chat not found"}
+   
+   Status Code: 404 Not Found
+
+2. **Unauthorized User:**
+   If the user is not the owner of the chat:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the chat"}
+   
+   Status Code: 401 Unauthorized
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful authorization, the endpoint will return a secret string for message authorization:
+
+.. code-block:: json
+
+    {
+        "message_string": "generated_string",
+        "created_at": "timestamp",
+        "expires_at": "timestamp",
+        "created_by": "user_id"
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Authorizing a message in a chat involves sending a `GET` request with the `chat_id` query parameter. The user must be authenticated and authorized as the owner of the chat. The successful response includes a secret string with an expiration time, which must be passed when sending messages through SocketIO.
+"""
+
+
+
+Creating a Chat
+---------------
+This section outlines the process for creating a new chat in a workspace using the create chat endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The create chat endpoint is found at `/chat` and accepts `POST` requests. It requires a JWT token for authentication and a `workspace_id` query parameter.
+
+.. code-block:: none
+
+    POST /chat
+
+Query Parameters
+^^^^^^^^^^^^^^^^^^^^
+The endpoint requires the following query parameter:
+
+- ``workspace_id``: The unique identifier of the workspace in which the chat will be created.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Below is an example of a request to create a chat in a specific workspace:
+
+.. code-block:: none
+
+    POST /chat?workspace_id=12345
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in several scenarios:
+
+1. **Missing Workspace ID:**
+   If the `workspace_id` parameter is missing:
+   
+   .. code-block:: json
+
+       {"msg": "Missing workspace id"}
+   
+   Status Code: 400 Bad Request
+
+2. **Workspace Not Found:**
+   If no workspace is found with the provided ID:
+   
+   .. code-block:: json
+
+       {"msg": "Workspace not found"}
+   
+   Status Code: 404 Not Found
+
+3. **Unauthorized User:**
+   If the user is not the owner of the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the workspace"}
+   
+   Status Code: 401 Unauthorized
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful creation of a chat, the endpoint will return details of the created chat and its associated workspace:
+
+.. code-block:: json
+
+    {
+        "msg": "Chat created successfully",
+        "chat": {
+            "chat_id": "generated_chat_id",
+            "workspace_id": "workspace_id",
+            "created_by": "user_id",
+        },
+        "workspace": {
+            "workspace_id": "workspace_id",
+            "owner": "user_id",
+        }
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Creating a chat requires a `POST` request with the necessary `workspace_id` query parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response includes detailed information about the newly created chat and its workspace.
+
+
+
+Retrieving a Chat
+-----------------
+This section explains how to retrieve details of a specific chat using the get chat endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The get chat endpoint is located at `/chat` and accepts `GET` requests. It requires a JWT token for authentication and a `chat_id` query parameter.
+
+.. code-block:: none
+
+    GET /chat
+
+Query Parameters
+^^^^^^^^^^^^^^^^^^^^
+The endpoint expects the following query parameter:
+
+- ``chat_id``: The unique identifier of the chat session to be retrieved.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a request to retrieve a specific chat:
+
+.. code-block:: none
+
+    GET /chat?chat_id=12345
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in various scenarios:
+
+1. **Chat Not Found:**
+   If no chat is found with the specified `chat_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Chat not found"}
+   
+   Status Code: 404 Not Found
+
+2. **Unauthorized User:**
+   If the user is not the owner of the chat:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the chat"}
+   
+   Status Code: 401 Unauthorized
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful retrieval, the endpoint will return the details of the requested chat:
+
+.. code-block:: json
+
+    {
+        "chat_id": "chat_id",
+        "owner": "user_id",
+        "workspace_id": "workspace_id",
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Retrieving a chat involves sending a `GET` request with a valid `chat_id` query parameter. The user must be authenticated and authorized to access the specific chat session. The successful response includes detailed information about the chat.
+
+
+
+Deleting a Chat
+---------------
+This section outlines the procedure for deleting a chat using the delete chat endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The delete chat endpoint is accessible at `/chat` and processes `DELETE` requests. It requires a JWT token for authentication and a `chat_id` query parameter.
+
+.. code-block:: none
+
+    DELETE /chat
+
+Query Parameters
+^^^^^^^^^^^^^^^^^^^^
+The endpoint expects the following query parameter:
+
+- ``chat_id``: The unique identifier of the chat session to be deleted.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Below is an example of a request to delete a specific chat:
+
+.. code-block:: none
+
+    DELETE /chat?chat_id=12345
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **Chat Not Found:**
+   If no chat is found with the provided `chat_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Chat not found"}
+   
+   Status Code: 404 Not Found
+
+2. **Unauthorized User:**
+   If the user attempting the deletion is not the owner of the chat:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the chat"}
+   
+   Status Code: 401 Unauthorized
+
+3. **Deletion Error:**
+   If there is an issue while deleting the chat:
+   
+   .. code-block:: json
+
+       {"msg": "Internal server error or specific error message"}
+   
+   Status Code: 500 Internal Server Error
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful deletion of the chat, the endpoint will return:
+
+.. code-block:: json
+
+    {"msg": "Chat deleted successfully"}
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Deleting a chat involves sending a `DELETE` request with the necessary `chat_id` query parameter. The user must be authenticated and authorized as the owner of the chat. The successful response confirms the deletion of the chat.
+
+
+
+Creating a Workspace
+--------------------
+This section outlines the process for creating a new workspace using the create workspace endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The create workspace endpoint is found at `/workspace` and accepts `POST` requests. It requires a JWT token for authentication and, optionally, JSON data containing the desired workspace name.
+
+.. code-block:: none
+
+    POST /workspace
+
+Payload Requirements
+^^^^^^^^^^^^^^^^^^^^
+The request payload should be a JSON object with the following field:
+
+- ``name``: The name of the workspace. If not provided, "Untitled Workspace" is used as the default name.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Below is an example of a JSON payload to create a workspace with a specified name:
+
+.. code-block:: json
+
+    {
+        "name": "My New Workspace"
+    }
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+Currently, this endpoint does not specify error responses for missing or invalid data. It defaults to creating a workspace with a generic name if none is provided.
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful creation of a workspace, the endpoint will return the details of the newly created workspace:
+
+.. code-block:: json
+
+    {
+        "msg": "Workspace created",
+        "workspace": {
+            "workspace_id": "generated_workspace_id",
+            "name": "My New Workspace",
+            "owner": "user_id",
+            
+        }
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Creating a workspace involves sending a `POST` request with an optional `name` field in the JSON payload. The user must be authenticated to create a workspace. The successful response includes information about the newly created workspace.
+
+
+
+Retrieving User Workspaces
+--------------------------
+This section describes how to retrieve all workspaces associated with a user using the get workspaces endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The get workspaces endpoint is located at `/workspace` and processes `GET` requests. It requires a JWT token for authentication.
+
+.. code-block:: none
+
+    GET /workspace
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Below is an example of a request to retrieve all workspaces for the authenticated user:
+
+.. code-block:: none
+
+    GET /workspace
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful retrieval, the endpoint will return a list of workspaces associated with the user:
+
+.. code-block:: json
+
+    {
+        "workspaces": [
+            {
+                "workspace_id": "workspace_id",
+                "name": "Workspace Name",
+                "owner": "user_id",
+                
+            },
+            
+        ]
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Retrieving user workspaces involves sending a `GET` request. The user must be authenticated to access their associated workspaces. The successful response includes a list of workspaces in JSON format.
+
+
+
+Retrieving a Specific Workspace
+-------------------------------
+This section covers the procedure for retrieving details of a specific workspace using the get workspace endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The get workspace endpoint is located at `/workspace/<workspace_id>` and handles `GET` requests. It requires a JWT token for authentication and the workspace ID as a path parameter.
+
+.. code-block:: none
+
+    GET /workspace/<workspace_id>
+
+Path Parameters
+^^^^^^^^^^^^^^^^^^^^
+- ``workspace_id``: The unique identifier of the workspace to be retrieved.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a request to retrieve a specific workspace:
+
+.. code-block:: none
+
+    GET /workspace/12345
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in the following scenarios:
+
+1. **Workspace Not Found:**
+   If no workspace is found with the given `workspace_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Workspace not found"}
+   
+   Status Code: 404 Not Found
+
+2. **Unauthorized Access:**
+   If the user does not have access to the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "User does not have access to the workspace"}
+   
+   Status Code: 403 Forbidden
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful retrieval, the endpoint will return the details of the workspace:
+
+.. code-block:: json
+
+    {
+        "workspace": {
+            "workspace_id": "workspace_id",
+            "name": "Workspace Name",
+            "owner": "user_id",
+            
+        }
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Retrieving a specific workspace requires a `GET` request with the workspace ID as a path parameter. The user must be authenticated and authorized to access the particular workspace. The successful response includes detailed information about the workspace.
+
+
+
+Deleting a Workspace
+--------------------
+This section describes the procedure for deleting a specific workspace using the delete workspace endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The delete workspace endpoint is accessible at `/workspace/<workspace_id>` and processes `DELETE` requests. It requires a JWT token for authentication and the workspace ID as a path parameter.
+
+.. code-block:: none
+
+    DELETE /workspace/<workspace_id>
+
+Path Parameters
+^^^^^^^^^^^^^^^^^^^^
+- ``workspace_id``: The unique identifier of the workspace to be deleted.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a request to delete a specific workspace:
+
+.. code-block:: none
+
+    DELETE /workspace/12345
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **Workspace Not Found:**
+   If no workspace is found with the provided `workspace_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Workspace not found"}
+   
+   Status Code: 404 Not Found
+
+2. **Unauthorized Access:**
+   If the user does not have access to the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "User does not have access to the workspace"}
+   
+   Status Code: 403 Forbidden
+
+3. **Deletion Error:**
+   If there is an issue while deleting the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "Internal server error or specific error message"}
+   
+   Status Code: 500 Internal Server Error
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful deletion of the workspace, the endpoint will return:
+
+.. code-block:: json
+
+    {"msg": "Workspace deleted"}
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Deleting a workspace involves sending a `DELETE` request with the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the deletion of the workspace.
+
+
+
+Retrieving Workspace Chats
+--------------------------
+This section explains how to retrieve all chats associated with a specific workspace using the get workspace chats endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The get workspace chats endpoint is located at `/workspace/<workspace_id>/chats` and handles `GET` requests. It requires a JWT token for authentication and the workspace ID as a path parameter.
+
+.. code-block:: none
+
+    GET /workspace/<workspace_id>/chats
+
+Path Parameters
+^^^^^^^^^^^^^^^^^^^^
+- ``workspace_id``: The unique identifier of the workspace whose chats are to be retrieved.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a request to retrieve all chats for a specific workspace:
+
+.. code-block:: none
+
+    GET /workspace/12345/chats
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **Workspace Not Found:**
+   If no workspace is found with the given `workspace_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Workspace not found"}
+   
+   Status Code: 404 Not Found
+
+2. **Unauthorized Access:**
+   If the user does not have access to the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "User does not have access to the workspace"}
+   
+   Status Code: 403 Forbidden
+
+3. **Retrieval Error:**
+   If there is an issue while retrieving the chats:
+   
+   .. code-block:: json
+
+       {"msg": "Internal server error or specific error message"}
+   
+   Status Code: 500 Internal Server Error
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful retrieval, the endpoint will return a list of all chats associated with the workspace:
+
+.. code-block:: json
+
+    {
+        "chats": [
+            {
+                "chat_id": "chat_id",
+                "workspace_id": "workspace_id",
+                
+            },
+            
+        ]
+    }
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Retrieving workspace chats involves sending a `GET` request with the workspace ID as a path parameter. The user must be authenticated and authorized to access the particular workspace. The successful response includes a list of all chats associated with the workspace.
+
+
+
+Adding an Agent to Workspace
+----------------------------
+This section explains how to add an agent to a specific workspace using the add agent endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The add agent to workspace endpoint is located at `/workspace/<workspace_id>/agent` and processes `POST` requests. It requires a JWT token for authentication, the workspace ID as a path parameter, and JSON data containing the agent ID.
+
+.. code-block:: none
+
+    POST /workspace/<workspace_id>/agent
+
+Path Parameters
+^^^^^^^^^^^^^^^^^^^^
+- ``workspace_id``: The unique identifier of the workspace to which the agent is being added.
+
+Payload Requirements
+^^^^^^^^^^^^^^^^^^^^
+The request payload must be in JSON format and include the following field:
+
+- ``agent_id``: The unique identifier of the agent to be added to the workspace.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a JSON payload to add an agent to a workspace:
+
+.. code-block:: json
+
+    {
+        "agent_id": "12345"
+    }
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **Missing JSON in Request or Missing agent_id:**
+   If the request does not contain JSON data or if `agent_id` is missing:
+   
+   .. code-block:: json
+
+    {
+       "msg": "Missing JSON in request"
+    }
+
+    // or
+
+    {
+        "msg": "Missing agent_id parameter"
+    }
+   
+   Status Code: 400 Bad Request
+
+2. **Workspace Not Found:**
+   If no workspace is found with the provided `workspace_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Workspace not found"}
+   
+   Status Code: 404 Not Found
+
+3. **Unauthorized User:**
+   If the user is not the owner of the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the workspace"}
+   
+   Status Code: 403 Forbidden
+
+4. **Update Failure:**
+   If there is an issue while updating the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "Internal server error or specific error message"}
+   
+   Status Code: 500 Internal Server Error
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful addition of the agent to the workspace, the endpoint will return:
+
+.. code-block:: json
+
+    {"msg": "Agent added to Workspace."}
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Adding an agent to a workspace involves sending a `POST` request with the agent ID in JSON format and the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the addition of the agent to the workspace.
+
+
+
+Removing an Agent from Workspace
+--------------------------------
+This section describes the process of removing an agent from a specific workspace using the remove agent endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The remove agent from workspace endpoint is found at `/workspace/<workspace_id>/agent` and accepts `DELETE` requests. It requires a JWT token for authentication, the workspace ID as a path parameter, and JSON data containing the agent ID.
+
+.. code-block:: none
+
+    DELETE /workspace/<workspace_id>/agent
+
+Path Parameters
+^^^^^^^^^^^^^^^^^^^^
+- ``workspace_id``: The unique identifier of the workspace from which the agent is being removed.
+
+Payload Requirements
+^^^^^^^^^^^^^^^^^^^^
+The request payload must be in JSON format and include the following field:
+
+- ``agent_id``: The unique identifier of the agent to be removed from the workspace.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a JSON payload to remove an agent from a workspace:
+
+.. code-block:: json
+
+    {
+        "agent_id": "12345"
+    }
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **Missing JSON in Request or Missing agent_id:**
+   If the request does not contain JSON data or if `agent_id` is missing:
+   
+   .. code-block:: json
+
+    {
+       "msg": "Missing JSON in request"
+    }
+
+    // or
+
+    {
+        "msg": "Missing agent_id parameter"
+    }
+   
+   Status Code: 400 Bad Request
+
+2. **Workspace Not Found:**
+   If no workspace is found with the provided `workspace_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Workspace not found"}
+   
+   Status Code: 404 Not Found
+
+3. **Unauthorized User:**
+   If the user is not the owner of the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the workspace"}
+   
+   Status Code: 403 Forbidden
+
+4. **Update Failure:**
+   If there is an issue while updating the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "Internal server error or specific error message"}
+   
+   Status Code: 500 Internal Server Error
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful removal of the agent from the workspace, the endpoint will return:
+
+.. code-block:: json
+
+    {"msg": "Agent removed"}
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Removing an agent from a workspace involves sending a `DELETE` request with the agent ID in JSON format and the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the removal of the agent from the workspace.
+
+
+
+Renaming a Workspace
+--------------------
+This section details the process for renaming a workspace using the rename workspace endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The rename workspace endpoint is located at `/workspace/<workspace_id>/rename` and handles `PUT` requests. It requires a JWT token for authentication, the workspace ID as a path parameter, and JSON data containing the new workspace name.
+
+.. code-block:: none
+
+    PUT /workspace/<workspace_id>/rename
+
+Path Parameters
+^^^^^^^^^^^^^^^^^^^^
+- ``workspace_id``: The unique identifier of the workspace to be renamed.
+
+Payload Requirements
+^^^^^^^^^^^^^^^^^^^^
+The request payload must be in JSON format and include the following field:
+
+- ``name``: The new name for the workspace.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a JSON payload to rename a workspace:
+
+.. code-block:: json
+
+    {
+        "name": "New Workspace Name"
+    }
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in specific scenarios:
+
+1. **Missing JSON in Request or Missing Name:**
+   If the request does not contain JSON data or if `name` is missing:
+   
+   .. code-block:: json
+
+    {
+       "msg": "Missing JSON in request"
+    }
+
+    // or
+
+    {
+        "msg": "Missing name parameter"
+    }
+   
+   Status Code: 400 Bad Request
+
+2. **Workspace Not Found:**
+   If no workspace is found with the provided `workspace_id`:
+   
+   .. code-block:: json
+
+       {"msg": "Workspace not found"}
+   
+   Status Code: 404 Not Found
+
+3. **Unauthorized User:**
+   If the user is not the owner of the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "User is not the owner of the workspace"}
+   
+   Status Code: 403 Forbidden
+
+4. **Update Failure:**
+   If there is an issue while updating the workspace:
+   
+   .. code-block:: json
+
+       {"msg": "Internal server error or specific error message"}
+   
+   Status Code: 500 Internal Server Error
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful renaming of the workspace, the endpoint will return:
+
+.. code-block:: json
+
+    {"msg": "Workspace renamed"}
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Renaming a workspace involves sending a `PUT` request with the new name in JSON format and the workspace ID as a path parameter. The user must be authenticated and authorized as the owner of the workspace. The successful response confirms the renaming of the workspace.
+
+
+
+Agent Package Download
+----------------------
+This section details the process for downloading an agent package using the agent download endpoint.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The agent package download endpoint is located at `/agent/download` and is designed to handle `GET` requests. It requires query parameters for specifying the package name and version.
+
+.. code-block:: none
+
+    GET /agent/download
+
+Query Parameters
+^^^^^^^^^^^^^^^^^^^^
+The endpoint expects the following query parameters:
+
+- ``query``: The name of the package to download.
+- ``version``: The specific version of the package to download. If omitted, the latest version is downloaded.
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Below is an example of a request to download a specific version of an agent package:
+
+.. code-block:: none
+
+    GET /agent/download?query=agentName&version=1.2.3
+
+Error Handling
+^^^^^^^^^^^^^^^^^^^^
+The endpoint may return error responses in the following scenarios:
+
+1. **Missing Package Name:**
+   If the `query` parameter is missing:
+   
+   .. code-block:: json
+
+       {"error": "Missing param 'query'"}
+   
+   Status Code: 400 Bad Request
+
+2. **Package Not Found:**
+   If no package is found with the specified name and version:
+   
+   .. code-block:: none
+
+       "Package not found: agentName:1.2.3"
+   
+   Status Code: 404 Not Found
+
+3. **Download Failure:**
+   If there is a failure in downloading the package:
+   
+   .. code-block:: none
+
+       "Failed to download package: agentName:1.2.3, [Error Details]"
+   
+   Status Code: Corresponding HTTP status code
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+Upon successful download of the package, the endpoint will return:
+
+.. code-block:: none
+
+    "Successfully installed agentName:downloaded_version"
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+Downloading an agent package involves sending a `GET` request with the required package name and version as query parameters. Appropriate error handling ensures smooth operation and informs the user of any issues encountered during the download process.
+
+
+
+Ping Utility
+-----------------
+This section describes the use of the ping utility endpoint, which is designed to check the responsiveness of the service.
+
+Endpoint Overview
+^^^^^^^^^^^^^^^^^^^^
+The ping utility endpoint is located at `/ping` and handles `GET` requests. It is used to verify that the service is operational.
+
+.. code-block:: none
+
+    GET /ping
+
+Request Example
+^^^^^^^^^^^^^^^^^^^^
+Here is an example of a request to the ping endpoint:
+
+.. code-block:: none
+
+    GET /ping
+
+Success Response
+^^^^^^^^^^^^^^^^^^^^
+The endpoint responds with a simple message to indicate that the service is operational:
+
+.. code-block:: json
+
+    {"msg": "pong"}
+
+Status Code: 200 OK
+
+Conclusion
+^^^^^^^^^^^^^^^^^^^^
+The ping utility is a simple endpoint used to check the health and responsiveness of the service. A successful response indicates that the service is functioning correctly.
