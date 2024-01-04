@@ -88,7 +88,7 @@
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../workspaces/index.html">Workspaces<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
-<li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../workspaces/Managing_Workspaces.html">Managing Workspaces in the CLI</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../workspaces/Talking_to_Agents.html">Talk to Agents with the CLI</a></li>
 </ul>
 </li>
@@ -103,7 +103,7 @@
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="current reference internal expandable" href="#">Chats<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html">Connecting to a Workspace Chat</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Sending_and_Receiving_Messages.html">Sending and receiving messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sending_and_Receiving_Messages.html">Sending and Receiving Messages in Chat</a></li>
 </ul>
 </li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../guides/index.html">Guides<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
@@ -154,8 +154,21 @@
 <h1>Chats<a class="headerlink" href="#chats" title="Link to this heading">¶</a></h1>
 <div class="toctree-wrapper compound">
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html">Connecting to a Workspace Chat</a></li>
-<li class="toctree-l1"><a class="reference internal" href="Sending_and_Receiving_Messages.html">Sending and receiving messages</a></li>
+<li class="toctree-l1"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html">Connecting to a Workspace Chat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html#creating-a-chat">Creating a Chat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html#connecting-to-a-chat">Connecting to a Chat</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html#underlying-connection-function">Underlying Connection Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html#message-handling-in-chats">Message Handling in Chats</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_to_a_Workspace_Chat.html#next-steps">Next Steps</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="Sending_and_Receiving_Messages.html">Sending and Receiving Messages in Chat</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="Sending_and_Receiving_Messages.html#sending-messages">Sending Messages</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sending_and_Receiving_Messages.html#understanding-socketio-s-emit-function">Understanding SocketIO’s Emit Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Sending_and_Receiving_Messages.html#receiving-messages">Receiving Messages</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </section>

@@ -1,5 +1,5 @@
-Managing Workspaces
-===================
+Managing Workspaces in the CLI
+==============================
 
 This section provides guidance on managing workspaces in our framework via the Command Line Interface (CLI). Workspaces in our framework serve as hubs for collaboration and automation across various applications.
 
