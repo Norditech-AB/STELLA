@@ -253,7 +253,7 @@ class StellaClient:
         elif response.status_code != 200:
             print_error("Failed to add agent. ({}).".format(response.status_code))
         else:
-            print_success(f"Agent ({agent_id}) added from current workspace successfully.")
+            print_success(f"Agent ({agent_id}) removed from current workspace successfully.")
 
     def remove_agent(self, agent_id):
         response = requests.delete(self.compose_url(f"workspace/{self.session.workspace_id}/agent"), headers=self.auth_headers(),

@@ -35,8 +35,8 @@ class Agent:
             agent_id: str,
             name: str,
             short_description: str,
-            model_for_action_selection: str = 'gpt-4',
-            model_for_response: str = 'gpt-4',
+            model_for_action_selection: str = 'gpt-4-1106-preview',  # GPT-4 Turbo
+            model_for_response: str = 'gpt-4-1106-preview',  # GPT-4 Turbo
             wants_chat: bool = True,
             wants_memories: bool = True,
             forward_all_memory_entries_to_parent: bool = False,

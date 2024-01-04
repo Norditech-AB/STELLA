@@ -69,7 +69,7 @@ class RequestBuilder:
 
         result = self.openai_client.chat_completion(
             messages=messages,
-            model="gpt-4",
+            model="gpt-4-1106-preview",  # GPT-4 Turbo
         )
 
         try:

@@ -28,12 +28,31 @@ AVAILABLE_COMMANDS = """Available commands:
 """
 
 
+
 class Shell:
     def __init__(self, client: StellaClient):
         self.client: StellaClient = client
         self.version = "0.0.1"
         self.active = True
+        self.authenticated = False
         self.prompt_session = PromptSession(history=InMemoryHistory())
+
+    def authenticate_loop(self):
+        try:
+            while self.active:
+                if not self.client.waiting_for_response:
+                    message = self.prompt_session.prompt(' > ')
+
+                    # Check if command or message
+                    if message.startswith('/'):
+                        self.execute(message[1:])
+                    else:
+                        self.chat(message)
+                else:
+                    while self.client.waiting_for_response:
+                        time.sleep(0.01)
+        except KeyboardInterrupt:
+            self.shutdown()
 
     def motd(self):
         print("\n\n")
@@ -58,14 +77,13 @@ class Shell:
         self.motd()
 
         # Connect to the latest workspace and chat, if any
-        """
+
         from cli.utils.exceptions import UserNotFoundException
         try:
             self.client.connect_latest()
         except UserNotFoundException as e:
             # No user has been found, or the user is no longer authenticated. Proceed to login/register
             pass
-        """
 
 
         try:
