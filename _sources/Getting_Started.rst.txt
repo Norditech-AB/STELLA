@@ -8,7 +8,7 @@ Prerequisites
 
 Before you begin, ensure you have the following:
 
-- Python 3.9 – 3.10 installed.
+- Python 3.9 – 3.11 installed.
 - Git installed for cloning the repository.
 - Basic familiarity with command-line operations.
 
@@ -35,14 +35,18 @@ Clone the STELLA repository using your preferred method:
 
     gh repo clone Norditech-AB/STELLA
 
-Step 2: Install Dependencies
------------------------------
-
-Before running the server, install any necessary dependencies:
+Step 2: Upgrade pip
+-------------------
+Our framework is so modern that it needs the latest and greatest pip version *(23.3.2)* to keep up! If your pip isn't this hip, it's time for an upgrade party:
 
 .. code-block:: bash
 
-    pip install -r requirements.txt
+    pip install --upgrade pip
+
+Step 3: Install Dependencies
+-----------------------------
+
+It is now time to install the dependencies.
 
 .. tip::
     Create a virtual environment to isolate the dependencies from other projects.
@@ -50,7 +54,7 @@ Before running the server, install any necessary dependencies:
 
     .. code-block:: bash
 
-        python3 -m venv venv
+        python -m venv venv
 
     to create a virtual environment named `venv` in the current directory.
 
@@ -64,7 +68,7 @@ Before running the server, install any necessary dependencies:
 
     .. code-block:: bash
 
-        venv\\Scripts\\activate
+        venv\Scripts\activate
 
     to activate the virtual environment.
 
@@ -72,11 +76,17 @@ Before running the server, install any necessary dependencies:
 
     .. code-block:: bash
 
-        pip install -r requirements.txt
+        pip install -e .
 
     More information on virtual environments can be found in the `Python documentation <https://docs.python.org/3/tutorial/venv.html>`_.
 
-Step 3: Setup the Environment
+Install dependencies by running the following command from the project directory:
+
+.. code-block:: bash
+
+    pip install -e .
+
+Step 4: Setup the Environment
 -----------------------------
 
 Setup the Environment by running the :file:`configure.py` script from the root folder:
@@ -84,7 +94,7 @@ This will walk you through the setup process and create a `.env` file in the roo
 
 .. code-block:: bash
 
-    python configure.py
+    stella configure.py
 
 Step 4: Start the Server
 -------------------------
