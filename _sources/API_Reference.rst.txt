@@ -2,4 +2,165 @@ API Reference
 =============
 
 
-Hello, this is how you work with the CLI
+.. _api-documentation:
+
+API Documentation
+=================
+
+This document provides details about the API endpoints available in our service.
+
+/static/<path:filename>
+------------------------
+
+- **URL**: ``/static/<path:filename>``
+- **Methods**: GET, HEAD, OPTIONS
+- **Description**: Serves static files. 
+- **Parameters**: 
+  - `filename`: Name of the file to retrieve.
+- **Response**: Returns the requested static file.
+
+/register
+---------
+
+- **URL**: ``/register``
+- **Methods**: POST, OPTIONS
+- **Description**: Handles user registration.
+- **Parameters**: 
+  - `username`: User's chosen username.
+  - `password`: User's chosen password.
+- **Response**: Confirmation of registration.
+
+/auth/login
+-----------
+
+- **URL**: ``/auth/login``
+- **Methods**: POST, OPTIONS
+- **Description**: Handles user authentication.
+- **Parameters**: 
+  - `username`: User's username.
+  - `password`: User's password.
+- **Response**: Authentication token upon successful login.
+
+/user
+-----
+
+- **URL**: ``/user``
+- **Methods**: PUT, GET, HEAD, OPTIONS
+- **Description**: Manages user account information. Allows updating (PUT) and retrieving (GET) user information.
+- **Parameters**: 
+  - For PUT: User's updated details.
+  - For GET: None.
+- **Response**: 
+  - For PUT: Confirmation of update.
+  - For GET: User's account details.
+
+/chat/authorize
+---------------
+
+- **URL**: ``/chat/authorize``
+- **Methods**: GET, HEAD, OPTIONS
+- **Description**: Authorizes a user for chat.
+- **Parameters**: None.
+- **Response**: Authorization status.
+
+/chat/authorize/message
+-----------------------
+
+- **URL**: ``/chat/authorize/message``
+- **Methods**: GET, HEAD, OPTIONS
+- **Description**: Authorizes a message in the chat.
+- **Parameters**: None.
+- **Response**: Authorization status for the message.
+
+/chat
+-----
+
+- **URL**: ``/chat``
+- **Methods**: POST, GET, DELETE, HEAD, OPTIONS
+- **Description**: Manages chat messages. Allows posting (POST), retrieving (GET), and deleting (DELETE) messages.
+- **Parameters**: 
+  - For POST: Message content and metadata.
+  - For GET: Query parameters to filter messages.
+  - For DELETE: Message ID to delete.
+- **Response**: 
+  - For POST: Confirmation of message posting.
+  - For GET: Retrieved messages.
+  - For DELETE: Confirmation of message deletion.
+
+/workspace
+----------
+
+- **URL**: ``/workspace``
+- **Methods**: POST, GET, HEAD, OPTIONS
+- **Description**: Manages workspaces. Allows creation (POST) and retrieval (GET) of workspace information.
+- **Parameters**: 
+  - For POST: Workspace details.
+  - For GET: Query parameters to filter workspaces.
+- **Response**: 
+  - For POST: Details of created workspace.
+  - For GET: List of workspaces.
+
+/workspace/<workspace_id>
+-------------------------
+
+- **URL**: ``/workspace/<workspace_id>``
+- **Methods**: GET, DELETE, HEAD, OPTIONS
+- **Description**: Manages a specific workspace. Allows retrieving (GET) and deleting (DELETE) a workspace.
+- **Parameters**: 
+  - `workspace_id`: The ID of the workspace.
+- **Response**: 
+  - For GET: Workspace details.
+  - For DELETE: Confirmation of workspace deletion.
+
+/workspace/<workspace_id>/chats
+-------------------------------
+
+- **URL**: ``/workspace/<workspace_id>/chats``
+- **Methods**: GET, HEAD, OPTIONS
+- **Description**: Retrieves chats associated with a specific workspace.
+- **Parameters**: 
+  - `workspace_id`: The ID of the workspace.
+- **Response**: List of chats in the workspace.
+
+/workspace/<workspace_id>/agent
+-------------------------------
+
+- **URL**: ``/workspace/<workspace_id>/agent``
+- **Methods**: POST, DELETE, OPTIONS
+- **Description**: Manages agents within a workspace. Allows adding (POST) and removing (DELETE) agents.
+- **Parameters**: 
+  - `workspace_id`: The ID of the workspace.
+  - For POST: Agent details.
+  - For DELETE: Agent ID.
+- **Response**: 
+  - For POST: Confirmation of agent addition.
+  - For DELETE: Confirmation of agent removal.
+
+/workspace/<workspace_id>/rename
+--------------------------------
+
+- **URL**: ``/workspace/<workspace_id>/rename``
+- **Methods**: PUT, OPTIONS
+- **Description**: Renames a workspace.
+- **Parameters**: 
+  - `workspace_id`: The ID of the workspace.
+  - `new_name`: New name for the workspace.
+- **Response**: Confirmation of workspace rename.
+
+/agent/download
+---------------
+
+- **URL**: ``/agent/download``
+- **Methods**: GET, HEAD, OPTIONS
+- **Description**: Provides download functionality for agent data.
+- **Parameters**: None.
+- **Response**: Downloadable agent data.
+
+/ping
+-----
+
+- **URL**: ``/ping``
+- **Methods**: GET, HEAD, OPTIONS
+- **Description**: Used to check the service status.
+- **Parameters**: None.
+- **Response**: Service status message.
