@@ -77,9 +77,7 @@ class OpenAIClient:
         try:
             if query.query_type == "chat_completion":
 
-                print(f"Creating a query with details:")
-                print(f"Messages: {query.messages}")
-                print(f"Model: {query.model}")
+                print(f"[OPENAI Query]\nModel: {query.model}\n{query.messages}")
 
                 response = client.chat.completions.create(model=query.model,
                                                           messages=query.messages)

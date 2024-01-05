@@ -57,7 +57,8 @@ class MongoDB(DatabaseInterface, ABC):
             "owner": user_id,
             "name": name,
             "agents": agents,
-            "last_chat_id": None
+            "last_chat_id": None,
+            "coordinator_agent": None
         }).inserted_id)
 
         # Add the workspace to the user
