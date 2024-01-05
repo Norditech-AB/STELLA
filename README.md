@@ -68,17 +68,14 @@ To set up STELLA:
    - SSH: `git clone git@github.com:Norditech-AB/STELLA.git`
    - GitHub CLI: `gh repo clone Norditech-AB/STELLA`
 
-2. **Run `setup.py` to configure STELLA**:
-   Run `python setup.py` from the `root` folder of the repository and follow the instructions.
+2. **Run `stella configure` to configure STELLA**:
+   Run `stella configure` from the `root` folder of the repository and follow the instructions.
 
-3. **Install Dependencies**:
-   `pip install -r requirements.txt`
+3. **Start the Server**:
+   Run `stella serve` from the `root` folder of the repository.
 
-4. **Start the Server**:
-   Run `python stella serve` from the `root` folder of the repository.
-
-5. **Explore and Create**:
-   Open a new terminal window and run `python stella` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+4. **Explore and Create**:
+   Open a new terminal window and run `stella` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 
 For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
 

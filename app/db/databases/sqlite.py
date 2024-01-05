@@ -26,7 +26,7 @@ class SQLite(DatabaseInterface, ABC):
         sql_user = '''
             CREATE TABLE IF NOT EXISTS "user" (
                 "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-                "email" TEXT,
+                "username" TEXT,
                 "password" TEXT,
                 "workspaces" TEXT,
                 "last_workspace_id" INTEGER
@@ -103,13 +103,13 @@ class SQLite(DatabaseInterface, ABC):
     def _deserialize_list(self, data):
         return json.loads(data) if data else []
 
-    def create_user(self, email, password) -> User:
+    def create_user(self, username, password) -> User:
         cursor = self.conn.cursor()
-        cursor.execute("INSERT INTO user (email, password, workspaces, last_workspace_id) VALUES (?, ?, ?, ?)",
-                       (email, password, json.dumps([]), None))
+        cursor.execute("INSERT INTO user (username, password, workspaces, last_workspace_id) VALUES (?, ?, ?, ?)",
+                       (username, password, json.dumps([]), None))
         user_id = cursor.lastrowid
         self.conn.commit()
-        return User(user_id=str(user_id), email=email, password=password, workspaces=[], last_workspace_id=None)
+        return User(user_id=str(user_id), username=username, password=password, workspaces=[], last_workspace_id=None)
 
     def create_workspace(self, user_id, name, agents) -> Workspace:
         cursor = self.conn.cursor()
@@ -167,21 +167,21 @@ class SQLite(DatabaseInterface, ABC):
             raise Exception("User not found")
         return User(
             user_id=str(row['id']),
-            email=row['email'],
+            username=row['username'],
             password=row['password'],
             workspaces=self._deserialize_list(row['workspaces']),
             last_workspace_id=str(row['last_workspace_id']) if row['last_workspace_id'] else None
         )
 
-    def get_user_by_email(self, email) -> User:
+    def get_user_by_username(self, username) -> User:
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM user WHERE email = ?", (email,))
+        cursor.execute("SELECT * FROM user WHERE username = ?", (username,))
         row = cursor.fetchone()
         if row is None:
             raise Exception("User not found")
         return User(
             user_id=str(row['id']),
-            email=row['email'],
+            username=row['username'],
             password=row['password'],
             workspaces=self._deserialize_list(row['workspaces']),
             last_workspace_id=str(row['last_workspace_id']) if row['last_workspace_id'] else None
@@ -363,8 +363,8 @@ class SQLite(DatabaseInterface, ABC):
 
     def update_user(self, user: User) -> User:
         cursor = self.conn.cursor()
-        cursor.execute("UPDATE user SET email = ?, password = ?, workspaces = ?, last_workspace_id = ? WHERE id = ?", (
-            user.email,
+        cursor.execute("UPDATE user SET username = ?, password = ?, workspaces = ?, last_workspace_id = ? WHERE id = ?", (
+            user.username,
             user.password,
             json.dumps(user.workspaces),
             user.last_workspace_id,

@@ -35,8 +35,8 @@ class Agent:
             agent_id: str,
             name: str,
             short_description: str,
-            model_for_action_selection: str = 'gpt-4',
-            model_for_response: str = 'gpt-4',
+            model_for_action_selection: str = 'gpt-4-1106-preview',  # GPT-4 Turbo
+            model_for_response: str = 'gpt-4-1106-preview',  # GPT-4 Turbo
             wants_chat: bool = True,
             wants_memories: bool = True,
             forward_all_memory_entries_to_parent: bool = False,
@@ -129,14 +129,10 @@ class Agent:
         ]
 
         print(f"[AGENT] {self.name} is performing action selection using OpenAI: {messages}")
-        response = openai_client.chat_completion(
+        action_selected = openai_client.chat_completion(
             messages=messages,
             model=self.model_for_action_selection,
         )
-
-        action_selected = response['choices'][0]['message']['content']
-        input_tokens = response['usage']['prompt_tokens']  # TODO: Log token usage per user
-        output_tokens = response['usage']['completion_tokens']  # TODO: Log token usage per user
 
         return action_selected
 
@@ -161,13 +157,9 @@ class Agent:
 
         print(f"[AGENT] {self.name} is responding using OpenAI: {messages}")
 
-        response = openai_client.chat_completion(
+        response_generated = openai_client.chat_completion(
             messages=messages,
             model=self.model_for_response,
         )
-
-        response_generated = response['choices'][0]['message']['content']
-        input_tokens = response['usage']['prompt_tokens']  # TODO: Log token usage per user
-        output_tokens = response['usage']['completion_tokens']  # TODO: Log token usage per user
 
         return response_generated

@@ -103,11 +103,11 @@ class StellaClient:
     def compose_url(self, endpoint):
         return f"{'https://' if self.ssl else 'http://'}{self.host}{':' if self.port else ''}{self.port}/{endpoint}"
 
-    def login(self, email, password):
+    def login(self, username, password):
         try:
             response = requests.post(
                 self.compose_url("auth/login"),
-                json={"email": email, "password": password}
+                json={"username": username, "password": password}
             )
             if response.status_code != 200:
                 print_error("Login failed, please try again. (Wrong username or password)")
@@ -163,19 +163,43 @@ class StellaClient:
         else:
             print_info("Currently not logged in.")
 
-    def register(self, email, password):
+    def register(self, username, password):
         try:
             response = requests.post(
                 self.compose_url("register"),
-                json={"email": email, "password": password}
+                json={"username": username, "password": password}
             )
             if response.status_code != 200:
-                print_error("Registration failed, please try again.")
-                return None
-            print_success("Registration successful. Please login.")
-
+                raise Exception(response.json()['msg'])
+            print_success("Registration successful.")
         except Exception as e:
-            print_error(f"Registration failed. ({e})")
+            raise Exception(f"Registration failed. Please try again. ({e})")
+
+    def change_username(self, username):
+        response = requests.put(
+            self.compose_url("user/username"),
+            headers=self.auth_headers(),
+            json={"username": username}
+        )
+        if response.status_code == 401:
+            print_error(f"You are not authenticated. Please login.")
+        elif response.status_code != 200:
+            print_error(f"Failed to change username. ({response.json()['msg']})")
+        else:
+            print_success("Username changed successfully.")
+
+    def change_password(self, password):
+        response = requests.put(
+            self.compose_url("user/password"),
+            headers=self.auth_headers(),
+            json={"password": password}
+        )
+        if response.status_code == 401:
+            print_error(f"You are not authenticated. Please login.")
+        elif response.status_code != 200:
+            print_error(f"Failed to change password. ({response.json()['msg']})")
+        else:
+            print_success("Password changed successfully.")
 
     def create_workspace(self, name=None):
         if name:
@@ -253,7 +277,7 @@ class StellaClient:
         elif response.status_code != 200:
             print_error("Failed to add agent. ({}).".format(response.status_code))
         else:
-            print_success(f"Agent ({agent_id}) added from current workspace successfully.")
+            print_success(f"Agent ({agent_id}) added to current workspace successfully.")
 
     def remove_agent(self, agent_id):
         response = requests.delete(self.compose_url(f"workspace/{self.session.workspace_id}/agent"), headers=self.auth_headers(),
@@ -379,6 +403,18 @@ class StellaClient:
                     response.status_code, response.text))
         return response.json()["user"]
 
+    def is_logged_in(self):
+        """
+        Attempts to fetch the current user information from the server.
+        If the request fails, the user is not logged in.
+        :return:
+        """
+        try:
+            self.get_user()
+            return True
+        except Exception as e:
+            return False
+
     def connect_latest(self):
         """
         Attempts to connect to the latest chat & workspace, if any.
@@ -390,7 +426,8 @@ class StellaClient:
             try:
                 user = self.get_user()
             except Exception as e:
-                return False
+                from cli.utils.exceptions import UserNotFoundException
+                raise UserNotFoundException("User not found. Please login again.".format(e))
 
             # If the user has a last workspace id, fetch it and connect.
             if user["last_workspace_id"]:

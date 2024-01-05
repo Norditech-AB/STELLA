@@ -19,17 +19,17 @@ def create_user():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
 
-    email = request.json.get('email', None)
+    username = request.json.get('username', None)
     password = request.json.get('password', None)
-    if not email:
-        return jsonify({"msg": "Missing email parameter"}), 400
+    if not username:
+        return jsonify({"msg": "Missing username parameter"}), 400
     if not password:
         return jsonify({"msg": "Missing password parameter"}), 400
 
     # Check if user exists
     user_exists = False
     try:
-        existing_user = db.get_user_by_email(email)
+        existing_user = db.get_user_by_username(username)
         if existing_user:
             user_exists = True
     except Exception as e:  # May throw an exception if the user is not found. Then we still create it.
@@ -39,9 +39,9 @@ def create_user():
         return jsonify({"msg": "User already exists"}), 400
 
     pwd = bcrypt.hashpw(password.encode('utf-8'), BCRYPT_SALT.encode('utf-8'))
-    user = db.create_user(email, pwd)
+    user = db.create_user(username, pwd)
 
-    return jsonify({"msg": "User created successfully", "email": user.email}), 200
+    return jsonify({"msg": "User created successfully", "username": user.username}), 200
 
 
 @auth_views.route('/auth/login', methods=['POST'])
@@ -49,16 +49,16 @@ def login():
     if not request.is_json:
         return jsonify({"msg": "Missing JSON in request"}), 400
 
-    email = request.json.get('email', None)
+    username = request.json.get('username', None)
     password = request.json.get('password', None)
-    if not email:
-        return jsonify({"msg": "Missing email parameter"}), 400
+    if not username:
+        return jsonify({"msg": "Missing username parameter"}), 400
     if not password:
         return jsonify({"msg": "Missing password parameter"}), 400
 
     # Check if user exists
     try:
-        user = db.get_user_by_email(email)
+        user = db.get_user_by_username(username)
     except Exception as e:
         return jsonify({"msg": str(e)}), 404
 

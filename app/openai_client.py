@@ -1,15 +1,14 @@
-import openai
-import openai.error
+from openai import OpenAI
+import os
 
 import threading
 from queue import Queue
 
 import dotenv
-import os
 
 dotenv.load_dotenv()
 
-openai.api_key = os.getenv("OPENAI_API_KEY")
+client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 
 class OpenAIQuery:
@@ -82,17 +81,12 @@ class OpenAIClient:
                 print(f"Messages: {query.messages}")
                 print(f"Model: {query.model}")
 
-                response = openai.ChatCompletion.create(
-                    model=query.model,
-                    messages=query.messages,
-                )
+                response = client.chat.completions.create(model=query.model,
+                                                          messages=query.messages)
                 query.result = response
                 query.done.set()
             else:
                 raise NotImplementedError(f"Query type {query.query_type} not implemented")
-        except openai.error.APIError as e:
-            query.exception = e
-            query.done.set()
         except Exception as e:
             query.exception = e
             query.done.set()
@@ -115,4 +109,4 @@ class OpenAIClient:
             raise query.exception
 
         # Return result
-        return query.result
+        return query.result.choices[0].message.content
