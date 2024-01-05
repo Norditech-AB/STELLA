@@ -50,24 +50,24 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-3. **Install STELLA**: Run `pip install -e` from the `root` folder
+3. **Install STELLA**: Navigate to the root directory and run:
 ```bash
 pip install -e .
 ```
 
-4. **Quickly Configure STELLA** by running `stella configure` and following the instructions.
+4. **Quickly Configure STELLA** by following the instructions after running:
 
 ```bash
 stella configure
 ```
 
-4. **Start the Server** by running `stella serve`
+5. **Start the Server** by running
  
 ```bash
 stella serve
 ```
 
-5. **Explore and Create**: Open a new terminal window and run `stella`
+6. **Explore and Create**: Open a new terminal window and run
 ```bash
 stella
 ```
