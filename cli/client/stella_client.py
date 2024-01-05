@@ -130,6 +130,7 @@ class StellaClient:
         elif response.status_code == 401:
             print_error(f"You are not authenticated. Please login.")
         elif response.status_code != 200:
+            print(response.text)
             print_error("Failed to connect to workspace ({}).".format(response.status_code))
         else:
             self.session.workspace_id = workspace_id
@@ -299,7 +300,7 @@ class StellaClient:
 
     def remove_agent(self, agent_id):
         response = requests.delete(self.compose_url(f"workspace/{self.session.workspace_id}/agent"), headers=self.auth_headers(),
-                                    json={"agent_id": agent_id})
+                                   json={"agent_id": agent_id})
 
         if response.status_code == 401:
             print_error(f"You are not authenticated. Please login.")
@@ -307,6 +308,17 @@ class StellaClient:
             print_error("Failed to remove agent. ({}).".format(response.status_code))
         else:
             print_info(f"Agent ({agent_id}) removed from current workspace successfully.")
+
+    def set_coordinator_agent(self, agent_id):
+        response = requests.put(self.compose_url(f"workspace/{self.session.workspace_id}/coordinator"), headers=self.auth_headers(),
+                                json={"agent_id": agent_id})
+
+        if response.status_code == 401:
+            print_error(f"You are not authenticated. Please login.")
+        elif response.status_code != 200:
+            print_error("Failed to set coordinator agent. ({}).".format(response.status_code))
+        else:
+            print_info(f"Coordinator agent set to {agent_id}.")
 
     def create_chat(self, workspace_id):
         response = requests.post(self.compose_url(f"chat?workspace_id={workspace_id}"), headers=self.auth_headers())
