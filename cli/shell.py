@@ -29,6 +29,8 @@ AVAILABLE_COMMANDS = """Available commands:
     
     /add <agent id>                             add agent to workspace
     /remove <agent id>                          remove agent from workspace
+    /coordinator <agent id>                     set workspace coordinator
+    
     /install <agent id>                         install agent in repository
     
     /exit                                       exit the program
@@ -236,6 +238,13 @@ class Shell:
                 return
             else:
                 self.client.remove_agent(args[1])
+                return
+        elif args[0] == 'coordinator':
+            if len(args) == 1:
+                print_info("Missing argument. Type /help for a list of commands.")
+                return
+            else:
+                self.client.set_coordinator_agent(args[1])
                 return
         elif args[0] == 'install':
             if len(args) == 1:
