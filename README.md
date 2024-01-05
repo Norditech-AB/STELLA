@@ -1,3 +1,12 @@
+<div align="center">
+  <img src="assets/images/STELLA.png" alt="STELLA Banner">
+</div>
+
+<div align="center">
+
+[![License](https://img.shields.io/badge/license-AGPLv3-blue.svg)](LICENSE) — [![Version](https://img.shields.io/badge/version-beta-orange.svg)](https://github.com/Norditech-AB/STELLA/tree/main) — [![Community](https://img.shields.io/badge/community-active-ff69b4.svg)](https://docs.stellaframework.com/Community.html) — [![Documentation](https://img.shields.io/badge/documentation-here-32a875.svg)](https://docs.stellaframework.com/)
+
+</div>
 
 # Welcome to STELLA
 
@@ -8,19 +17,42 @@ STELLA is a multi-agent framework for conversational agents using Large Language
 **🛠️ Status**: Beta - We're crafting the future.
 STELLA is currently in beta. We are working hard to improve the framework and add new features. For questions or feedback, contact us at [contact@stellaframework.com](mailto:contact@stellaframework.com).
 
-
 ## 📚 Quick Guide
-- [🚀 Getting Started](https://docs.stellaframework.com/Getting_Started.html)
+
+Getting started links to the segment below in this readme file
+
+- [🚀 Getting Started](#getting-started)
 - [🔭 Introduction](https://docs.stellaframework.com/Introduction.html)
 - [🤝 Contributing](https://docs.stellaframework.com/contribution_guidelines/index.html)
 - [🌍 Community](https://docs.stellaframework.com/Community.html)
 - [⚖️ Licensing](https://docs.stellaframework.com/Licensing.html)
 
-[![License](https://img.shields.io/badge/license-AGPLv3-blue.svg)](LICENSE)
-[![Version](https://img.shields.io/badge/version-beta-orange.svg)](https://github.com/Norditech-AB/STELLA/tree/main)
-[![Community](https://img.shields.io/badge/community-active-ff69b4.svg)](https://docs.stellaframework.com/Community.html)
-[![Documentation](https://img.shields.io/badge/documentation-here-32a875.svg)](https://docs.stellaframework.com/)
+## Getting Started
 
+To set up STELLA:
+
+1. **Clone the Repository**:
+   - HTTPS: `git clone https://github.com/Norditech-AB/STELLA.git`
+   - SSH: `git clone git@github.com:Norditech-AB/STELLA.git`
+   - GitHub CLI: `gh repo clone Norditech-AB/STELLA`
+
+2. **Create & Activate a Virtual Environment**:
+   - `python -m venv venv`
+   - `source venv/bin/activate`
+
+2. **Install STELLA**:
+   Run `pip install -e .` from the `root` folder to install STELLA CLI and its dependencies.
+
+3. **Quickly Configure STELLA**:
+   Run `stella configure` and follow the instructions.
+
+4. **Start the Server**:
+   Run `stella serve` from the `root` folder of the repository.
+
+5. **Explore and Create**:
+   Open a new terminal window and run `stella` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+
+For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
 
 ### Typical Use Cases:
 
@@ -59,26 +91,6 @@ Join our community for support, discussions, and insights. Connect through our f
 
 Visit the [Community section](https://docs.stellaframework.com/Community) to get involved.
 
-## Getting Started
-
-To set up STELLA:
-
-1. **Clone the Repository**:
-   - HTTPS: `git clone https://github.com/Norditech-AB/STELLA.git`
-   - SSH: `git clone git@github.com:Norditech-AB/STELLA.git`
-   - GitHub CLI: `gh repo clone Norditech-AB/STELLA`
-
-2. **Run `stella configure` to configure STELLA**:
-   Run `stella configure` from the `root` folder of the repository and follow the instructions.
-
-3. **Start the Server**:
-   Run `stella serve` from the `root` folder of the repository.
-
-4. **Explore and Create**:
-   Open a new terminal window and run `stella` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
-
-For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
-
 ## Next Steps
 
 - Learn about agent creation in [Creating a new Agent](https://docs.stellaframework.com/agents/Creating_a_new_Agent).
@@ -87,3 +99,4 @@ For a complete guide, visit [Getting Started](https://docs.stellaframework.com/G
 ---
 
 STELLA is an evolving framework. We welcome contributions and feedback to improve and expand its capabilities.
+
