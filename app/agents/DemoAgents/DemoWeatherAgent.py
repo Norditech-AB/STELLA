@@ -77,12 +77,11 @@ class DemoWeatherAgent(Agent):
 
         print(f"[AGENT] {self.name} is responding using OpenAI: {messages}")
 
-        response = openai_client.chat_completion(
+        city = openai_client.chat_completion(
             messages=messages,
             model=self.model_for_response,
         )
 
-        city = response['choices'][0]['message']['content']
         city.replace(".", "").replace(",", "").replace("!", "").replace("?", "").replace(":", "").replace(";", "").replace("\"", "").replace("'", "").replace("’", "").replace("‘", "").replace("“", "").replace("”", "").replace("(", "").replace(")", "").replace("[", "").replace("]", "").replace("{", "").replace("}", "").replace("-", "").replace("_", "").replace("+", "").replace("=", "").replace("/", "").replace("\\", "").replace("|", "").replace("<", "").replace(">", "").replace("#", "").replace("*", "").replace("~", "").replace("`", "").replace("@", "")
 
         # Step 2: Get the weather
