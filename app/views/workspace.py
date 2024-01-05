@@ -6,6 +6,8 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from app.db import db
 import dotenv
 
+from flask import current_app
+
 dotenv.load_dotenv()
 
 workspace_views = Blueprint('workspace_views', __name__)
@@ -142,6 +144,11 @@ def add_agent(workspace_id):
     agent_id = request.json.get('agent_id', None)
     if agent_id is None:
         return jsonify({"msg": "Missing agent_id parameter"}), 400
+
+    # Check if agent exists
+    agent = current_app.extensions['agent_storage'].load(agent_id)
+    if not agent:
+        return jsonify({"msg": "Agent does not exist"}), 404
 
     user_id = get_jwt_identity()
 
