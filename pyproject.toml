@@ -10,10 +10,16 @@ where = ["."]
 
 [project]
 name = "stella-cli"
-version = "0.1.0"
+version = "0.1.5"
 description = "STELLA is a multi-agent framework for creating and managing AI agents."
 readme = "README.md"
-authors = [{ name = "Philip Alm", email = "philip@norditech.se" },{name = "David Bacelj", email = "david.bacelj@norditech.se" },{name = "Fredric Lundberg", email = "fredric@norditech.se" }]
+authors = [
+    {name = "Philip Alm", email = "philip@norditech.se" },
+    {name = "David Bacelj", email = "david.bacelj@norditech.se" },
+    {name = "Fredric Lundberg", email = "fredric@norditech.se" },
+    {name = "Johan svensson", email = "johan@norditech.se" },
+    {name = "Joona Bruckner", email = "joona@norditech.se" }
+]
 license = {text = "AGPL-3.0 & Enterprise License (contact to get license)"}
 classifiers = [
     "Programming Language :: Python",
@@ -21,7 +27,6 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
-    "Programming Language :: Python :: 3.12",
     "Operating System :: OS Independent"
 ]
 keywords = ["agent", "llm", "stella"]
@@ -37,10 +42,14 @@ dependencies = [
     'openai >= 1.6.1',
     'bcrypt >= 4.0.1',
     'requests >= 2.31.0',
-    'prompt-toolkit >= 3.0.43'
+    'prompt-toolkit >= 3.0.43',
+    
+    #windows only:
+    'websocket-client => 1.7.0',
+    'gevent-websocket => 0.10.1'
 ]
 
-requires-python = ">=3.9,<=3.12.1"
+requires-python = ">=3.7,<=3.11.1"
 
 
 [project.urls]
