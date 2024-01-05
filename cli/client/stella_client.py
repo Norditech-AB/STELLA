@@ -170,12 +170,10 @@ class StellaClient:
                 json={"username": username, "password": password}
             )
             if response.status_code != 200:
-                print_error("Registration failed, please try again.")
-                return None
+                raise Exception(response.json()['msg'])
             print_success("Registration successful.")
-
         except Exception as e:
-            print_error(f"Registration failed. ({e})")
+            raise Exception(f"Registration failed. Please try again. ({e})")
 
     def create_workspace(self, name=None):
         if name:

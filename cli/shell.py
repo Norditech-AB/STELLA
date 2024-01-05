@@ -129,6 +129,7 @@ class Shell:
             try:
                 self.client.register(username, password)
             except Exception as e:
+                print_error(str(e))
                 return None
 
             try:
