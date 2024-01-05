@@ -140,8 +140,13 @@ class StellaClient:
             print_success("Successfully connected to workspace.")
 
     def install_agent(self, package_name, version=None):
-        response = requests.get(self.compose_url(f"agent/download"), headers=self.auth_headers(),
-                                params={"query": package_name, "version": version})
+        # Download and install the agent
+        try:
+            response = requests.get(self.compose_url(f"agent/download"), headers=self.auth_headers(),
+                                    params={"query": package_name, "version": version})
+        except Exception as e:
+            print_error(f"Failed to download package: {package_name}:{version}, {e}")
+            return
 
         if version is None:
             version = "latest"
@@ -154,6 +159,19 @@ class StellaClient:
             print_info(f"Package not found: {package_name}:{version}")
         else:
             print_error(f"Failed to download package: {package_name}:{version}, {response.text}")
+
+        # Reload the server's agent storage
+        print_info(f"Reloading available agents...")
+        try:
+            response = requests.get(self.compose_url(f"agent/reload"), headers=self.auth_headers())
+            if response.status_code == 200:
+                print_success(f"Successfully reloaded agents.")
+            elif response.status_code == 401:
+                print_error(f"You are not authenticated. Please login.")
+            else:
+                print_error(f"Failed to reload agents. ({response.text})")
+        except Exception as e:
+            print_error(f"Failed to reload agents. ({e})")
 
     def logout(self):
         if self.session.access_token:
@@ -275,7 +293,7 @@ class StellaClient:
         if response.status_code == 401:
             print_error(f"You are not authenticated. Please login.")
         elif response.status_code != 200:
-            print_error("Failed to add agent. ({}).".format(response.status_code))
+            print_error(f"Failed to add agent. ({response.json()['msg']})")
         else:
             print_success(f"Agent ({agent_id}) added to current workspace successfully.")
 

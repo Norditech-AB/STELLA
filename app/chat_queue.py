@@ -55,9 +55,12 @@ class Worker(threading.Thread):
 
 
 class ChatQueue:
-    def __init__(self, num_workers, socketio):
+    def __init__(self, num_workers, socketio, agent_storage):
+        self.num_workers = num_workers
+        self.socketio = socketio
+        self.agent_storage = agent_storage
         self.chat_queue = queue.Queue()
-        self.task_manager = TaskManager(num_workers=5, socketio=socketio)
+        self.task_manager = TaskManager(num_workers=5, socketio=socketio, agent_storage=agent_storage)
         self.workers = [Worker(self.chat_queue, self, task_manager=self.task_manager, socketio=socketio) for _ in range(num_workers)]
         self.active_chats = []
         for worker in self.workers:
