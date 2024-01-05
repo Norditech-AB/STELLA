@@ -24,6 +24,7 @@ license = {text = "AGPL-3.0 & Enterprise License (contact to get license)"}
 classifiers = [
     "Programming Language :: Python",
     "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.8",
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
@@ -49,7 +50,7 @@ dependencies = [
     'gevent-websocket => 0.10.1'
 ]
 
-requires-python = ">=3.7,<=3.11.1"
+requires-python = ">=3.8,<=3.12.1"
 
 
 [project.urls]
