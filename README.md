@@ -30,25 +30,25 @@ STELLA is currently in beta. We are working hard to improve the framework and ad
 To set up STELLA:
 
 1. **Clone the Repository**:
-   - HTTPS: `git clone https://github.com/Norditech-AB/STELLA.git`
-   - SSH: `git clone git@github.com:Norditech-AB/STELLA.git`
-   - GitHub CLI: `gh repo clone Norditech-AB/STELLA`
+   - HTTPS: ```git clone https://github.com/Norditech-AB/STELLA.git```
+   - SSH: ```git clone git@github.com:Norditech-AB/STELLA.git```
+   - GitHub CLI: ```gh repo clone Norditech-AB/STELLA```
 
 2. **Create & Activate a Virtual Environment**:
-   - `python -m venv venv`
-   - `source venv/bin/activate`
+   - ```python -m venv venv```
+   - ```source venv/bin/activate```
 
 2. **Install STELLA**:
-   Run `pip install -e .` from the `root` folder to install STELLA CLI and its dependencies.
+   Run ```pip install -e .``` from the `root` folder to install STELLA CLI and its dependencies.
 
 3. **Quickly Configure STELLA**:
-   Run `stella configure` and follow the instructions.
+   Run ```stella configure``` and follow the instructions.
 
 4. **Start the Server**:
-   Run `stella serve` from the `root` folder of the repository.
+   Run ```stella serve``` from the `root` folder of the repository.
 
 5. **Explore and Create**:
-   Open a new terminal window and run `stella` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+   Open a new terminal window and run ```stella``` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 
 For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
 
