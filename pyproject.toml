@@ -27,7 +27,6 @@ dependencies = [
     'Flask-JWT-Extended >= 4.5.3',
     'Flask-SocketIO >= 5.3.6',
     'python-dotenv >= 1.0.0',
-    'bson >= 0.5.10',
     'pymongo >= 4.6.1',
     'openai >= 0.28.1',
     'bcrypt >= 4.0.1',

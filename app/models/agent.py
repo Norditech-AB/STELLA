@@ -48,7 +48,9 @@ class Agent:
             skip_action_selection: bool = False,
             connections_forced: dict = None,
             connections_available: dict = None,
-            max_depth: int = None):
+            max_depth: int = None,
+            on_completion: callable = None,
+    ):
         self.agent_id = agent_id
         self.name = name
         self.short_description = short_description
