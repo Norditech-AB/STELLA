@@ -29,8 +29,8 @@ def print_error(message):
     print("\033[1;31m[!]\033[0m " + message)
 
 def check_python_version():
-    if not (3, 8) <= sys.version_info[:2] <= (3, 11):
-        print_error("STELLA requires Python 3.8 to 3.11. Please update your Python version.")
+    if not (3, 8) <= sys.version_info[:2] <= (3, 12):
+        print_error("STELLA requires Python 3.8 to 3.12. Please update your Python version.")
         sys.exit(1)
 
 def backup_env_file(env_path):
