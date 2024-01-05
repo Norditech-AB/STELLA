@@ -26,7 +26,9 @@ class SteamAgent(Agent):
                                           "message, and use the provided details to respond in a proper manner. Don't " \
                                           "lie or make things up. Be as helpful, nice and concise as possible."
 
-    def get_app_id(self, name: str) -> str:
+
+    @staticmethod
+    def get_app_id(name: str) -> str:
         api_url = f"https://api.steampowered.com/ISteamApps/GetAppList/v2/"
         print("[AGENT] Constructed API URL: " + api_url)
 
@@ -44,8 +46,9 @@ class SteamAgent(Agent):
 
         return "Error in Open-Meteo API request – Tell the user that something went wrong and stop the conversation"
 
-    def get_player_count(self, api_key: str, game: str) -> str:
-        appid = self.get_app_id(game)
+    @staticmethod
+    def get_player_count(api_key: str, game: str) -> str:
+        appid = SteamAgent.get_app_id(game)
 
         api_url = f"https://api.steampowered.com/ISteamUserStats/GetNumberOfCurrentPlayers/v1/?appid={appid}&key={api_key}"
 
@@ -106,4 +109,4 @@ class SteamAgent(Agent):
         )
         print(f"{key=}, {game=}")
         # Step 3: Respond
-        return self.get_player_count(key, game)
+        return SteamAgent.get_player_count(key, game)
