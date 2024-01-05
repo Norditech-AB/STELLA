@@ -175,6 +175,32 @@ class StellaClient:
         except Exception as e:
             raise Exception(f"Registration failed. Please try again. ({e})")
 
+    def change_username(self, username):
+        response = requests.put(
+            self.compose_url("user/username"),
+            headers=self.auth_headers(),
+            json={"username": username}
+        )
+        if response.status_code == 401:
+            print_error(f"You are not authenticated. Please login.")
+        elif response.status_code != 200:
+            print_error(f"Failed to change username. ({response.json()['msg']})")
+        else:
+            print_success("Username changed successfully.")
+
+    def change_password(self, password):
+        response = requests.put(
+            self.compose_url("user/password"),
+            headers=self.auth_headers(),
+            json={"password": password}
+        )
+        if response.status_code == 401:
+            print_error(f"You are not authenticated. Please login.")
+        elif response.status_code != 200:
+            print_error(f"Failed to change password. ({response.json()['msg']})")
+        else:
+            print_success("Password changed successfully.")
+
     def create_workspace(self, name=None):
         if name:
             response = requests.post(self.compose_url("workspace"), headers=self.auth_headers(), json={"name": name})

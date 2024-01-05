@@ -12,19 +12,26 @@ import os
 
 
 AVAILABLE_COMMANDS = """Available commands:
-    /login                           login as user
-    /logout                          logout as user
-    /register                        register user
-    /workspace create <name>         create workspace
-    /workspace list                  list workspaces
-    /workspace connect <id>          switch workspace
-    /workspace rename <id> <name>    rename workspace
-    /workspace delete <id>           delete workspace
-    /add <agent id>                  add agent to workspace
-    /remove <agent id>               remove agent from workspace
-    /install <agent id>              install agent in repository
-    /status                          show workspace status
-    /exit                            exit the program
+
+    /login                                      login as user
+    /logout                                     logout as user
+    /register                                   register user
+    
+    /username <new username>                    change username
+    /password <old password> <new password>     change password
+    
+    /workspace create <name>                    create workspace
+    /workspace list                             list workspaces
+    /workspace connect <id>                     switch workspace
+    /workspace rename <id> <name>               rename workspace
+    /workspace delete <id>                      delete workspace
+    /status                                     show workspace status
+    
+    /add <agent id>                             add agent to workspace
+    /remove <agent id>                          remove agent from workspace
+    /install <agent id>                         install agent in repository
+    
+    /exit                                       exit the program
 """
 
 
@@ -40,7 +47,7 @@ class Shell:
     def motd(self):
         print("\n\n")
         print_banner()
-        print(f"     CLI v{self.version}\n\n")
+        print(f"     CLI v{self.version}\n")
 
     def start(self):
 
@@ -59,6 +66,7 @@ class Shell:
         if not self.authenticated:
             # Show message of the day (welcome message)
             self.motd()
+            print('\n')
             try:
                 while not self.authenticated:
                     print_info("Please login or register to continue.")
@@ -77,7 +85,7 @@ class Shell:
         # Show message of the day (welcome message) + info
         user = self.client.get_user()
         self.motd()
-        print(f"Welcome to STELLA {user['username']}")
+        print(f" > Welcome {user['username']}. How can I help you today?\n")
         print_success(f"Connected to STELLA server running on {self.client.compose_url('')}.")
         print_info("To chat with agents, type a message and press enter. (do not start with '/')")
         print(f"Type /help to list commands.\n")
@@ -126,6 +134,12 @@ class Shell:
         elif args[0] == 'register':
             username = input("Username: ")
             password = getpass("Password: ")
+            confirm_password = getpass("Confirm password: ")
+
+            if password != confirm_password:
+                print_error("Passwords do not match.")
+                return
+
             try:
                 self.client.register(username, password)
             except Exception as e:
@@ -145,6 +159,27 @@ class Shell:
             if workspace_id:
                 self.client.connect_to_workspace(workspace_id)
             return
+        elif args[0] == 'username':
+            if len(args) == 1:
+                print_info("Missing argument. Type /help for a list of commands.")
+                return
+            else:
+                self.client.change_username(args[1])
+                return
+        elif args[0] == 'password':
+            if len(args) == 1:
+                print_info("Missing argument. Type /help for a list of commands.")
+                return
+            else:
+                confirm_password = getpass("Confirm new password: ")
+
+                if args[1] != confirm_password:
+                    print_error("Passwords do not match.")
+                    return
+
+                self.client.change_password(args[1])
+                return
+
         elif args[0] == 'workspace' or args[0] == 'ws':
             # If the user only typed '/workspace', show the current workspace status
             if len(args) == 1:
