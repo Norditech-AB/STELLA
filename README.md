@@ -50,32 +50,30 @@ python -m venv venv
 source venv/bin/activate
 ```
 
-3. **Install STELLA**:
-Run
+3. **Install STELLA**: Run `pip install -e` from the `root` folder
 ```bash
 pip install -e .
 ```
-Run `pip install -e` from the `root` folder to install STELLA CLI and its dependencies.
 
-4. **Quickly Configure STELLA**:
+4. **Quickly Configure STELLA** by running `stella configure` and following the instructions.
 
 ```bash
 stella configure
 ```
-Run `stella configure` and follow the instructions.
 
-4. **Start the Server**:
+4. **Start the Server** by running `stella serve`
  
 ```bash
 stella serve
 ```
-To start STELLA, run `stella serve`.
 
-5. **Explore and Create**:
+5. **Explore and Create**: Open a new terminal window and run `stella`
 ```bash
 stella
 ```
-Open a new terminal window and run ```stella``` from the `root` folder of the repository. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+Get started quickly writing /register.
+To list available commands, write `/help` in the shell.
 
 For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
 
