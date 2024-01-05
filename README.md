@@ -17,9 +17,7 @@ STELLA is a multi-agent framework for conversational agents using Large Language
 **🛠️ Status**: Beta - We're crafting the future.
 STELLA is currently in beta. We are working hard to improve the framework and add new features. For questions or feedback, contact us at [contact@stellaframework.com](mailto:contact@stellaframework.com).
 
-## 📚 Quick Guide
-
-Getting started links to the segment below in this readme file
+## 📚 Guide
 
 - [🚀 Getting Started](#getting-started)
 - [🔭 Introduction](https://docs.stellaframework.com/Introduction.html)
@@ -27,7 +25,7 @@ Getting started links to the segment below in this readme file
 - [🌍 Community](https://docs.stellaframework.com/Community.html)
 - [⚖️ Licensing](https://docs.stellaframework.com/Licensing.html)
 
-## Getting Started
+### Quick Start
 
 To set up STELLA:
 
@@ -54,7 +52,7 @@ To set up STELLA:
 
 For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
 
-### Typical Use Cases:
+## Typical Use Cases:
 
 - Automating workflows and tasks.
 - Building digital workforces.
