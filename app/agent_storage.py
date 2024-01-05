@@ -59,6 +59,10 @@ class AgentStorage:
     def load(self, agent_id: str):
         return self.agents.get(agent_id, None)
 
+    def reload(self):
+        self.agents = {}
+        self._load_agents()
+
     def __getitem__(self, key: str) -> 'Agent':
         return self.agents[key]
 
