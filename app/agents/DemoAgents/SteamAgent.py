@@ -59,7 +59,7 @@ class SteamAgent(Agent):
         print(steam_data)
         print("-----------------STEAM------------------")
 
-        return f"Tell the user this: '{game} currently has {steam_data['response']['player_count']} online players.' and stop the conversation"
+        return f"Tell the user that the game '{game} currently has {steam_data['response']['player_count']} online players and add some trivia about the game and stop the conversation"
 
     def respond(self, openai_client: OpenAIClient, request_builder: RequestBuilder, chat: Chat = None, memories=None):
 
