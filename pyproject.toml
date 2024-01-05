@@ -10,7 +10,7 @@ where = ["."]
 
 [project]
 name = "stella-cli"
-version = "0.1.5"
+version = "0.1.0"
 description = "STELLA is a multi-agent framework for creating and managing AI agents."
 readme = "README.md"
 authors = [
@@ -28,6 +28,8 @@ classifiers = [
     "Programming Language :: Python :: 3.9",
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Framework :: Flask",
     "Operating System :: OS Independent"
 ]
 keywords = ["agent", "llm", "stella"]

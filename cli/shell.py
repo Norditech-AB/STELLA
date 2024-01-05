@@ -39,7 +39,7 @@ AVAILABLE_COMMANDS = """Available commands:
 class Shell:
     def __init__(self, client: StellaClient):
         self.client: StellaClient = client
-        self.version = "0.0.1"
+        self.version = "0.1.0"
         self.active = True
         self.authenticated = False
         self.prompt_session = PromptSession(history=InMemoryHistory())
