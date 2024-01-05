@@ -7,7 +7,7 @@ from app.models.chat import Chat, ChatConnectionString, ChatMessageString
 class DatabaseInterface(ABC):
 
     @abstractmethod
-    def create_user(self, email, password) -> User:
+    def create_user(self, username, password) -> User:
         pass
 
     @abstractmethod
@@ -15,7 +15,7 @@ class DatabaseInterface(ABC):
         pass
 
     @abstractmethod
-    def get_user_by_email(self, email) -> User:
+    def get_user_by_username(self, username) -> User:
         pass
 
     @abstractmethod

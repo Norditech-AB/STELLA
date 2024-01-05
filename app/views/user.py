@@ -1,3 +1,6 @@
+import os
+
+import bcrypt
 from flask import Blueprint, jsonify, request
 from flask_jwt_extended import get_jwt_identity, jwt_required
 
@@ -8,12 +11,14 @@ dotenv.load_dotenv()
 
 user_views = Blueprint('user_views', __name__)
 
+BCRYPT_SALT = os.getenv('BCRYPT_SALT')
 
-@user_views.route('/user', methods=['PUT'])
+
+@user_views.route('/user/username', methods=['PUT'])
 @jwt_required()
-def update_user():
+def change_username():
     """
-    Update the settings for a user
+    Change the username for a user
     :return:
     """
     json_data = request.get_json()
@@ -26,11 +31,48 @@ def update_user():
         return jsonify({"msg": str(e)}), 404
 
     # Get the settings from the request (if they exist)
-    email = json_data.get('email', None)
-    if email is not None:
-        user.email = email
+    username = json_data.get('username', None)
 
-    return jsonify({"msg": "User updated"}), 200
+    if not username:
+        return jsonify({"msg": "Missing username parameter"}), 400
+
+    user.username = username
+
+    db.update_user(user)
+
+    return jsonify({"msg": "Username updated"}), 200
+
+
+@user_views.route('/user/password', methods=['PUT'])
+@jwt_required()
+def change_password():
+    """
+    Change the password for a user
+    :return:
+    """
+    json_data = request.get_json()
+    user_id = get_jwt_identity()
+
+    # Find the user in the database
+    try:
+        user = db.get_user_by_id(user_id)
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 404
+
+    # Get the settings from the request (if they exist)
+    password = json_data.get('password', None)
+
+    if not password:
+        return jsonify({"msg": "Missing password parameter"}), 400
+
+    pwd = bcrypt.hashpw(password.encode('utf-8'), BCRYPT_SALT.encode('utf-8'))
+
+    if password is not None:
+        user.password = pwd
+
+    db.update_user(user)
+
+    return jsonify({"msg": "Password updated"}), 200
 
 
 @user_views.route('/user', methods=['GET'])
