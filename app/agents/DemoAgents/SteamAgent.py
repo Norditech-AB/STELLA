@@ -44,7 +44,7 @@ class SteamAgent(Agent):
             if app["name"] == name:
                 return app["appid"]
 
-        return "Error in Open-Meteo API request – Tell the user that something went wrong and stop the conversation"
+        return "Error in Open-Meteo API request – Tell the user that you were unable to find the Game and stop the conversation"
 
     @staticmethod
     def get_player_count(api_key: str, game: str) -> str:
