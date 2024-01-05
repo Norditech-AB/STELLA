@@ -72,7 +72,7 @@ stella serve
 stella
 ```
 This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
-Get started quickly writing /register.
+Get started quickly writing `/register`.
 To list available commands, write `/help` in the shell.
 
 For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
