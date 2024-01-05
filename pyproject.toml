@@ -46,8 +46,8 @@ dependencies = [
     'prompt-toolkit >= 3.0.43',
     
     #windows only:
-    'websocket-client => 1.7.0',
-    'gevent-websocket => 0.10.1'
+    'websocket-client >= 1.7.0',
+    'gevent-websocket >= 0.10.1'
 ]
 
 requires-python = ">=3.8,<=3.12.1"
