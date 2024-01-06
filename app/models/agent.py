@@ -68,6 +68,7 @@ class Agent:
         self.connections_forced = connections_forced
         self.connections_available = connections_available
         self.max_depth = max_depth if max_depth is not None else int(os.getenv('AGENT_MAX_DEPTH', 99999999))
+        self.on_completion = on_completion
 
         if self.connections_forced is None:
             self.connections_forced = {}
