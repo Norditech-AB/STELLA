@@ -21,10 +21,11 @@ class StellaCactusAgent(Agent):
             skip_action_selection=True,
             skip_response=True,
             max_depth=1,
+            on_completion = self.scroll_text
         )
-        self.on_completion = self.scroll_text
 
-    def scroll_text(self, socketio, chat_id):
+
+    def scroll_text(self, socketio, chat_id, **kwargs):
         """
         Scrolls the given text in the command line with a specified delay.
 
@@ -46,7 +47,8 @@ class StellaCactusAgent(Agent):
             They spent nights star gazing, days racing with the desert winds, 
             and evenings sharing tales under the moonlight. 
             As they gazed up at the twinkling stars, Stella and Fred would often speak of their most hopeful dream. 
-            In the quiet of the desert night, they shared a mutual longing, a wish they held closest to their hearts 
+            In the quiet of the desert night, they shared a mutual longing, a wish they held closest to their hearts #
+            
             - the dream to one day embrace each other in a hug. 
             It was a dream filled with longing and hope, 
             a moment they believed would encapsulate the essence of their deep and unbreakable bond. #
