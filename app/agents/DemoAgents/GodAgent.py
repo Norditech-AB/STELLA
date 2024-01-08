@@ -21,7 +21,6 @@ class GodAgent(Agent):
         )
 
 
-
     def respond(self, openai_client: OpenAIClient, request_builder: RequestBuilder, chat: Chat = None, memories=None):
 
         user_message = f"{self._construct_memory_string(memories) if memories else ''}" \
@@ -45,7 +44,6 @@ class GodAgent(Agent):
             messages=messages,
             model=self.model_for_response,
         )
-        #city, brewery_count = response.split(',')
 
         # Step 3: Respond
 
