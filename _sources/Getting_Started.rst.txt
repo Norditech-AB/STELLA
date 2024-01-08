@@ -8,7 +8,8 @@ Prerequisites
 
 Before you begin, ensure you have the following:
 
-- Python 3.9 – 3.11 installed.
+- Python 3.9 – 3.12 installed.
+- Latest version of pip *(23.3.2)*
 - Git installed for cloning the repository.
 - Basic familiarity with command-line operations.
 
@@ -72,19 +73,19 @@ It is now time to install the dependencies.
 
     to activate the virtual environment.
 
-    Now, install the dependencies by running:
-
-    .. code-block:: bash
-
-        pip install -e .
-
-    More information on virtual environments can be found in the `Python documentation <https://docs.python.org/3/tutorial/venv.html>`_.
 
 Install dependencies by running the following command from the project directory:
 
 .. code-block:: bash
 
     pip install -e .
+
+.. note:: make sure to use the -e flag to install the dependencies in editable mode. This will allow you to make changes to the code and have them reflected in the installed package.
+
+Optional: Install Development Dependencies (for contributors)
+    .. code-block:: bash
+
+        pip install -e ".[dev]"
 
 Step 4: Setup the Environment
 -----------------------------
@@ -96,10 +97,12 @@ This will walk you through the setup process and create a `.env` file in the roo
 
     stella configure.py
 
+You need an api key from OpenAI to use the agent. Read more about how to get one `here <https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key>`_ and paste it into the prompt.
+
 Step 4: Start the Server
 -------------------------
 
-With the environment configured, start the server by running `stella serve` script from the root folder:
+With the environment configured, start the server by running `stella serve`:
 
 .. code-block:: bash
 
@@ -109,14 +112,14 @@ With the environment configured, start the server by running `stella serve` scri
 
 Step 5: Explore and create in the CLI
 --------------------------------------
-Open a **new terminal window** and run `stella` from the `root` folder of the repository to move into the CLI. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
+Open a **new terminal window** and run `stella` to move into the CLI. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 
 .. code-block:: bash
 
     stella
 
-Step 6: Create Your Account and Workspace
-------------------------------------------
+Step 6: Register your account and start chatting
+--------------------------------------------------
 
 Create and configure your workspace using the CLI:
 
@@ -126,23 +129,11 @@ Create and configure your workspace using the CLI:
 
        /register
 
-2. **Login:**
+Enter your username and password to register your account.
 
-Login with your newly created account:
+.. note:: This data is stored in your local database and is not shared with anyone.
 
-   .. code-block:: bash
-
-       /login
-
-3. **Create a Workspace:**
-
-Create a workspace to start chatting with STELLA. Replace `<workspace_name>` with the name of your workspace or leave it blank:
-
-   .. code-block:: bash
-
-       /workspace create <workspace_name>
-
-4. **Start chatting with STELLA:**
+2. **Start chatting with STELLA:**
 
 Now you are ready to start chatting with STELLA. The default Weather agent is already installed so you can start chatting with it right away by firstly adding it to your workspace:
 
@@ -150,11 +141,11 @@ Now you are ready to start chatting with STELLA. The default Weather agent is al
 
        /add demo_weather_agent
 
-Lets see what the weather is like in Jönköping as an example:
+Lets see what the weather is like in Stockholm as an example:
 
    .. code-block:: bash
 
-       What is the weather in Jönköping?
+       What is the weather in Stockholm?
 
 .. note:: Add agents to your workspace (replace `<agentid>` with the actual agent ID):
 
