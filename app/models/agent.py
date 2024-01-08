@@ -48,7 +48,9 @@ class Agent:
             skip_action_selection: bool = False,
             connections_forced: dict = None,
             connections_available: dict = None,
-            max_depth: int = None):
+            max_depth: int = None,
+            on_completion: callable = None,
+    ):
         self.agent_id = agent_id
         self.name = name
         self.short_description = short_description
@@ -66,6 +68,7 @@ class Agent:
         self.connections_forced = connections_forced
         self.connections_available = connections_available
         self.max_depth = max_depth if max_depth is not None else int(os.getenv('AGENT_MAX_DEPTH', 99999999))
+        self.on_completion = on_completion
 
         if self.connections_forced is None:
             self.connections_forced = {}

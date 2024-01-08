@@ -308,6 +308,11 @@ class Task:
                 parent_task.memories.append(self.memories[-1])
                 db.update_task_data(parent_task.to_dict())
 
+            if current_agent.on_completion is not None:
+                print(f"[TASK] -- Agent {self.current_agent} has on_completion function, calling it")
+                current_agent.on_completion(socketio=socketio, chat_id=self.chat_id, chat=chat, memories=self.memories, openai_client=openai_client)
+
+
             # 3.2.3.2 Re-queue the parent task
             return self.parent_task_id
 
