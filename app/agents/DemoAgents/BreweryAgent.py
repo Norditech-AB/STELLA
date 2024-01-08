@@ -8,7 +8,7 @@ from app.utils.request_builder import RequestBuilder
 
 class DemoBreweryAgent(Agent):
     """
-    A brewery agent that uses an API to get brewery information.
+    A brewery agent that uses an API to get breweries from cities, mainly from USA.
     """
     def __init__(self):
         super().__init__(
@@ -21,9 +21,7 @@ class DemoBreweryAgent(Agent):
         )
 
 
-
     def get_brewery(self, city):
-
 
         if not city:
             return "Error in OpenStreetMap API request – Tell the user that something went wrong and stop the conversation"
@@ -35,10 +33,6 @@ class DemoBreweryAgent(Agent):
             return "Error in Open-Meteo API request – Tell the user that something went wrong and stop the conversation"
         brewery_data = brewery_response.json()
 
-        # Step 3: Extract and return the relevant data
-
-        #breweries = [brewery["name"] for brewery in brewery_data]
-        #current_brewery = brewery_data.get('current_brewery', {})
         return brewery_data
 
     def respond(self, openai_client: OpenAIClient, request_builder: RequestBuilder, chat: Chat = None, memories=None):
@@ -64,15 +58,13 @@ class DemoBreweryAgent(Agent):
             messages=messages,
             model=self.model_for_response,
         )
-        #city, brewery_count = response.split(',')
 
         city.replace(".", "").replace(",", "").replace("!", "").replace("?", "").replace(":", "").replace(";", "").replace("\"", "").replace("'", "").replace("'", "").replace("'", "").replace(""", "").replace(""", "").replace("(", "").replace(")", "").replace("[", "").replace("]", "").replace("{", "").replace("}", "").replace("-", "").replace("_", "").replace("+", "").replace("=", "").replace("/", "").replace("\\", "").replace("|", "").replace("<", "").replace(">", "").replace("#", "").replace("*", "").replace("~", "").replace("`", "").replace("@", "")
-        #brewery_count.replace(".", "").replace(",", "").replace("!", "").replace("?", "").replace(":", "").replace(";", "").replace("\"", "").replace("'", "").replace("'", "").replace("'", "").replace(""", "").replace(""", "").replace("(", "").replace(")", "").replace("[", "").replace("]", "").replace("{", "").replace("}", "").replace("-", "").replace("_", "").replace("+", "").replace("=", "").replace("/", "").replace("\\", "").replace("|", "").replace("<", "").replace(">", "").replace("#", "").replace("*", "").replace("~", "").replace("`", "").replace("@", "")
-        
+
         # Step 2: Get the weather
         breweries = self.get_brewery(city)
 
         # Step 3: Respond
-        if breweries is None:
-            return f"I could not find any breweries in the city{city}"
+        if not breweries:
+            return f"The database does not support the city {city}"
         return f"The data about breweries in the city {city} are {breweries}. Clean this up so the response fits the request."
