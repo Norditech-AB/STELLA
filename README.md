@@ -134,21 +134,30 @@ STELLA is an evolving framework. We welcome contributions and feedback to improv
 # VISS.AI - Accessible AI for all
 
 <div align="center">
-  <img src="assets/images/GENIUS_HEADER_VISS_AI_STELLA.jpg" alt="Does it really take a genius to work with AI?">
+  <img src="assets/images/JOIN_VISS_AI.png" alt="VISS.AI Waitlist Banner">
 </div>
 
-Imagine a world where everyone can access the power of AI. VISS.AI is a STELLA-powered platform that makes this possible.
+## Create AI-powered applications without writing a single line of code.
+VISS.AI is a visual tool that allows you to create AI-powered applications without writing a single line of code. Integrate automatically towards APIs and services and create your own AI-powered applications in minutes.
+
+Join the [🔗 VISS.AI Waitlist](https://viss.ai) to be the first to know when VISS.AI launches. Early access is being rolled out in batches.
 
 <div align="center">
-  <img src="assets/images/VISS_AI_FEATURES.jpg" alt="VISS.AI Features - Automatic integrations, accessible for everyone, instant deployment">
+  <img src="assets/images/VISS_AI_FEATURES.png" alt="VISS.AI Features - Automatic integrations, accessible for everyone, instant deployment">
 </div>
 
-Connect apps by clicking and dragging. No coding required. VISS.AI is a visual tool that allows you to create AI-powered applications without writing a single line of code. Integrate automatically towards APIs and services and create your own AI-powered applications in minutes.
+## How does it work?
+- 🔗 **Simply connect your apps by clicking and dragging.** No coding required.
+- 🗣️ Tell VISS.AI how your apps should interact with each other by describing your workflow.
+- 🌍 Integrate automatically towards APIs and services.
+- 🌟 Don't worry about data mapping, VISS.AI does it for you.
+- 👨‍💻👩‍💻 Create your own AI-powered applications in minutes.
+- 🚀 Deploy small or on scale with a single click.
 
 <div align="center">
-  <img src="assets/images/JOIN_VISS_AI.jpg" alt="VISS.AI Waitlist Banner">
+  <img src="assets/images/GENIUS_HEADER_VISS_AI_STELLA.png" alt="Does it really take a genius to work with AI?">
 </div>
 
-Visit https://viss.ai to join the waitlist and be the first to know when VISS.AI launches.
+**Imagine a world where everyone can access the power of AI. VISS.AI is a STELLA-powered platform that makes this possible.**
 
-<iframe width="1280" height="720" src="https://www.youtube.com/embed/_c6GEbI1bjU?si=XQMjAeNMsU-VXCd7" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+Interesting? Watch the [🔗 VISS.AI Demo](https://www.youtube.com/watch?v=1Z3Y5XZ0Z0M) and join [🔗 the waitlist](https://viss.ai) to be the first to know when VISS.AI launches.
