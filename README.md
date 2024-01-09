@@ -20,10 +20,12 @@ STELLA is currently in beta. We are working hard to improve the framework and ad
 ## 📚 Guide
 
 - [🚀 Getting Started](https://docs.stellaframework.com/Getting_Started.html)
-- [🔭 Introduction](https://docs.stellaframework.com/Introduction.html)
+- [📖 Documentation](https://docs.stellaframework.com/)
 - [🤝 Contributing](https://docs.stellaframework.com/contribution_guidelines/index.html)
 - [🌍 Community](https://docs.stellaframework.com/Community.html)
 - [⚖️ Licensing](https://docs.stellaframework.com/Licensing.html)
+- [💫 VISS.AI - Accessible AI for all](#vissai) (**COMING SOON** 🚀)
+
 
 ### Quick Start
 
@@ -127,3 +129,26 @@ Visit the [Community section](https://docs.stellaframework.com/Community) to get
 
 STELLA is an evolving framework. We welcome contributions and feedback to improve and expand its capabilities.
 
+---
+
+# VISS.AI - Accessible AI for all
+
+<div align="center">
+  <img src="assets/images/GENIUS_HEADER_VISS_AI_STELLA.jpg" alt="Does it really take a genius to work with AI?">
+</div>
+
+Imagine a world where everyone can access the power of AI. VISS.AI is a STELLA-powered platform that makes this possible.
+
+<div align="center">
+  <img src="assets/images/VISS_AI_FEATURES.jpg" alt="VISS.AI Features - Automatic integrations, accessible for everyone, instant deployment">
+</div>
+
+Connect apps by clicking and dragging. No coding required. VISS.AI is a visual tool that allows you to create AI-powered applications without writing a single line of code. Integrate automatically towards APIs and services and create your own AI-powered applications in minutes.
+
+<div align="center">
+  <img src="assets/images/JOIN_VISS_AI.jpg" alt="VISS.AI Waitlist Banner">
+</div>
+
+Visit https://viss.ai to join the waitlist and be the first to know when VISS.AI launches.
+
+<iframe width="1280" height="720" src="https://www.youtube.com/embed/_c6GEbI1bjU?si=XQMjAeNMsU-VXCd7" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
