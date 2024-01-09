@@ -78,6 +78,7 @@ def pretty_print_workspace(workspace):
     print(f" Name: {workspace['name']}")
     print(f" ID: {workspace['id']}")
     print(f" Number of agents: {len(workspace['agents'])}")
+    print(f" Coordinator Agent: {workspace.get('coordinator_agent', 'Default')}")
     print(f" Agents:")
     for agent_id, agent in agents.items():
         print(f"  - {agent_id}")

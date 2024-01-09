@@ -48,7 +48,9 @@ class Agent:
             skip_action_selection: bool = False,
             connections_forced: dict = None,
             connections_available: dict = None,
-            max_depth: int = None):
+            max_depth: int = None,
+            on_completion: callable = None,
+    ):
         self.agent_id = agent_id
         self.name = name
         self.short_description = short_description
@@ -66,6 +68,7 @@ class Agent:
         self.connections_forced = connections_forced
         self.connections_available = connections_available
         self.max_depth = max_depth if max_depth is not None else int(os.getenv('AGENT_MAX_DEPTH', 99999999))
+        self.on_completion = on_completion
 
         if self.connections_forced is None:
             self.connections_forced = {}
@@ -95,7 +98,6 @@ class Agent:
     def _construct_available_actions_string(self, action_map: dict):
         available_actions_string = "=== AVAILABLE ACTIONS ===\n"
         available_actions_string += f"0: Done - Respond to the user ({self.done_condition})\n"
-        print(f"[AGENT] Building available actions string for {self.name} with action map: {action_map}")
         for action_id in action_map.keys():
             available_actions_string += f"{action_id}: {action_map[action_id].short_description}\n"
         available_actions_string += "=== (END OF AVAILABLE ACTIONS) ===\n"
@@ -128,7 +130,6 @@ class Agent:
             }
         ]
 
-        print(f"[AGENT] {self.name} is performing action selection using OpenAI: {messages}")
         action_selected = openai_client.chat_completion(
             messages=messages,
             model=self.model_for_action_selection,
@@ -154,8 +155,6 @@ class Agent:
                 "content": user_message
             }
         ]
-
-        print(f"[AGENT] {self.name} is responding using OpenAI: {messages}")
 
         response_generated = openai_client.chat_completion(
             messages=messages,
