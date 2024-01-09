@@ -107,18 +107,18 @@ For a complete guide, visit [Getting Started](https://docs.stellaframework.com/G
 - **Command Line Interface**: Direct terminal access.
 - **Community-Driven Package Manager**: Easy publication and installation of agents.
 
-For detailed use cases, visit our [Use Cases page](https://docs.stellaframework.com/).
+For detailed information, visit our [Documentation page](https://docs.stellaframework.com/).
 
 ## LICENSE
 STELLA offers two licensing options to accommodate diverse use cases. Both licenses are designed to meet different requirements, ensuring flexibility and convenience for all users.
 - **AGPL-3.0 License:** This license is perfect for students and hobbyists. It's an [Open Source Initiative (OSI)-approved](https://opensource.org/licenses/) open-source license that encourages collaborative development and knowledge exchange. For detailed information, please refer to the LICENSE file.
 - **Enterprise License:** Tailored for commercial purposes, this license allows for the integration of STELLA software into commercial products and services. This option is ideal for those who need to use our solutions in a commercial context without adhering to the open-source stipulations of the AGPL-3.0 license. For inquiries and more details about this license, please [contact us](mailto:philip@norditech.se).
 
-## Community and Support
+## Community, Support & Contributions
 
 Join our community for support, discussions, and insights. Connect through our forums and support channels.
 
-Visit the [Community section](https://docs.stellaframework.com/Community) to get involved.
+Visit the [Community section](https://docs.stellaframework.com/Community) to get involved and see the [Contribution Guidelines](https://docs.stellaframework.com/contribution_guidelines/index.html) to learn how to contribute to STELLA.
 
 ## Next Steps
 
