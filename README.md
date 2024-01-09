@@ -160,4 +160,4 @@ Join the [🔗 VISS.AI Waitlist](https://viss.ai) to be the first to know when V
 
 **Imagine a world where everyone can access the power of AI. VISS.AI is a STELLA-powered platform that makes this possible.**
 
-Interesting? Watch the [🔗 VISS.AI Demo](https://www.youtube.com/watch?v=1Z3Y5XZ0Z0M) and join [🔗 the waitlist](https://viss.ai) to be the first to know when VISS.AI launches.
+Interesting? Watch the [🔗 VISS.AI Demo](https://www.youtube.com/watch?v=_c6GEbI1bjU) and join [🔗 the waitlist](https://viss.ai) to be the first to know when VISS.AI launches.
