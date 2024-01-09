@@ -24,7 +24,7 @@ STELLA is currently in beta. We are working hard to improve the framework and ad
 - [🤝 Contributing](https://docs.stellaframework.com/contribution_guidelines/index.html)
 - [🌍 Community](https://docs.stellaframework.com/Community.html)
 - [⚖️ Licensing](https://docs.stellaframework.com/Licensing.html)
-- [💫 VISS.AI - Accessible AI for all](#vissai) (**COMING SOON** 🚀)
+- [💫 VISS.AI - Accessible AI for all](#vissai---accessible-ai-for-all) (**COMING SOON** 🚀)
 
 
 ### Quick Start
