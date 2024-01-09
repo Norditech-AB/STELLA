@@ -41,10 +41,10 @@ class Worker(threading.Thread):
 
 
 class TaskManager:
-    def __init__(self, num_workers, socketio):
+    def __init__(self, num_workers, socketio, agent_storage):
         self.socketio = socketio
         self.task_queue = queue.Queue()
-        self.agent_storage = AgentStorage()
+        self.agent_storage = agent_storage
         self.openai_client = OpenAIClient()
         self.request_builder = RequestBuilder(openai_client=self.openai_client)
         self.workers = [Worker(self.task_queue, self, agent_storage=self.agent_storage, openai_client=self.openai_client, request_builder=self.request_builder) for _ in range(num_workers)]

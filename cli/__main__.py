@@ -2,10 +2,10 @@ import json
 import os
 import argparse
 
-from client.stella_client import StellaClient
-from shell import Shell
+from cli.client.stella_client import StellaClient
+from cli.shell import Shell
 
-from commands import ServeCommand
+from cli.commands import ServeCommand, ConfigureCommand
 
 
 def setup_parser():
@@ -13,6 +13,7 @@ def setup_parser():
     subparsers = parser.add_subparsers(dest='command', help='Available commands')
 
     ServeCommand.init_parser(subparsers)
+    ConfigureCommand.init_parser(subparsers)
 
     return parser
 
@@ -39,3 +40,7 @@ def main():
     else:
         shell = Shell(client)
         shell.start()
+
+
+if __name__ == '__main__':
+    main()

@@ -9,13 +9,14 @@ from app.models.workspace import Workspace
 from app.models.chat import Chat, ChatConnectionString
 
 # Load environment variables
-SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH')
+SQLITE_DB_PATH = os.getenv('SQLITE_DB_PATH')  # sqlite.db
+THIS_FOLDER = os.path.dirname(os.path.abspath(__file__))
 
 
 class SQLite(DatabaseInterface, ABC):
 
     def __init__(self):
-        self.conn = sqlite3.connect(SQLITE_DB_PATH)
+        self.conn = sqlite3.connect(os.path.abspath(os.path.join(THIS_FOLDER, '../../', SQLITE_DB_PATH)))
         self.conn.row_factory = sqlite3.Row
         self.create_tables()
 
@@ -25,7 +26,7 @@ class SQLite(DatabaseInterface, ABC):
         sql_user = '''
             CREATE TABLE IF NOT EXISTS "user" (
                 "id" INTEGER PRIMARY KEY AUTOINCREMENT,
-                "email" TEXT,
+                "username" TEXT,
                 "password" TEXT,
                 "workspaces" TEXT,
                 "last_workspace_id" INTEGER
@@ -39,6 +40,7 @@ class SQLite(DatabaseInterface, ABC):
                 "name" TEXT,
                 "agents" TEXT,
                 "last_chat_id" INTEGER,
+                "coordinator_agent" TEXT,
                 FOREIGN KEY(owner) REFERENCES user(id)
             )
         '''
@@ -102,18 +104,18 @@ class SQLite(DatabaseInterface, ABC):
     def _deserialize_list(self, data):
         return json.loads(data) if data else []
 
-    def create_user(self, email, password) -> User:
+    def create_user(self, username, password) -> User:
         cursor = self.conn.cursor()
-        cursor.execute("INSERT INTO user (email, password, workspaces, last_workspace_id) VALUES (?, ?, ?, ?)",
-                       (email, password, json.dumps([]), None))
+        cursor.execute("INSERT INTO user (username, password, workspaces, last_workspace_id) VALUES (?, ?, ?, ?)",
+                       (username, password, json.dumps([]), None))
         user_id = cursor.lastrowid
         self.conn.commit()
-        return User(user_id=str(user_id), email=email, password=password, workspaces=[], last_workspace_id=None)
+        return User(user_id=str(user_id), username=username, password=password, workspaces=[], last_workspace_id=None)
 
     def create_workspace(self, user_id, name, agents) -> Workspace:
         cursor = self.conn.cursor()
-        cursor.execute("INSERT INTO workspace (owner, name, agents, last_chat_id) VALUES (?, ?, ?, ?)",
-                       (user_id, name, json.dumps(agents), None))
+        cursor.execute("INSERT INTO workspace (owner, name, agents, last_chat_id, coordinator_agent) VALUES (?, ?, ?, ?, ?)",
+                       (user_id, name, json.dumps(agents), None, None))
         workspace_id = cursor.lastrowid
         self.conn.commit()
         cursor.execute("SELECT workspaces FROM user WHERE id = ?", (user_id,))
@@ -144,7 +146,8 @@ class SQLite(DatabaseInterface, ABC):
             name=row['name'],
             agents=self._deserialize_list(row['agents']),
             owner=str(row['owner']),
-            last_chat_id=str(row['last_chat_id']) if row['last_chat_id'] else None
+            last_chat_id=str(row['last_chat_id']) if row['last_chat_id'] else None,
+            coordinator_agent=str(row['coordinator_agent']) if row['coordinator_agent'] else None
         )
 
     def delete_workspace(self, workspace_id) -> None:
@@ -166,21 +169,21 @@ class SQLite(DatabaseInterface, ABC):
             raise Exception("User not found")
         return User(
             user_id=str(row['id']),
-            email=row['email'],
+            username=row['username'],
             password=row['password'],
             workspaces=self._deserialize_list(row['workspaces']),
             last_workspace_id=str(row['last_workspace_id']) if row['last_workspace_id'] else None
         )
 
-    def get_user_by_email(self, email) -> User:
+    def get_user_by_username(self, username) -> User:
         cursor = self.conn.cursor()
-        cursor.execute("SELECT * FROM user WHERE email = ?", (email,))
+        cursor.execute("SELECT * FROM user WHERE username = ?", (username,))
         row = cursor.fetchone()
         if row is None:
             raise Exception("User not found")
         return User(
             user_id=str(row['id']),
-            email=row['email'],
+            username=row['username'],
             password=row['password'],
             workspaces=self._deserialize_list(row['workspaces']),
             last_workspace_id=str(row['last_workspace_id']) if row['last_workspace_id'] else None
@@ -362,8 +365,8 @@ class SQLite(DatabaseInterface, ABC):
 
     def update_user(self, user: User) -> User:
         cursor = self.conn.cursor()
-        cursor.execute("UPDATE user SET email = ?, password = ?, workspaces = ?, last_workspace_id = ? WHERE id = ?", (
-            user.email,
+        cursor.execute("UPDATE user SET username = ?, password = ?, workspaces = ?, last_workspace_id = ? WHERE id = ?", (
+            user.username,
             user.password,
             json.dumps(user.workspaces),
             user.last_workspace_id,
@@ -374,11 +377,12 @@ class SQLite(DatabaseInterface, ABC):
 
     def update_workspace(self, workspace: Workspace) -> Workspace:
         cursor = self.conn.cursor()
-        cursor.execute("UPDATE workspace SET name = ?, agents = ?, owner = ?, last_chat_id = ? WHERE id = ?", (
+        cursor.execute("UPDATE workspace SET name = ?, agents = ?, owner = ?, last_chat_id = ?, coordinator_agent = ? WHERE id = ?", (
             workspace.name,
             json.dumps(workspace.agents),
             workspace.owner,
             workspace.last_chat_id,
+            workspace.coordinator_agent,
             workspace.id
         ))
         self.conn.commit()

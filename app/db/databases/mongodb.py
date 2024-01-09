@@ -24,22 +24,22 @@ class MongoDB(DatabaseInterface, ABC):
         self.instance = pymongo.MongoClient(MONGO_URI)
         self.db = self.instance[MONGO_DB_NAME]
 
-    def create_user(self, email, password) -> User:
+    def create_user(self, username, password) -> User:
         """
         Creates a new user in the database.
-        :param email: The email of the user
+        :param username: The username of the user
         :param password: The password of the user
         :return: The created user
         """
         user_id = str(self.db.users.insert_one({
-            "email": email,
+            "username": username,
             "password": password,
             "workspaces": []
         }).inserted_id)
 
         return User(
             user_id=user_id,
-            email=email,
+            username=username,
             password=password,
             workspaces=[],
             last_workspace_id=None
@@ -57,7 +57,8 @@ class MongoDB(DatabaseInterface, ABC):
             "owner": user_id,
             "name": name,
             "agents": agents,
-            "last_chat_id": None
+            "last_chat_id": None,
+            "coordinator_agent": None
         }).inserted_id)
 
         # Add the workspace to the user
@@ -145,25 +146,25 @@ class MongoDB(DatabaseInterface, ABC):
 
         return User(
             user_id=str(user['_id']),
-            email=user['email'],
+            username=user['username'],
             password=user['password'],
             workspaces=user.get('workspaces', []),
             last_workspace_id=user.get('last_workspace_id', None)
         )
 
-    def get_user_by_email(self, email) -> User:
+    def get_user_by_username(self, username) -> User:
         """
-        Finds a user by email.
-        :param email: The email of the user.
+        Finds a user by username.
+        :param emusernameail: The username of the user.
         :return: The user.
         """
-        user = self.db.users.find_one({"email": email})
+        user = self.db.users.find_one({"username": username})
         if user is None:
             raise Exception("User not found")
 
         return User(
             user_id=str(user['_id']),
-            email=user['email'],
+            username=user['username'],
             password=user['password'],
             workspaces=user.get('workspaces', []),
             last_workspace_id=user.get('last_workspace_id', None)

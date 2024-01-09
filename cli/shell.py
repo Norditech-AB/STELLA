@@ -1,47 +1,55 @@
 from getpass import getpass
 
-from client.stella_client import StellaClient
+from cli.client.stella_client import StellaClient
+
+from cli.client.cli_design import *
+from cli.client.cli_design import *
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import InMemoryHistory
-
-from client.cli_design import *
 
 import os
 
 
 AVAILABLE_COMMANDS = """Available commands:
-    /login                           login as user
-    /logout                          logout as user
-    /register                        register user
-    /workspace create <name>         create workspace
-    /workspace list                  list workspaces
-    /workspace connect <id>          switch workspace
-    /workspace rename <id> <name>    rename workspace
-    /workspace delete <id>           delete workspace
-    /add <agent id>                  add agent to workspace
-    /remove <agent id>               remove agent from workspace
-    /install <agent id>              install agent in repository
-    /status                          show workspace status
-    /exit                            exit the program
+
+    /login                                      login as user
+    /logout                                     logout as user
+    /register                                   register user
+    
+    /username <new username>                    change username
+    /password <old password> <new password>     change password
+    
+    /workspace create <name>                    create workspace
+    /workspace list                             list workspaces
+    /workspace connect <id>                     switch workspace
+    /workspace rename <id> <name>               rename workspace
+    /workspace delete <id>                      delete workspace
+    /status                                     show workspace status
+    
+    /add <agent id>                             add agent to workspace
+    /remove <agent id>                          remove agent from workspace
+    /coordinator <agent id>                     set workspace coordinator
+    
+    /install <agent id>                         install agent in repository
+    
+    /exit                                       exit the program
 """
+
 
 
 class Shell:
     def __init__(self, client: StellaClient):
         self.client: StellaClient = client
-        self.version = "0.0.1"
+        self.version = "0.1.0"
         self.active = True
+        self.authenticated = False
         self.prompt_session = PromptSession(history=InMemoryHistory())
 
     def motd(self):
         print("\n\n")
         print_banner()
-        print(f"     CLI v{self.version}\n\n")
-        print(f"Welcome to STELLA ")
-        print_success(f"Connected to STELLA server running on {self.client.compose_url('')}.")
-        print_info("To chat with agents, type a message and press enter. (do not start with '/')")
-        print(f"Type /help to list commands.\n")
+        print(f"     CLI v{self.version}\n")
 
     def start(self):
 
@@ -50,15 +58,44 @@ class Shell:
             print_error(f"Could not connect to STELLA server ({self.client.compose_url('')}).")
             print_info("Verify that the STELLA server is running and that the CLI configuration `stella/config.json` "
                        "file matches the server configuration.")
-            print_info("Start the server by running `python cli serve` from the root directory of the project.")
+            print_info("Start the server by running `stella serve` from the root directory of the project.")
             exit(1)
 
-        # Show message of the day (welcome message)
+        # Check if the user is logged in
+        self.authenticated = self.client.is_logged_in()
+
+        # If not, ask the user to login or register
+        if not self.authenticated:
+            # Show message of the day (welcome message)
+            self.motd()
+            print('\n')
+            try:
+                while not self.authenticated:
+                    print_info("Please login or register to continue.")
+                    print_info("Type /login to login or /register to create a new account.")
+                    command = input(" > ")
+
+                    if command.strip().lower() == '/login':
+                        self.execute('login')
+                    elif command.strip().lower() == '/register':
+                        self.execute('register')
+
+                    self.authenticated = self.client.is_logged_in()
+            except KeyboardInterrupt:
+                self.shutdown()
+
+        # Show message of the day (welcome message) + info
+        user = self.client.get_user()
         self.motd()
+        print(f" > Welcome {user['username']}. How can I help you today?\n")
+        print_success(f"Connected to STELLA server running on {self.client.compose_url('')}.")
+        print_info("To chat with agents, type a message and press enter. (do not start with '/')")
+        print(f"Type /help to list commands.\n")
 
         # Connect to the latest workspace and chat, if any
         self.client.connect_latest()
 
+        # Once authenticated, proceed to the main loop
         try:
             while self.active:
                 if not self.client.waiting_for_response:
@@ -99,8 +136,52 @@ class Shell:
         elif args[0] == 'register':
             username = input("Username: ")
             password = getpass("Password: ")
-            self.client.register(username, password)
+            confirm_password = getpass("Confirm password: ")
+
+            if password != confirm_password:
+                print_error("Passwords do not match.")
+                return
+
+            try:
+                self.client.register(username, password)
+            except Exception as e:
+                print_error(str(e))
+                return None
+
+            try:
+                self.client.login(username, password)
+            except Exception as e:
+                return None
+
+            try:
+                workspace_id = self.client.create_workspace()
+            except Exception as e:
+                return None
+
+            if workspace_id:
+                self.client.connect_to_workspace(workspace_id)
             return
+        elif args[0] == 'username':
+            if len(args) == 1:
+                print_info("Missing argument. Type /help for a list of commands.")
+                return
+            else:
+                self.client.change_username(args[1])
+                return
+        elif args[0] == 'password':
+            if len(args) == 1:
+                print_info("Missing argument. Type /help for a list of commands.")
+                return
+            else:
+                confirm_password = getpass("Confirm new password: ")
+
+                if args[1] != confirm_password:
+                    print_error("Passwords do not match.")
+                    return
+
+                self.client.change_password(args[1])
+                return
+
         elif args[0] == 'workspace' or args[0] == 'ws':
             # If the user only typed '/workspace', show the current workspace status
             if len(args) == 1:
@@ -157,6 +238,13 @@ class Shell:
                 return
             else:
                 self.client.remove_agent(args[1])
+                return
+        elif args[0] == 'coordinator':
+            if len(args) == 1:
+                print_info("Missing argument. Type /help for a list of commands.")
+                return
+            else:
+                self.client.set_coordinator_agent(args[1])
                 return
         elif args[0] == 'install':
             if len(args) == 1:

@@ -1,9 +1,10 @@
+import shutil
 import sys
 import os
+import re
 import uuid
 import subprocess
 import bcrypt
-import shutil
 
 def print_banner():
     banner = """
@@ -28,8 +29,8 @@ def print_error(message):
     print("\033[1;31m[!]\033[0m " + message)
 
 def check_python_version():
-    if not (3, 8) <= sys.version_info[:2] <= (3, 11):
-        print_error("STELLA requires Python 3.8 to 3.11. Please update your Python version.")
+    if not (3, 8) <= sys.version_info[:2] <= (3, 12):
+        print_error("STELLA requires Python 3.8 to 3.12. Please update your Python version.")
         sys.exit(1)
 
 def backup_env_file(env_path):
@@ -39,7 +40,7 @@ def backup_env_file(env_path):
             backup.write(original.read())
         print_success("Backup of .env file created.")
 
-def update_env_file(key, value, env_path="app/.env"):
+def update_env_file(key, value, env_path):
     if not os.path.exists(env_path):
         print(f"Error: {env_path} does not exist. Please ensure you are in the correct directory.")
         sys.exit(1)
@@ -116,13 +117,14 @@ def add_path_to_pythonpath(path):
         print("Unsupported operating system.")
 """
 
+
 def main():
     print_banner()
     print_info("Initializing STELLA Setup...")
     check_python_version()
 
-    env_path = "app/.env"
-    env_template_path = "app/.env_template"
+    env_path = os.path.join(os.path.dirname(__file__), "app/.env")
+    env_template_path = os.path.join(os.path.dirname(__file__), "app/.env_template")
 
     # Create a copy of .env.template if .env does not exist
     if not os.path.exists(env_path):
@@ -130,18 +132,9 @@ def main():
         print_success("Created .env file.")
 
     backup_env_file(env_path)
-    
+
     setup_database(env_path)
     setup_openai_api_key(env_path)
-
-    """
-    # Ask to modify PYTHONPATH
-    cli_path = os.path.dirname(os.path.abspath(__file__))
-    add_to_path = input("Do you want to add the STELLA CLI to your PYTHONPATH permanently? [y/N]: ").strip().lower()
-    if add_to_path == 'y':
-        add_path_to_pythonpath(cli_path)
-        print("PYTHONPATH updated successfully.")
-    """
 
     generate_keys(env_path)
     print("")

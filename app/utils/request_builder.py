@@ -69,10 +69,8 @@ class RequestBuilder:
 
         result = self.openai_client.chat_completion(
             messages=messages,
-            model="gpt-4",
+            model="gpt-4-1106-preview",  # GPT-4 Turbo
         )
-
-        result = result['choices'][0]['message']['content']
 
         try:
             json_data = json.loads(result)

@@ -6,6 +6,8 @@ from flask_jwt_extended import get_jwt_identity, jwt_required
 from app.db import db
 import dotenv
 
+from flask import current_app
+
 dotenv.load_dotenv()
 
 workspace_views = Blueprint('workspace_views', __name__)
@@ -28,7 +30,7 @@ def create_workspace():
     workspace = db.create_workspace(
         user_id=user_id,
         name=name,
-        agents={}
+        agents={},
     )
 
     return jsonify({"msg": "Workspace created", "workspace": workspace.to_dict()}), 200
@@ -143,6 +145,11 @@ def add_agent(workspace_id):
     if agent_id is None:
         return jsonify({"msg": "Missing agent_id parameter"}), 400
 
+    # Check if agent exists
+    agent = current_app.extensions['agent_storage'].load(agent_id)
+    if not agent:
+        return jsonify({"msg": "Agent does not exist"}), 404
+
     user_id = get_jwt_identity()
 
     # Find the workspace in the database
@@ -205,6 +212,57 @@ def remove_agent(workspace_id):
         return jsonify({"msg": str(e)}), 500
 
     return jsonify({"msg": "Agent removed"}), 200
+
+
+@workspace_views.route('/workspace/<workspace_id>/coordinator', methods=['PUT'])
+@jwt_required()
+def set_coordinator(workspace_id):
+    """
+    Sets the coordinator agent for the workspace.
+    :param workspace_id:
+    :return:
+    """
+    # Make sure an agent_id is passed as a parameter
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
+    agent_id = request.json.get('agent_id', None)
+    if agent_id is None:
+        return jsonify({"msg": "Missing agent_id parameter"}), 400
+
+    # Check if agent exists
+    agent = current_app.extensions['agent_storage'].load(agent_id)
+    if not agent:
+        return jsonify({"msg": "Agent does not exist"}), 404
+
+    user_id = get_jwt_identity()
+
+    # Find the workspace in the database
+    try:
+        workspace = db.get_workspace(workspace_id)
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 404
+
+    # Check if the user is the owner of the workspace
+    if workspace.owner != user_id:
+        return jsonify({"msg": "User is not the owner of the workspace"}), 403
+
+    # Set the coordinator agent
+    print(f"Setting coordinator agent to {agent_id} for workspace {workspace.to_dict()}")
+    workspace.coordinator_agent = agent_id
+    print(f"Updated workspace: {workspace.to_dict()}")
+
+    # Update the workspace in the database
+    try:
+        db.update_workspace(workspace)
+    except Exception as e:
+        return jsonify({"msg": str(e)}), 500
+
+    # Load the workspace
+    updated_workspace = db.get_workspace(workspace_id)
+    print(f"Loaded workspace: {updated_workspace.to_dict()}")
+
+    return jsonify({"msg": "Coordinator agent set"}), 200
 
 
 @workspace_views.route('/workspace/<workspace_id>/rename', methods=['PUT'])

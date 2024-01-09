@@ -6,6 +6,7 @@ from flask_jwt_extended import JWTManager
 from flask_socketio import SocketIO
 from dotenv import load_dotenv
 
+from app.agent_storage import AgentStorage
 from app.config import flask_configs
 
 from app.chat_queue import ChatQueue
@@ -44,7 +45,8 @@ def create_app(host, port):
 
     app.config.from_object(flask_configs[config_name])
     app.extensions['socketio'] = socketio
-    app.extensions['chat_queue'] = ChatQueue(num_workers=5, socketio=socketio)
+    app.extensions['agent_storage'] = AgentStorage()
+    app.extensions['chat_queue'] = ChatQueue(num_workers=5, socketio=socketio, agent_storage=app.extensions['agent_storage'])
 
     app.register_blueprint(auth_views)
     app.register_blueprint(user_views)
