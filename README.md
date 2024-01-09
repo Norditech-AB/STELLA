@@ -1,5 +1,5 @@
 <div align="center">
-  <img src="assets/images/STELLA.png" alt="STELLA Banner">
+  <img src="assets/images/STELLA_FAST_DEMO.gif" alt="STELLA Banner">
 </div>
 
 <div align="center">
