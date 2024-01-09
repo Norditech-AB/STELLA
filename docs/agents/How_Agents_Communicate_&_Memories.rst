@@ -1,7 +1,7 @@
-Agent Communication and Task Execution
-=======================================
+How Agents Communicate & Memories
+=================================
 
-This documentation provides an in-depth look at how agents in our framework communicate with each other and execute tasks, with a focus on the `Task` class's role in this process.
+This documentation provides an in-depth look at how agents in the STELLA multi-agent framework communicate with each other and execute tasks, with a focus on the `Task` class's role in this process.
 
 Agent Communication Overview
 ----------------------------

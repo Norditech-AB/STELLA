@@ -55,9 +55,6 @@ The following are the key attributes of the ``Agent`` class:
 - **skip_action_selection (bool, default=False):**
   Indicates whether to bypass the action selection process.
 
-- **connections_forced (dict, default=None):**
-  Specifies connections that are forcefully established with other agents.
-
 - **connections_available (dict, default=None):**
   A dictionary defining available connections to other agents.
 
@@ -98,7 +95,7 @@ Usage Example
                 # Other attributes...
             )
 
-Conclusion
-----------
 
-The ``Agent`` superclass provides a comprehensive framework for creating and managing agents. Its attributes and methods enable flexible and sophisticated interactions within the system, allowing agents to make informed decisions and respond effectively to user queries.
+Connecting Agents
+-----------------
+To learn how to connect agents, see the :doc:`Connecting_Agents` page.

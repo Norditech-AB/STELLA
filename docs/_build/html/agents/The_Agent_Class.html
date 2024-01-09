@@ -18,8 +18,8 @@
 <link href="../_static/awesome-sphinx-design.css?v=a54cf077" rel="stylesheet" type="text/css"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
-<link href="Best_Practices.html" rel="next" title="Best Practices"/>
-<link href="How_Agents_Communicate_%26_Memories.html" rel="prev" title="Agent Communication and Task Execution"/>
+<link href="Adding_Agents_to_Workspaces.html" rel="next" title="Adding Agents to Workspaces"/>
+<link href="Creating_a_new_Agent.html" rel="prev" title="Create a New Agent"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -77,7 +77,6 @@
 <div class="relative overflow-hidden md:overflow-auto my-4 md:my-0 h-[calc(100vh-8rem)] md:h-auto">
 <div class="overflow-y-auto h-full w-full relative pr-6"><nav class="table w-full min-w-full my-6 lg:my-8">
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="../Introduction.html">Introduction</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Getting_Started.html">Getting Started</a></li>
 <li class="toctree-l1" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="../configuration/index.html">Configuration<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="../configuration/Environment_Variables.html">Environment Variables</a></li>
@@ -94,10 +93,10 @@
 </li>
 <li class="toctree-l1 current" x-data="{ expanded: $el.classList.contains('current') ? true : false }"><a :class="{ 'expanded' : expanded }" @click="expanded = !expanded" class="reference internal expandable" href="index.html">Agents<button @click.prevent.stop="expanded = !expanded" type="button"><span class="sr-only"></span><svg fill="currentColor" height="18px" stroke="none" viewbox="0 0 24 24" width="18px" xmlns="http://www.w3.org/2000/svg"><path d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"></path></svg></button></a><ul class="current" x-show="expanded">
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Create a New Agent</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">The Agent Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Agent Connection Availability</a></li>
 <li class="toctree-l2"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">Agent Communication and Task Execution</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">The Agent Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
 </li>
@@ -190,8 +189,6 @@ The condition that defines when a user’s task has been completed.</p></li>
 Determines whether to skip the response generation phase.</p></li>
 <li><p><strong>skip_action_selection (bool, default=False):</strong>
 Indicates whether to bypass the action selection process.</p></li>
-<li><p><strong>connections_forced (dict, default=None):</strong>
-Specifies connections that are forcefully established with other agents.</p></li>
 <li><p><strong>connections_available (dict, default=None):</strong>
 A dictionary defining available connections to other agents.</p></li>
 <li><p><strong>max_depth (int, default=None):</strong>
@@ -227,9 +224,9 @@ Builds a string representation of the available actions an agent can take.</p></
 </span></code></pre></div>
 </div>
 </section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
-<p>The <code class="docutils literal notranslate"><span class="pre">Agent</span></code> superclass provides a comprehensive framework for creating and managing agents. Its attributes and methods enable flexible and sophisticated interactions within the system, allowing agents to make informed decisions and respond effectively to user queries.</p>
+<section id="connecting-agents">
+<h2>Connecting Agents<a class="headerlink" href="#connecting-agents" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#connecting-agents'">¶</a></h2>
+<p>To learn how to connect agents, see the <a class="reference internal" href="Connecting_Agents.html"><span class="doc">Agent Connection Availability</span></a> page.</p>
 </section>
 </section>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
@@ -239,7 +236,7 @@ Builds a string representation of the available actions an agent can take.</p></
 <li><a :data-current="activeSection === '#attributes'" class="reference internal" href="#attributes">Attributes</a></li>
 <li><a :data-current="activeSection === '#key-methods'" class="reference internal" href="#key-methods">Key Methods</a></li>
 <li><a :data-current="activeSection === '#usage-example'" class="reference internal" href="#usage-example">Usage Example</a></li>
-<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a :data-current="activeSection === '#connecting-agents'" class="reference internal" href="#connecting-agents">Connecting Agents</a></li>
 </ul>
 </div>
 </aside>
