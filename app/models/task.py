@@ -65,17 +65,22 @@ class Task:
         except Exception as e:
             raise Exception(f"Could not find workspace {chat.workspace_id}")
 
+        # Check if there is a coordinator agent assigned to the workspace. If so assign it. Otherwise:
         # If there are no available agents, set the coordinator_agent, current_agent to "stella_welcome_agent",
         # this is a special Agent which is configured for helping the user get started if they have yet to connect
         # any agents to their workspace. /agents/StellaWelcomeAgent.py
         # If there are agents in the workspace (any), then we select the "stella_coordinator_agent"
         # which is the default response agent. /agents/StellaCoordinatorAgent.py
-        if len(workspace.agents) == 0:
-            coordinator_agent = "stella_welcome_agent"
-            current_agent = "stella_welcome_agent"
-        else:
-            coordinator_agent = "stella_coordinator_agent"
-            current_agent = "stella_coordinator_agent"
+        coordinator_agent = workspace.coordinator_agent
+        current_agent = workspace.coordinator_agent
+
+        if not coordinator_agent:
+            if len(workspace.agents) == 0:
+                coordinator_agent = "stella_welcome_agent"
+                current_agent = "stella_welcome_agent"
+            else:
+                coordinator_agent = "stella_coordinator_agent"
+                current_agent = "stella_coordinator_agent"
 
         task_data = db.create_task(
             chat_id=chat.chat_id,
@@ -207,6 +212,12 @@ class Task:
         action_map = {}  # The action map is used by the agent to select an action, see Agent.select_action()
         i = 1  # Leave 0 for "done"
 
+        # If this is a top level task, we add the coordinator agent's connections to the available agents
+        if self.is_top_level:
+            coordinator_agent = agent_storage.load(self.coordinator_agent)
+            connections_available = coordinator_agent.connections_available
+            self.agents.update(connections_available)
+
         print(f"[TASK] -- Building action map with agents: {self.agents}")
         for agent_id in self.agents.keys():
             print(f"[TASK] -- Loading agent {agent_id} for action selection")
@@ -296,6 +307,11 @@ class Task:
                 print(json.dumps(parent_task.to_dict(), indent=4))
                 parent_task.memories.append(self.memories[-1])
                 db.update_task_data(parent_task.to_dict())
+
+            if current_agent.on_completion is not None:
+                print(f"[TASK] -- Agent {self.current_agent} has on_completion function, calling it")
+                current_agent.on_completion(socketio=socketio, chat_id=self.chat_id, chat=chat, memories=self.memories, openai_client=openai_client)
+
 
             # 3.2.3.2 Re-queue the parent task
             return self.parent_task_id

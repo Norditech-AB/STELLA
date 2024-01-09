@@ -54,6 +54,21 @@ dependencies = [
 
 requires-python = ">=3.8,<=3.12.1"
 
+[project.optional-dependencies]
+dev = [
+    "pip-tools",
+    "Sphinx==7.2.6",
+    "sphinx-tabs==3.4.4",
+    "sphinx_design==0.5.0",
+    "sphinxawesome-theme==5.0.1",
+    "sphinxcontrib-applehelp==1.0.7",
+    "sphinxcontrib-devhelp==1.0.5",
+    "sphinxcontrib-htmlhelp==2.0.4",
+    "sphinxcontrib-jsmath==1.0.1",
+    "sphinxcontrib-qthelp==1.0.6",
+    "sphinxcontrib-serializinghtml==1.1.9"
+]
+
 
 [project.urls]
 Homepage = "https://stellaframework.com/"

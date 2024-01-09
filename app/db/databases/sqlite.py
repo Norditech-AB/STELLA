@@ -40,6 +40,7 @@ class SQLite(DatabaseInterface, ABC):
                 "name" TEXT,
                 "agents" TEXT,
                 "last_chat_id" INTEGER,
+                "coordinator_agent" TEXT,
                 FOREIGN KEY(owner) REFERENCES user(id)
             )
         '''
@@ -113,8 +114,8 @@ class SQLite(DatabaseInterface, ABC):
 
     def create_workspace(self, user_id, name, agents) -> Workspace:
         cursor = self.conn.cursor()
-        cursor.execute("INSERT INTO workspace (owner, name, agents, last_chat_id) VALUES (?, ?, ?, ?)",
-                       (user_id, name, json.dumps(agents), None))
+        cursor.execute("INSERT INTO workspace (owner, name, agents, last_chat_id, coordinator_agent) VALUES (?, ?, ?, ?, ?)",
+                       (user_id, name, json.dumps(agents), None, None))
         workspace_id = cursor.lastrowid
         self.conn.commit()
         cursor.execute("SELECT workspaces FROM user WHERE id = ?", (user_id,))
@@ -145,7 +146,8 @@ class SQLite(DatabaseInterface, ABC):
             name=row['name'],
             agents=self._deserialize_list(row['agents']),
             owner=str(row['owner']),
-            last_chat_id=str(row['last_chat_id']) if row['last_chat_id'] else None
+            last_chat_id=str(row['last_chat_id']) if row['last_chat_id'] else None,
+            coordinator_agent=str(row['coordinator_agent']) if row['coordinator_agent'] else None
         )
 
     def delete_workspace(self, workspace_id) -> None:
@@ -375,11 +377,12 @@ class SQLite(DatabaseInterface, ABC):
 
     def update_workspace(self, workspace: Workspace) -> Workspace:
         cursor = self.conn.cursor()
-        cursor.execute("UPDATE workspace SET name = ?, agents = ?, owner = ?, last_chat_id = ? WHERE id = ?", (
+        cursor.execute("UPDATE workspace SET name = ?, agents = ?, owner = ?, last_chat_id = ?, coordinator_agent = ? WHERE id = ?", (
             workspace.name,
             json.dumps(workspace.agents),
             workspace.owner,
             workspace.last_chat_id,
+            workspace.coordinator_agent,
             workspace.id
         ))
         self.conn.commit()
