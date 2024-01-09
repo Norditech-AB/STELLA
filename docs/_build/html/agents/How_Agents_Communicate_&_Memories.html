@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Agent Communication and Task Execution | STELLA  documentation</title>
-<meta content="Agent Communication and Task Execution | STELLA  documentation" property="og:title"/>
-<meta content="Agent Communication and Task Execution | STELLA  documentation" name="twitter:title"/>
+<title>How Agents Communicate &amp; Memories | STELLA  documentation</title>
+<meta content="How Agents Communicate &amp; Memories | STELLA  documentation" property="og:title"/>
+<meta content="How Agents Communicate &amp; Memories | STELLA  documentation" name="twitter:title"/>
 <link href="../_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=e43df443" rel="stylesheet" type="text/css"/>
 <link href="../_static/tabs.css?v=a5c4661c" rel="stylesheet" type="text/css"/>
@@ -19,7 +19,7 @@
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
 <link href="Best_Practices.html" rel="next" title="Best Practices"/>
-<link href="Connecting_Agents.html" rel="prev" title="Agent Connection Availability"/>
+<link href="Connecting_Agents.html" rel="prev" title="Connecting Agents"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
       const userPreference = localStorage.getItem('darkMode');
@@ -95,8 +95,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="The_Agent_Class.html">The Agent Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Agent Connection Availability</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Agent Communication and Task Execution</a></li>
+<li class="toctree-l2"><a class="reference internal" href="Connecting_Agents.html">Connecting Agents</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
 </li>
@@ -147,101 +147,91 @@
 </svg>
 </a>
 <div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Agents</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Agent Communication and Task Execution</span>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">How Agents Communicate &amp; Memories</span>
 </nav>
 <div id="content" role="main">
-<section id="agent-communication-and-task-execution">
-<h1>Agent Communication and Task Execution<a class="headerlink" href="#agent-communication-and-task-execution" title="Link to this heading">¶</a></h1>
-<p>This documentation provides an in-depth look at how agents in our framework communicate with each other and execute tasks, with a focus on the <cite>Task</cite> class’s role in this process.</p>
-<section id="agent-communication-overview">
-<h2>Agent Communication Overview<a class="headerlink" href="#agent-communication-overview" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#agent-communication-overview'">¶</a></h2>
-<p>Agents communicate by sending and receiving a <cite>Task</cite> object. The <cite>Task</cite> object is central to the decision-making process in action selection and determining the completion status of a task. This process involves evaluating the user’s input (chat query) and the information accumulated in the task’s memories from previous agent interactions.</p>
+<section id="how-agents-communicate-memories">
+<h1>How Agents Communicate &amp; Memories<a class="headerlink" href="#how-agents-communicate-memories" title="Link to this heading">¶</a></h1>
+<p>In Stella, agents are the autonomous units capable of performing specialized tasks designed to simulate the behavior of an assistant. Communications between agents are central to creating cohesive and intelligent responses to user requests and handling complex tasks that require collaboration. This documentation provides a detailed explanation of agent communication, the use of memories, and the task execution flow within the Stella system.</p>
+<section id="agent-communication">
+<h2>Agent Communication<a class="headerlink" href="#agent-communication" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#agent-communication'">¶</a></h2>
+<p>Agents communicate by passing information through tasks. Each task can invoke subtasks, and agents can use memories to share information and context:</p>
+<ul class="simple">
+<li><p><strong>Task Inception</strong>: A task is initiated when a user interacts with Stella, often through a chat interface. This top-level task is then managed by a coordinator agent.</p></li>
+<li><p><strong>Action Selection</strong>: Each agent is responsible for deciding whether to handle a request or delegate it to another agent. This process decides the direction of information flow and task allocation.</p></li>
+<li><p><strong>Subtasks</strong>: If an agent determines that another agent is better suited for the task or a subset thereof, it can create a subtask with a new agent in charge.</p></li>
+<li><p><strong>Memories</strong>: Agents retain and share memories, valuable information and context from their interactions. These memories are propagated to the parent task upon subtask completion, if configured to do so.</p></li>
+</ul>
 </section>
-<section id="task-execution-workflow">
-<h2>Task Execution Workflow<a class="headerlink" href="#task-execution-workflow" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#task-execution-workflow'">¶</a></h2>
-<p>The <cite>Task</cite> class’s <cite>execute</cite> method outlines the workflow for task execution:</p>
+<section id="memories">
+<h2>Memories<a class="headerlink" href="#memories" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#memories'">¶</a></h2>
+<p>Memories are akin to notes that agents keep during their processes. They record useful details that can help in ongoing and future tasks:</p>
+<ul class="simple">
+<li><p><strong>Persistent Context</strong>: Memories are persisted across tasks and subtasks, maintaining context and avoiding repetitive queries.</p></li>
+<li><p><strong>Sharing Knowledge</strong>: Agents can choose to transfer all or part of their memories to parent tasks, enabling higher-level agents to access the accumulated knowledge.</p></li>
+<li><p><strong>Customizable Propagation</strong>: The behavior of memory propagation—either all memory entries or only the last one—can be customized for each agent.</p></li>
+</ul>
+</section>
+<section id="tasks-and-task-execution">
+<h2>Tasks and Task Execution<a class="headerlink" href="#tasks-and-task-execution" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#tasks-and-task-execution'">¶</a></h2>
+<p>Tasks are discrete units of work delegated to agents. The task execution mechanism is integral to Stella’s operation:</p>
+<ul class="simple">
+<li><p><strong>Task Initialization</strong>: Upon receiving a user request, a top-level task is created.</p></li>
+<li><p><strong>Execution Flow</strong>: The task is then executed in a sequence that might involve action selection, subtask creation, or generation of a response.</p></li>
+<li><p><strong>Subtask Communication</strong>: Subtasks can communicate with their parent task by transferring memories or signals upon completion.</p></li>
+</ul>
+</section>
+<section id="task-execution-flow">
+<h2>Task Execution Flow<a class="headerlink" href="#task-execution-flow" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#task-execution-flow'">¶</a></h2>
+<p>Here is an in-depth look at the task execution process:</p>
 <ol class="arabic simple">
-<li><p><strong>Loading the Current Agent:</strong>
-The agent responsible for the current task is loaded.</p></li>
-<li><p><strong>Action Selection:</strong>
-The agent evaluates the current situation based on the chat history and memories and then selects an appropriate action.</p></li>
-<li><p><strong>Handling Subtasks or Completion:</strong>
-Depending on the action selected, the task may be passed to another agent (subtask creation) or marked as complete.</p></li>
-<li><p><strong>Updating and Forwarding Task Memories:</strong>
-The task’s memories are updated with new information. If the task is complete, it is passed back to the parent agent.</p></li>
+<li><p><strong>Load Current Agent</strong>: The current agent, responsible for handling the task, is loaded from the Agent Storage.</p></li>
+<li><p><strong>Action Selection</strong>:</p>
+<ul class="simple">
+<li><p><strong>Analyzing Options</strong>: The agent uses action selection to evaluate which agent or action, available in the action map, is best suited to handle the request.</p></li>
+<li><p><strong>Decision Making</strong>: If the agent selects itself or decides that no further action is needed, it will generate a response.</p></li>
+</ul>
+</li>
+<li><p><strong>Subtask Generation</strong>:</p>
+<ul class="simple">
+<li><p>If an agent other than the current one is selected during action selection, a new subtask is created, and control is transferred to the chosen agent.</p></li>
+</ul>
+</li>
+<li><p><strong>Task Execution</strong>:</p>
+<ul class="simple">
+<li><p><strong>Subtasks</strong>: For subtasks, upon completion, they can send memories back to the parent task.</p></li>
+<li><p><strong>Top-Level Tasks</strong>: When the top-level task is completed, it generates a response back to the user.</p></li>
+</ul>
+</li>
+<li><p><strong>Task Completion</strong>:</p>
+<ul class="simple">
+<li><p>A task is marked as completed once it has either generated a response or created a subtask that is now responsible for continuing the task execution flow.</p></li>
+</ul>
+</li>
 </ol>
 </section>
-<section id="example-task-execution-in-demoweatheragent">
-<h2>Example: Task Execution in DemoWeatherAgent<a class="headerlink" href="#example-task-execution-in-demoweatheragent" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example-task-execution-in-demoweatheragent'">¶</a></h2>
-<p>Below is a detailed example from the <cite>DemoWeatherAgent</cite> that showcases the task execution process:</p>
-<div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">def</span> <span class="nf">execute</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">agent_storage</span><span class="p">,</span> <span class="n">openai_client</span><span class="p">,</span> <span class="n">socketio</span><span class="p">,</span> <span class="n">request_builder</span><span class="p">):</span>
-</span><span id="line-2">    <span class="c1"># [Initial setup and context retrieval]</span>
-</span><span id="line-3">    <span class="c1"># ...</span>
-</span><span id="line-4">
-</span><span id="line-5">    <span class="c1"># Load the current agent</span>
-</span><span id="line-6">    <span class="n">current_agent</span> <span class="o">=</span> <span class="n">agent_storage</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">current_agent</span><span class="p">)</span>
-</span><span id="line-7">
-</span><span id="line-8">    <span class="c1"># Check for max depth</span>
-</span><span id="line-9">    <span class="c1"># ...</span>
-</span><span id="line-10">
-</span><span id="line-11">    <span class="c1"># Perform action selection</span>
-</span><span id="line-12">    <span class="c1"># ... (Action selection logic using chat and memories)</span>
-</span><span id="line-13">    <span class="c1"># Selected action is determined here</span>
-</span><span id="line-14">
-</span><span id="line-15">    <span class="c1"># Action handling</span>
-</span><span id="line-16">    <span class="k">if</span> <span class="n">selected_action</span> <span class="o">!=</span> <span class="s2">"0"</span><span class="p">:</span>
-</span><span id="line-17">        <span class="c1"># Create a new task for the selected agent</span>
-</span><span id="line-18">        <span class="c1"># ... (Code for creating and returning a new task)</span>
-</span><span id="line-19">    <span class="k">elif</span> <span class="n">selected_action</span> <span class="o">==</span> <span class="s2">"0"</span><span class="p">:</span>
-</span><span id="line-20">        <span class="c1"># Handle task completion</span>
-</span><span id="line-21">        <span class="c1"># ... (Code for generating a response, updating memories, and handling top-level or subtasks)</span>
-</span></code></pre></div>
-</div>
-</section>
-<section id="understanding-task-flow-and-agent-interaction">
-<h2>Understanding Task Flow and Agent Interaction<a class="headerlink" href="#understanding-task-flow-and-agent-interaction" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#understanding-task-flow-and-agent-interaction'">¶</a></h2>
-<ol class="arabic simple">
-<li><p><strong>Loading Agents:</strong>
-The executing agent, identified by <cite>current_agent</cite>, is loaded from the <cite>agent_storage</cite>. This agent now has the context and is ready to make decisions.</p></li>
-<li><p><strong>Depth Check:</strong>
-Before proceeding, the agent checks if the maximum depth of query handling has been reached. This prevents overly complex or circular queries.</p></li>
-<li><p><strong>Building the Action Map:</strong>
-The agent constructs an action map that represents potential actions or sub-agents to delegate the task to.</p></li>
-<li><p><strong>Selecting an Action:</strong>
-The agent uses the chat history, current task memories, and the action map to select the best course of action.</p></li>
-<li><p><strong>Delegating or Completing the Task:</strong>
-If another agent is selected, a new task for that agent is created. If the action selection returns “0”, it indicates that the agent considers the task complete.</p></li>
-<li><p><strong>Updating and Forwarding Memories:</strong>
-The task’s memories are updated with new information or completion status. These memories are crucial for maintaining the context and history of the interaction.</p></li>
-</ol>
+<section id="agent-max-depth">
+<h2>Agent Max Depth<a class="headerlink" href="#agent-max-depth" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#agent-max-depth'">¶</a></h2>
+<p>Each agent has an attribute defining its maximum subtask depth to prevent circular task delegations and ensure manageable complexity. The system enforces this by tracking the depth of each subtask:</p>
+<ul class="simple">
+<li><p><strong>Global Limit</strong>: There is a global setting for maximum task depth, preventing the over-complication of conversations.</p></li>
+<li><p><strong>Agent-Specific Limit</strong>: Individual agents may have specific maximum depth settings to constrain their operation complexity.</p></li>
+</ul>
+<p>On task execution, the depth is checked—if a task reaches its maximum depth, a warning is sent to the user without proceeding further.</p>
 <div class="admonition note">
 <p class="admonition-title">Note</p>
-<p>Agents can be pre-configured with the following attributes to control their interaction with task memories:</p>
-<ul class="simple">
-<li><p><strong>wants_memories (bool = True):</strong>
-This attribute determines whether the agent wants to access the task’s memory. When set to <cite>True</cite>, the agent considers the accumulated memories in its decision-making process.</p></li>
-<li><p><strong>forward_all_memory_entries_to_parent (bool = False):</strong>
-If set to <cite>True</cite>, the agent will forward all memory entries to its parent task upon completion. This is useful when the parent task needs to maintain a full context of the child task’s activities and decisions.</p></li>
-<li><p><strong>forward_last_memory_to_parent (bool = False):</strong>
-When this attribute is <cite>True</cite>, only the last entry in the task’s memories is forwarded to the parent task. This option is beneficial when only the final outcome or decision of the child task is relevant to the parent.</p></li>
-</ul>
-<p>For more information on agent attributes, see the <a class="reference internal" href="The_Agent_Class.html"><span class="doc">The Agent Class</span></a> documentation.</p>
+<p>The depth attribute guides the system in maintaining performance and preventing infinite loops or excessive delegation.</p>
 </div>
-<p>These attributes provide flexibility in how agents handle and transmit information within the task framework, allowing for more tailored and efficient agent behaviors.</p>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
-<p>Through the <cite>Task</cite> class and its execution method, our framework provides a structured way for agents to interact, make decisions, and pass on information. This system allows for the creation of complex, multi-agent workflows that can handle intricate user queries and tasks.</p>
 </section>
 </section>
 </div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
 <div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
 <ul>
-<li><a :data-current="activeSection === '#agent-communication-overview'" class="reference internal" href="#agent-communication-overview">Agent Communication Overview</a></li>
-<li><a :data-current="activeSection === '#task-execution-workflow'" class="reference internal" href="#task-execution-workflow">Task Execution Workflow</a></li>
-<li><a :data-current="activeSection === '#example-task-execution-in-demoweatheragent'" class="reference internal" href="#example-task-execution-in-demoweatheragent">Example: Task Execution in DemoWeatherAgent</a></li>
-<li><a :data-current="activeSection === '#understanding-task-flow-and-agent-interaction'" class="reference internal" href="#understanding-task-flow-and-agent-interaction">Understanding Task Flow and Agent Interaction</a></li>
-<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
+<li><a :data-current="activeSection === '#agent-communication'" class="reference internal" href="#agent-communication">Agent Communication</a></li>
+<li><a :data-current="activeSection === '#memories'" class="reference internal" href="#memories">Memories</a></li>
+<li><a :data-current="activeSection === '#tasks-and-task-execution'" class="reference internal" href="#tasks-and-task-execution">Tasks and Task Execution</a></li>
+<li><a :data-current="activeSection === '#task-execution-flow'" class="reference internal" href="#task-execution-flow">Task Execution Flow</a></li>
+<li><a :data-current="activeSection === '#agent-max-depth'" class="reference internal" href="#agent-max-depth">Agent Max Depth</a></li>
 </ul>
 </div>
 </aside>

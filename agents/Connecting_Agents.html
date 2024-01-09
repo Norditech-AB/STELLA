@@ -7,9 +7,9 @@
 <meta content="white" media="(prefers-color-scheme: light)" name="theme-color"/>
 <meta content="black" metia="(prefers-color-scheme: dark)" name="theme-color"/>
 <meta content="Docutils 0.18.1: http://docutils.sourceforge.net/" name="generator"/>
-<title>Agent Connection Availability | STELLA  documentation</title>
-<meta content="Agent Connection Availability | STELLA  documentation" property="og:title"/>
-<meta content="Agent Connection Availability | STELLA  documentation" name="twitter:title"/>
+<title>Connecting Agents | STELLA  documentation</title>
+<meta content="Connecting Agents | STELLA  documentation" property="og:title"/>
+<meta content="Connecting Agents | STELLA  documentation" name="twitter:title"/>
 <link href="../_static/pygments.css?v=8d216cef" rel="stylesheet" type="text/css"/>
 <link href="../_static/theme.css?v=e43df443" rel="stylesheet" type="text/css"/>
 <link href="../_static/tabs.css?v=a5c4661c" rel="stylesheet" type="text/css"/>
@@ -18,7 +18,7 @@
 <link href="../_static/awesome-sphinx-design.css?v=a54cf077" rel="stylesheet" type="text/css"/>
 <link href="../search.html" rel="search" title="Search"/>
 <link href="../genindex.html" rel="index" title="Index"/>
-<link href="How_Agents_Communicate_%26_Memories.html" rel="next" title="Agent Communication and Task Execution"/>
+<link href="How_Agents_Communicate_%26_Memories.html" rel="next" title="How Agents Communicate &amp; Memories"/>
 <link href="Adding_Agents_to_Workspaces.html" rel="prev" title="Adding Agents to Workspaces"/>
 <script>
     <!-- Prevent Flash of wrong theme -->
@@ -95,8 +95,8 @@
 <li class="toctree-l2"><a class="reference internal" href="Creating_a_new_Agent.html">Create a New Agent</a></li>
 <li class="toctree-l2"><a class="reference internal" href="The_Agent_Class.html">The Agent Class</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Adding_Agents_to_Workspaces.html">Adding Agents to Workspaces</a></li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Agent Connection Availability</a></li>
-<li class="toctree-l2"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">Agent Communication and Task Execution</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Connecting Agents</a></li>
+<li class="toctree-l2"><a class="reference internal" href="How_Agents_Communicate_%26_Memories.html">How Agents Communicate &amp; Memories</a></li>
 <li class="toctree-l2"><a class="reference internal" href="Best_Practices.html">Best Practices</a></li>
 </ul>
 </li>
@@ -147,12 +147,12 @@
 </svg>
 </a>
 <div class="mr-1">/</div><a class="hover:text-foreground overflow-hidden text-ellipsis whitespace-nowrap" href="index.html">Agents</a>
-<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Agent Connection Availability</span>
+<div class="mr-1">/</div><span aria-current="page" class="font-medium text-foreground overflow-hidden text-ellipsis whitespace-nowrap">Connecting Agents</span>
 </nav>
 <div id="content" role="main">
-<section id="agent-connection-availability">
-<h1>Agent Connection Availability<a class="headerlink" href="#agent-connection-availability" title="Link to this heading">¶</a></h1>
-<p>In our framework, agents can be interconnected to enhance their capabilities and access specialized functionalities.
+<section id="connecting-agents">
+<h1>Connecting Agents<a class="headerlink" href="#connecting-agents" title="Link to this heading">¶</a></h1>
+<p>In the STELLA framework, agents can be interconnected to enhance their capabilities and access specialized functionalities.
 This interconnectivity is managed through the <cite>connections_available</cite> attribute derived from the Agent superclass.</p>
 <section id="understanding-connections-available">
 <h2>Understanding <cite>connections_available</cite><a class="headerlink" href="#understanding-connections-available" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#understanding-connections-available'">¶</a></h2>
@@ -161,7 +161,7 @@ This interconnectivity is managed through the <cite>connections_available</cite>
 </section>
 <section id="example-demoweatheragent">
 <h2>Example: DemoWeatherAgent<a class="headerlink" href="#example-demoweatheragent" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#example-demoweatheragent'">¶</a></h2>
-<p>The <cite>DemoWeatherAgent</cite> is an example of an agent utilizing the <cite>connections_available</cite> attribute. This agent can connect with other agents specialized in various aspects of weather data.</p>
+<p>Here is a version of the <cite>DemoWeatherAgent</cite> utilizing the <cite>connections_available</cite> attribute. This agent can delegate tasks to the other agents specialized in various aspects of weather data.</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><code><span id="line-1"><span class="k">class</span> <span class="nc">DemoWeatherAgent</span><span class="p">(</span><span class="n">Agent</span><span class="p">):</span>
 </span><span id="line-2"><span class="w">    </span><span class="sd">"""</span>
 </span><span id="line-3"><span class="sd">    A weather agent that retrieve weather information.</span>
@@ -180,16 +180,12 @@ This interconnectivity is managed through the <cite>connections_available</cite>
 </span><span id="line-16">        <span class="p">)</span>
 </span></code></pre></div>
 </div>
-<p>In this example, <cite>DemoWeatherAgent</cite> is configured with connections to <cite>humidity_agent</cite>, <cite>wind_agent</cite>, and <cite>precipitation_agent</cite>. These connections allow <cite>DemoWeatherAgent</cite> to access more specific weather-related data, enhancing its overall functionality.</p>
-</section>
-<section id="conclusion">
-<h2>Conclusion<a class="headerlink" href="#conclusion" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#conclusion'">¶</a></h2>
-<p>Utilizing <cite>connections_available</cite>, agents in our framework can be interconnected to form a network of specialized functionalities. This design fosters a modular and flexible approach to building complex systems where agents can collaborate to achieve more comprehensive and detailed results.</p>
+<p>In this example, <cite>DemoWeatherAgent</cite> is configured with connections to <cite>humidity_agent</cite>, <cite>wind_agent</cite>, and <cite>precipitation_agent</cite>. If the <cite>DemoWeatherAgent</cite> is asked about humidity, it will delegate the task to the <cite>humidity_agent</cite> and return the result.</p>
 </section>
 <section id="next-steps">
 <h2>Next Steps<a class="headerlink" href="#next-steps" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#next-steps'">¶</a></h2>
 <ul class="simple">
-<li><p>Go further to learn how Agents communicate and use memories in the <a class="reference internal" href="How_Agents_Communicate_%26_Memories.html"><span class="doc">Agent Communication and Task Execution</span></a> guide.</p></li>
+<li><p>Go further to learn how Agents communicate and use memories in the <a class="reference internal" href="How_Agents_Communicate_%26_Memories.html"><span class="doc">How Agents Communicate &amp; Memories</span></a> guide.</p></li>
 </ul>
 </section>
 </section>
@@ -198,7 +194,6 @@ This interconnectivity is managed through the <cite>connections_available</cite>
 <ul>
 <li><a :data-current="activeSection === '#understanding-connections-available'" class="reference internal" href="#understanding-connections-available">Understanding <cite>connections_available</cite></a></li>
 <li><a :data-current="activeSection === '#example-demoweatheragent'" class="reference internal" href="#example-demoweatheragent">Example: DemoWeatherAgent</a></li>
-<li><a :data-current="activeSection === '#conclusion'" class="reference internal" href="#conclusion">Conclusion</a></li>
 <li><a :data-current="activeSection === '#next-steps'" class="reference internal" href="#next-steps">Next Steps</a></li>
 </ul>
 </div>

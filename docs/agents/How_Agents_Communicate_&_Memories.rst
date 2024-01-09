@@ -1,101 +1,83 @@
 How Agents Communicate & Memories
 =================================
 
-This documentation provides an in-depth look at how agents in the STELLA multi-agent framework communicate with each other and execute tasks, with a focus on the `Task` class's role in this process.
+In Stella, agents are the autonomous units capable of performing specialized tasks designed to simulate the behavior of an assistant. Communications between agents are central to creating cohesive and intelligent responses to user requests and handling complex tasks that require collaboration. This documentation provides a detailed explanation of agent communication, the use of memories, and the task execution flow within the Stella system.
 
-Agent Communication Overview
-----------------------------
 
-Agents communicate by sending and receiving a `Task` object. The `Task` object is central to the decision-making process in action selection and determining the completion status of a task. This process involves evaluating the user's input (chat query) and the information accumulated in the task's memories from previous agent interactions.
+Agent Communication
+-------------------
 
-Task Execution Workflow
------------------------
+Agents communicate by passing information through tasks. Each task can invoke subtasks, and agents can use memories to share information and context:
 
-The `Task` class's `execute` method outlines the workflow for task execution:
+- **Task Inception**: A task is initiated when a user interacts with Stella, often through a chat interface. This top-level task is then managed by a coordinator agent.
 
-1. **Loading the Current Agent:**
-   The agent responsible for the current task is loaded.
+- **Action Selection**: Each agent is responsible for deciding whether to handle a request or delegate it to another agent. This process decides the direction of information flow and task allocation.
 
-2. **Action Selection:**
-   The agent evaluates the current situation based on the chat history and memories and then selects an appropriate action.
+- **Subtasks**: If an agent determines that another agent is better suited for the task or a subset thereof, it can create a subtask with a new agent in charge.
 
-3. **Handling Subtasks or Completion:**
-   Depending on the action selected, the task may be passed to another agent (subtask creation) or marked as complete.
+- **Memories**: Agents retain and share memories, valuable information and context from their interactions. These memories are propagated to the parent task upon subtask completion, if configured to do so.
 
-4. **Updating and Forwarding Task Memories:**
-   The task's memories are updated with new information. If the task is complete, it is passed back to the parent agent.
 
-Example: Task Execution in DemoWeatherAgent
---------------------------------------------
+Memories
+--------
 
-Below is a detailed example from the `DemoWeatherAgent` that showcases the task execution process:
+Memories are akin to notes that agents keep during their processes. They record useful details that can help in ongoing and future tasks:
 
-.. code-block:: python
+- **Persistent Context**: Memories are persisted across tasks and subtasks, maintaining context and avoiding repetitive queries.
 
-    def execute(self, agent_storage, openai_client, socketio, request_builder):
-        # [Initial setup and context retrieval]
-        # ...
+- **Sharing Knowledge**: Agents can choose to transfer all or part of their memories to parent tasks, enabling higher-level agents to access the accumulated knowledge.
 
-        # Load the current agent
-        current_agent = agent_storage.load(self.current_agent)
+- **Customizable Propagation**: The behavior of memory propagation—either all memory entries or only the last one—can be customized for each agent.
 
-        # Check for max depth
-        # ...
 
-        # Perform action selection
-        # ... (Action selection logic using chat and memories)
-        # Selected action is determined here
+Tasks and Task Execution
+------------------------
 
-        # Action handling
-        if selected_action != "0":
-            # Create a new task for the selected agent
-            # ... (Code for creating and returning a new task)
-        elif selected_action == "0":
-            # Handle task completion
-            # ... (Code for generating a response, updating memories, and handling top-level or subtasks)
+Tasks are discrete units of work delegated to agents. The task execution mechanism is integral to Stella's operation:
 
-Understanding Task Flow and Agent Interaction
-----------------------------------------------
+- **Task Initialization**: Upon receiving a user request, a top-level task is created.
 
-1. **Loading Agents:**
-   The executing agent, identified by `current_agent`, is loaded from the `agent_storage`. This agent now has the context and is ready to make decisions.
+- **Execution Flow**: The task is then executed in a sequence that might involve action selection, subtask creation, or generation of a response.
 
-2. **Depth Check:**
-   Before proceeding, the agent checks if the maximum depth of query handling has been reached. This prevents overly complex or circular queries.
+- **Subtask Communication**: Subtasks can communicate with their parent task by transferring memories or signals upon completion.
 
-3. **Building the Action Map:**
-   The agent constructs an action map that represents potential actions or sub-agents to delegate the task to.
 
-4. **Selecting an Action:**
-   The agent uses the chat history, current task memories, and the action map to select the best course of action.
+Task Execution Flow
+-------------------
 
-5. **Delegating or Completing the Task:**
-   If another agent is selected, a new task for that agent is created. If the action selection returns "0", it indicates that the agent considers the task complete.
+Here is an in-depth look at the task execution process:
 
-6. **Updating and Forwarding Memories:**
-   The task's memories are updated with new information or completion status. These memories are crucial for maintaining the context and history of the interaction.
+1. **Load Current Agent**: The current agent, responsible for handling the task, is loaded from the Agent Storage.
+
+2. **Action Selection**:
+
+   - **Analyzing Options**: The agent uses action selection to evaluate which agent or action, available in the action map, is best suited to handle the request.
+   - **Decision Making**: If the agent selects itself or decides that no further action is needed, it will generate a response.
+
+3. **Subtask Generation**:
+
+   - If an agent other than the current one is selected during action selection, a new subtask is created, and control is transferred to the chosen agent.
+
+4. **Task Execution**:
+
+   - **Subtasks**: For subtasks, upon completion, they can send memories back to the parent task.
+   - **Top-Level Tasks**: When the top-level task is completed, it generates a response back to the user.
+
+5. **Task Completion**:
+
+   - A task is marked as completed once it has either generated a response or created a subtask that is now responsible for continuing the task execution flow.
+
+
+Agent Max Depth
+---------------
+
+Each agent has an attribute defining its maximum subtask depth to prevent circular task delegations and ensure manageable complexity. The system enforces this by tracking the depth of each subtask:
+
+- **Global Limit**: There is a global setting for maximum task depth, preventing the over-complication of conversations.
+- **Agent-Specific Limit**: Individual agents may have specific maximum depth settings to constrain their operation complexity.
+
+On task execution, the depth is checked—if a task reaches its maximum depth, a warning is sent to the user without proceeding further.
 
 .. note::
-   Agent Memory Attributes
-   ------------------------------
 
-   Agents can be pre-configured with the following attributes to control their interaction with task memories:
-
-   - **wants_memories (bool = True):**
-     This attribute determines whether the agent wants to access the task's memory. When set to `True`, the agent considers the accumulated memories in its decision-making process.
-
-   - **forward_all_memory_entries_to_parent (bool = False):**
-     If set to `True`, the agent will forward all memory entries to its parent task upon completion. This is useful when the parent task needs to maintain a full context of the child task's activities and decisions.
-
-   - **forward_last_memory_to_parent (bool = False):**
-     When this attribute is `True`, only the last entry in the task's memories is forwarded to the parent task. This option is beneficial when only the final outcome or decision of the child task is relevant to the parent.
-
-   For more information on agent attributes, see the :doc:`The_Agent_Class` documentation.
-
-These attributes provide flexibility in how agents handle and transmit information within the task framework, allowing for more tailored and efficient agent behaviors.
-
-
-Conclusion
-----------
-
-Through the `Task` class and its execution method, our framework provides a structured way for agents to interact, make decisions, and pass on information. This system allows for the creation of complex, multi-agent workflows that can handle intricate user queries and tasks.
+   The depth attribute guides the system in maintaining performance and preventing infinite loops or excessive delegation.

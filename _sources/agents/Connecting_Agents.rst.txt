@@ -1,7 +1,7 @@
-Agent Connection Availability
-=============================
+Connecting Agents
+=================
 
-In our framework, agents can be interconnected to enhance their capabilities and access specialized functionalities.
+In the STELLA framework, agents can be interconnected to enhance their capabilities and access specialized functionalities.
 This interconnectivity is managed through the `connections_available` attribute derived from the Agent superclass.
 
 Understanding `connections_available`
@@ -14,7 +14,7 @@ For instance, a weather agent might connect with agents specialized in humidity,
 Example: DemoWeatherAgent
 --------------------------
 
-The `DemoWeatherAgent` is an example of an agent utilizing the `connections_available` attribute. This agent can connect with other agents specialized in various aspects of weather data.
+Here is a version of the `DemoWeatherAgent` utilizing the `connections_available` attribute. This agent can delegate tasks to the other agents specialized in various aspects of weather data.
 
 .. code-block:: python
 
@@ -35,12 +35,7 @@ The `DemoWeatherAgent` is an example of an agent utilizing the `connections_avai
                 }
             )
 
-In this example, `DemoWeatherAgent` is configured with connections to `humidity_agent`, `wind_agent`, and `precipitation_agent`. These connections allow `DemoWeatherAgent` to access more specific weather-related data, enhancing its overall functionality.
-
-Conclusion
-----------
-
-Utilizing `connections_available`, agents in our framework can be interconnected to form a network of specialized functionalities. This design fosters a modular and flexible approach to building complex systems where agents can collaborate to achieve more comprehensive and detailed results.
+In this example, `DemoWeatherAgent` is configured with connections to `humidity_agent`, `wind_agent`, and `precipitation_agent`. If the `DemoWeatherAgent` is asked about humidity, it will delegate the task to the `humidity_agent` and return the result.
 
 Next Steps
 ----------
