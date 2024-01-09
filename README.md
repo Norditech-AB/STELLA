@@ -19,7 +19,7 @@ STELLA is currently in beta. We are working hard to improve the framework and ad
 
 ## 📚 Guide
 
-- [🚀 Getting Started](#getting-started)
+- [🚀 Getting Started](https://docs.stellaframework.com/Getting_Started.html)
 - [🔭 Introduction](https://docs.stellaframework.com/Introduction.html)
 - [🤝 Contributing](https://docs.stellaframework.com/contribution_guidelines/index.html)
 - [🌍 Community](https://docs.stellaframework.com/Community.html)
@@ -74,6 +74,10 @@ stella
 This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 Get started quickly writing `/register`.
 To list available commands, write `/help` in the shell.
+
+<div align="center">
+  <img src="assets/images/REGISTER_AND_TALK_TO_STELLA.gif" alt="STELLA Banner">
+</div>
 
 For a complete guide, visit [Getting Started](https://docs.stellaframework.com/Getting_Started).
 
