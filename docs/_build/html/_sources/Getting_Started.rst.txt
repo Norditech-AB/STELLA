@@ -108,8 +108,6 @@ With the environment configured, start the server by running `stella serve`:
 
     stella serve
 
-.. seealso:: If you encounter issues starting the server, refer to the :doc:`Troubleshooting` guide for common problems and solutions.
-
 Step 6: Explore and create in the CLI
 --------------------------------------
 Open a **new terminal window** and run `stella` to move into the CLI. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.

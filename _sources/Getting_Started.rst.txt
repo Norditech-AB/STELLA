@@ -99,7 +99,7 @@ This will walk you through the setup process and create a `.env` file in the :fi
 
 .. note:: You need an api key from OpenAI to use the agent. Read more about how to get one `here <https://help.openai.com/en/articles/4936850-where-do-i-find-my-api-key>`_ and paste it into the prompt.
 
-Step 4: Start the Server
+Step 5: Start the Server
 -------------------------
 
 With the environment configured, start the server by running `stella serve`:
@@ -108,9 +108,7 @@ With the environment configured, start the server by running `stella serve`:
 
     stella serve
 
-.. seealso:: If you encounter issues starting the server, refer to the :doc:`Troubleshooting` guide for common problems and solutions.
-
-Step 5: Explore and create in the CLI
+Step 6: Explore and create in the CLI
 --------------------------------------
 Open a **new terminal window** and run `stella` to move into the CLI. This will open a Python shell with the STELLA environment loaded. You can now explore the framework and create your own agents.
 
@@ -118,7 +116,7 @@ Open a **new terminal window** and run `stella` to move into the CLI. This will 
 
     stella
 
-Step 6: Register an account and start chatting
+Step 7: Register an account and start chatting
 --------------------------------------------------
 
 Create and configure your workspace using the CLI:

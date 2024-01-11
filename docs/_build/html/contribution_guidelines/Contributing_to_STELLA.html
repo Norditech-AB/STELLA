@@ -126,7 +126,6 @@
 <li class="toctree-l1"><a class="reference internal" href="../API_Reference.html">API Reference</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Community.html">Community</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../Licensing.html">Licensing</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Troubleshooting.html">Troubleshooting</a></li>
 </ul>
 </nav>
 </div>
@@ -152,8 +151,69 @@
 <div id="content" role="main">
 <section id="contributing-to-stella">
 <h1>Contributing to STELLA<a class="headerlink" href="#contributing-to-stella" title="Link to this heading">¶</a></h1>
+<p>Thank you for considering contributing to the STELLA project. Your contributions play a vital role in the continued growth and improvement of STELLA. We have a specific workflow involving two important branches that help us maintain the project’s integrity and stability.</p>
+<section id="important-branches">
+<h2>Important Branches<a class="headerlink" href="#important-branches" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#important-branches'">¶</a></h2>
+<p>The STELLA repository contains two primary, protected branches:</p>
+<ol class="arabic simple">
+<li><p><strong>Main branch</strong>: This is the stable branch that represents the production version of the project. It contains the latest released version of STELLA.</p></li>
+<li><p><strong>Dev branch</strong>: This is the development branch where active development occurs. It is always ahead of the main branch and contains new features and bug fixes that are not yet part of a stable release.</p></li>
+</ol>
 </section>
-</div></div>
+<section id="contributing-workflow">
+<h2>Contributing Workflow<a class="headerlink" href="#contributing-workflow" title="Link to this heading" x-intersect.margin.0%.0%.-70%.0%="activeSection = '#contributing-workflow'">¶</a></h2>
+<p>To contribute to STELLA, follow these steps:</p>
+<ol class="arabic">
+<li><p><strong>Branching</strong>: Always create your feature or bugfix branch from the <cite>dev</cite> branch, as it reflects the most recent developments.</p></li>
+<li><p><strong>Making Changes</strong>:</p>
+<ol class="loweralpha simple">
+<li><p>First, ensure you have the latest version of the <cite>dev</cite> branch:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">git<span class="w"> </span>checkout<span class="w"> </span>dev
+</span><span id="line-2">git<span class="w"> </span>pull<span class="w"> </span>origin<span class="w"> </span>dev
+</span></code></pre></div>
+</div>
+<ol class="loweralpha simple" start="2">
+<li><p>Create a new branch from <cite>dev</cite> where you will make your changes:</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">git<span class="w"> </span>checkout<span class="w"> </span>-b<span class="w"> </span>feature/your-feature-name
+</span></code></pre></div>
+</div>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>for bug fixes, use the prefix <cite>fix/</cite> instead of <cite>feature/</cite>.</p>
+</div>
+<p>Make sure to give your branch a meaningful name related to the feature or fix you are working on.</p>
+</li>
+<li><p><strong>Committing</strong>: Commit your changes using clear, descriptive commit messages. Push your changes to the repository on GitHub.</p></li>
+</ol>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><code><span id="line-1">git<span class="w"> </span>add<span class="w"> </span>.
+</span><span id="line-2">git<span class="w"> </span>commit<span class="w"> </span>-m<span class="w"> </span><span class="s2">"Add a clear, descriptive message about your changes"</span>
+</span><span id="line-3">git<span class="w"> </span>push<span class="w"> </span>origin<span class="w"> </span>feature/your-feature-name
+</span></code></pre></div>
+</div>
+<ol class="arabic simple" start="4">
+<li><p><strong>Creating a Pull Request (PR)</strong>:</p>
+<ol class="loweralpha simple">
+<li><p>Go to the <cite>STELLA</cite> repository on GitHub, and you will likely see a prompt to create a pull request from your new branch. If not, navigate to the ‘Pull requests’ tab and hit ‘New pull request’.</p></li>
+<li><p>Set the base branch to <cite>dev</cite> and compare with your feature branch.</p></li>
+<li><p>Give your pull request a clear title and description of the changes you have made.</p></li>
+</ol>
+</li>
+<li><p><strong>Review Process</strong>: Once you have created the pull request, it will be reviewed by the repository maintainers. Be receptive to feedback and make requested changes if necessary. If your pull request is deemed a serious and valid contribution, it will be approved and merged into the <cite>dev</cite> branch. Otherwise, you will receive comments and guidance.</p></li>
+<li><p><strong>Merging to Main</strong>: Periodically, the maintainers will merge changes from the <cite>dev</cite> branch into the <cite>main</cite> branch, marking a new stable release of STELLA.</p></li>
+</ol>
+<p>By following these guidelines, you help ensure that STELLA remains a high-quality, stable project for everyone to use. We appreciate your contributions and look forward to seeing your great work!</p>
+</section>
+</section>
+</div></div><aside class="hidden text-sm xl:block" id="right-sidebar">
+<div class="sticky top-16 -mt-10 max-h-[calc(var(100vh)-5rem)] overflow-y-auto pt-6 space-y-2"><p class="font-medium">On this page</p>
+<ul>
+<li><a :data-current="activeSection === '#important-branches'" class="reference internal" href="#important-branches">Important Branches</a></li>
+<li><a :data-current="activeSection === '#contributing-workflow'" class="reference internal" href="#contributing-workflow">Contributing Workflow</a></li>
+</ul>
+</div>
+</aside>
 </main>
 </div>
 </div><footer class="py-6 border-t border-border md:py-0">
