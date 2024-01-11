@@ -82,4 +82,3 @@ or visit any of the following sections:
    API_Reference
    Community
    Licensing
-   Troubleshooting

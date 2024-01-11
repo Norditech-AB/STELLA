@@ -80,8 +80,3 @@ Configure these variables based on your development or production environment.
 
 12. **ASYNC_MODE**: The mode of asynchronous operation for Flask-SocketIO. Default is `gevent`.
 
-
-Troubleshooting
----------------
-
-If you encounter any issues with STELLA, please refer to the :doc:`../Troubleshooting` guide for solutions to common problems.
