@@ -7,6 +7,7 @@ from cli.client.cli_design import *
 
 from prompt_toolkit import PromptSession
 from prompt_toolkit.history import InMemoryHistory
+from flask import current_app
 
 import os
 
@@ -18,7 +19,7 @@ AVAILABLE_COMMANDS = """Available commands:
     /register                                   register user
     
     /username <new username>                    change username
-    /password <old password> <new password>     change password
+    /password                                   change password
     
     /workspace create <name>                    create workspace
     /workspace list                             list workspaces
@@ -74,11 +75,11 @@ class Shell:
                     print_info("Please login or register to continue.")
                     print_info("Type /login to login or /register to create a new account.")
                     command = input(" > ")
-
-                    if command.strip().lower() == '/login':
-                        self.execute('login')
-                    elif command.strip().lower() == '/register':
-                        self.execute('register')
+                    
+                    if command.strip().lower().split()[0] == '/login':
+                        self.execute(command[1:])
+                    elif command.strip().lower().split()[0] == '/register':
+                        self.execute(command[1:])
 
                     self.authenticated = self.client.is_logged_in()
             except KeyboardInterrupt:
@@ -126,15 +127,36 @@ class Shell:
         if args[0] == 'exit':
             exit(0)
         elif args[0] == 'login':
-            username = input("Username: ")
-            password = getpass("Password: ")
+            if self.authenticated:
+                print_error("User is already logged in, please logout to change account")
+                return
+            if len(args) == 1: 
+                username = input("Username: ")
+                password = getpass("Password: ")
+            elif len(args) == 2: 
+                username = args[1]
+                password = getpass("Password: ")
+            else:
+                print_error("wrong arguments try \n/login\n/login <usernamn>")
+                return
             self.client.login(username, password)
             return
         elif args[0] == 'logout':
             self.client.logout()
+            self.authenticated = False
             return
         elif args[0] == 'register':
-            username = input("Username: ")
+            if self.authenticated:
+                print_error("A user is logged in, logout to register new account")
+                return
+            if len(args) == 1:
+                username = input("Username: ")
+            elif len(args) == 2:
+                username = args[1]
+                print_info(f"Register account for User: {username}")
+            else:
+                print_error(f"wrong amount of arguments, try \n/register\n/register <username>")
+                return
             password = getpass("Password: ")
             confirm_password = getpass("Confirm password: ")
 
@@ -169,18 +191,19 @@ class Shell:
                 self.client.change_username(args[1])
                 return
         elif args[0] == 'password':
-            if len(args) == 1:
-                print_info("Missing argument. Type /help for a list of commands.")
+            if len(args) > 1:
+                print_info("Please do not enter the new password as a command argument for security reasons.\ntry /password")
                 return
             else:
+                new_password = getpass("Enter new password: ")
                 confirm_password = getpass("Confirm new password: ")
 
-                if args[1] != confirm_password:
+                if new_password != confirm_password:
                     print_error("Passwords do not match.")
                     return
 
-                self.client.change_password(args[1])
-                return
+            self.client.change_password(new_password)
+            return
 
         elif args[0] == 'workspace' or args[0] == 'ws':
             # If the user only typed '/workspace', show the current workspace status
@@ -265,8 +288,23 @@ class Shell:
             print(AVAILABLE_COMMANDS)
             print_info('For more information, visit https://docs.stellaframework.com/')
             print_info("To chat with agents, type a message and press enter. (do not start with '/')")
-        else:
-            print_error('Unknown command. Type /help for a list of commands.')
+        elif args[0] == 'chat':
+            if args[1] == 'clear':
+                # If the user passed a name, also include this in the method call
+                self.client.connect_to_workspace(self.client.session.workspace_id)
+            return
+        elif args[0] == 'agents':
+            if args[1] == 'list':
+                # If the user passed a name, also include this in the method call
+                agents = self.client.get_all_agents()
+                output = ""
+                for item in agents:
+                    output += f"Agent ID: {item['agent_id']}\n"
+                    output += f"Name: {item['name']}\n"
+                    output += f"Short Description: {item['short_description']}\n\n"
+                print(output)
+
+            
 
     def chat(self, message):
         if self.client.waiting_for_response:

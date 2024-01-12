@@ -123,9 +123,15 @@ class StellaClient:
         except Exception as e:
             print_error(f"Login failed. Please try again. ({e})")
 
-    def connect_to_workspace(self, workspace_id):
+    def connect_to_workspace(self, identifier): #
+        workspace_id = identifier if identifier.isdigit() else self.get_workspace_id_by_name(identifier)
+        if workspace_id is None:
+            return  # Error message is already printed in get_workspace_id_by_name
+
         response = requests.get(self.compose_url(f"workspace/{workspace_id}"), headers=self.auth_headers())
         if response.status_code == 500:
+            print_error(f"Workspace with ID {workspace_id} not found.")
+        elif response.status_code == 404:
             print_error(f"Workspace with ID {workspace_id} not found.")
         elif response.status_code == 401:
             print_error(f"You are not authenticated. Please login.")
@@ -133,6 +139,7 @@ class StellaClient:
             print(response.text)
             print_error("Failed to connect to workspace ({}).".format(response.status_code))
         else:
+            print_info("Connecting to workspace.")
             self.session.workspace_id = workspace_id
             # Create a new chat
             self.create_chat(workspace_id)
@@ -276,6 +283,29 @@ class StellaClient:
         else:
             workspace = response.json()["workspace"]
             return workspace
+        
+    def get_workspace_id_by_name(self, workspace_name = None):
+        try:
+            response = requests.get(self.compose_url("workspace"), headers=self.auth_headers())
+            if response.status_code != 200:
+                print_error(f"Failed to retrieve workspaces. ({response.status_code}): {response.text}")
+                return None
+
+            workspaces = response.json()["workspaces"]
+            matching_workspaces = [workspace for workspace in workspaces if workspace["name"] == workspace_name]
+
+            if len(matching_workspaces) > 1:
+                print_error(f"Multiple workspaces found with the name '{workspace_name}'. Please use the workspace ID.")
+            elif len(matching_workspaces) == 1:
+                return matching_workspaces[0]["id"]
+            else:
+                print_error(f"No workspace found with the name '{workspace_name}'. Please check the name and try again.")
+            return None
+
+        except requests.RequestException as e:
+            print_error(f"Error retrieving workspaces: {e}")
+
+        return None
 
     def delete_workspace(self, workspace_id):
         response = requests.delete(self.compose_url(f"workspace/{workspace_id}"), headers=self.auth_headers())
@@ -308,6 +338,15 @@ class StellaClient:
             print_error("Failed to remove agent. ({}).".format(response.status_code))
         else:
             print_info(f"Agent ({agent_id}) removed from current workspace successfully.")
+    
+    def get_all_agents(self):
+        response = requests.get(self.compose_url(f"agents"), headers=self.auth_headers())
+
+        if response.status_code == 401:
+            print_error(f"You are not authenticated. Please login.")
+
+        list_of_agents = response.json()["agents"]    
+        return list_of_agents
 
     def set_coordinator_agent(self, agent_id):
         response = requests.put(self.compose_url(f"workspace/{self.session.workspace_id}/coordinator"), headers=self.auth_headers(),
