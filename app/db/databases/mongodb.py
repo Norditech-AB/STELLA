@@ -425,7 +425,6 @@ class MongoDB(DatabaseInterface, ABC):
         """
         self.db.users.delete_one({"_id": ObjectId(user_id)})
 
-
     def get_user_chats(self, user_id) -> list[str]:
         """
         Gets all the chats for the user.
@@ -453,7 +452,9 @@ class MongoDB(DatabaseInterface, ABC):
         :param user: The user to update.
         :return: The updated user.
         """
-        self.db.users.update_one({"_id": ObjectId(user.id)}, {"$set": user.to_dict()})
+        unpacked = user.to_dict()
+        unpacked.pop('id')
+        self.db.users.update_one({"_id": ObjectId(user.id)}, {"$set": unpacked})
         return user
 
     def update_workspace(self, workspace: Workspace) -> Workspace:
@@ -462,5 +463,7 @@ class MongoDB(DatabaseInterface, ABC):
         :param workspace: The workspace to update.
         :return: The updated workspace.
         """
-        self.db.workspaces.update_one({"_id": ObjectId(workspace.id)}, {"$set": workspace.to_dict()})
+        unpacked = workspace.to_dict()
+        unpacked.pop('id')
+        self.db.workspaces.update_one({"_id": ObjectId(workspace.id)}, {"$set": unpacked})
         return workspace
