@@ -214,6 +214,35 @@ def remove_agent(workspace_id):
     return jsonify({"msg": "Agent removed"}), 200
 
 
+@workspace_views.route('/agents', methods=['GET'])
+@jwt_required()
+def get_all_agents():
+    """
+    Gets all available agents.
+    :param:
+    :return:
+    """
+    if not request.is_json:
+        return jsonify({"msg": "Missing JSON in request"}), 400
+
+    agents = current_app.extensions['agent_storage']
+    agents_list = list(agents.__iter__())
+    if not agents_list:
+        return jsonify({"msg": "No agents exists"}), 404
+    # Iterate through each agent and add their details to list dict
+    agents_details = []
+    for agent in agents_list:
+        agent_id = agent.agent_id 
+        name = agent.name       
+        short_description = agent.short_description 
+
+        agents_details.append({
+            "agent_id": agent_id,
+            "name": name,
+            "short_description": short_description
+        })
+    return jsonify({"agents": agents_details}), 200
+
 @workspace_views.route('/workspace/<workspace_id>/coordinator', methods=['PUT'])
 @jwt_required()
 def set_coordinator(workspace_id):
