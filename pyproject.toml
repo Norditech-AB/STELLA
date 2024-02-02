@@ -46,6 +46,7 @@ dependencies = [
     'bcrypt >= 4.0.1',
     'requests >= 2.31.0',
     'prompt-toolkit >= 3.0.43',
+    'yfinance >= 0.2.25',
     
     #windows only:
     'websocket-client >= 1.7.0',
