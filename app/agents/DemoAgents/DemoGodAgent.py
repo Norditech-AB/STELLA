@@ -1,5 +1,3 @@
-import requests
-
 from app.models.agent import Agent
 from app.models.chat import Chat
 from app.openai_client import OpenAIClient
@@ -12,17 +10,15 @@ class GodAgent(Agent):
     """
     def __init__(self):
         super().__init__(
-            agent_id='god_agent',
-            name='God',
+            agent_id='demo_god_agent',
+            name='GOD',
             short_description='Give a twist to wishes',
             forward_all_memory_entries_to_parent=True,
             skip_action_selection=True,
             max_depth=2,
         )
 
-
-    def respond(self, openai_client: OpenAIClient, request_builder: RequestBuilder, chat: Chat = None, memories=None):
-
+    def respond(self, openai_client: OpenAIClient, request_builder: RequestBuilder, chat: Chat=None, memories=None):
         user_message = f"{self._construct_memory_string(memories) if memories else ''}" \
                        f"{self._construct_chat_string(chat) if chat else ''}" \
                        f"{self.system_response_instructions}"
@@ -39,12 +35,11 @@ class GodAgent(Agent):
         ]
 
         print(f"[AGENT] {self.name} is responding using OpenAI: {messages}")
-
+        
         twist = openai_client.chat_completion(
-            messages=messages,
-            model=self.model_for_response,
+            messages=messages, 
+            model=self.model_for_response
         )
 
-        # Step 3: Respond
-
+        # Respond
         return f"The twist to the wish is {twist}, Grant the wish to the user with the twist. Respond only with the wish and the twist"
