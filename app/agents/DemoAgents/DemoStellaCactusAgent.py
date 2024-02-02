@@ -1,20 +1,19 @@
-import requests
+import time
 
 from app.models.agent import Agent
 from app.models.chat import Chat
 from app.openai_client import OpenAIClient
 from app.utils.request_builder import RequestBuilder
-import time
-import sys
 
-class StellaCactusAgent(Agent):
+
+class DemoStellaCactusAgent(Agent):
     """
     A simple agent that tells a story about Stella the cactus and Fred the balloon.
     """
     def __init__(self):
         super().__init__(
-            agent_id='stella/stella_cactus_agent',
-            name='StellaCactus',
+            agent_id='demo_stella_cactus_agent',
+            name='STELLA_CACTUS',
             short_description='Tell a story about Stella the cactus and Fred the balloon',
             forward_all_memory_entries_to_parent=False,
             forward_last_memory_to_parent=False,
@@ -23,7 +22,6 @@ class StellaCactusAgent(Agent):
             max_depth=1,
             on_completion = self.scroll_text
         )
-
 
     def scroll_text(self, socketio, chat_id, **kwargs):
         """
@@ -71,5 +69,4 @@ class StellaCactusAgent(Agent):
                 time.sleep(delay)
 
     def respond(self, openai_client: OpenAIClient, request_builder: RequestBuilder, chat: Chat = None, memories=None):
-
         return f"The storytelling of Stella and Fred is done."

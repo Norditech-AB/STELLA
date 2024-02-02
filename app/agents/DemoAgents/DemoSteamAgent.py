@@ -12,11 +12,12 @@ class SteamAgent(Agent):
     """
     def __init__(self):
         super().__init__(
-            agent_id='steam_agent',
+            agent_id='demo_steam_agent',
             name='STEAM',
             short_description='Fetch Steam data for a specific Game',
             forward_all_memory_entries_to_parent=True,
             skip_action_selection=True,
+            system_response_instructions=self.custom_system_response_instructions
         )
     
     custom_system_response_instructions = "\n\n==== INSTRUCTIONS ====\n" \
@@ -25,7 +26,6 @@ class SteamAgent(Agent):
                                           "the user's request using the provided details. Focus on the user's latest " \
                                           "message, and use the provided details to respond in a proper manner. Don't " \
                                           "lie or make things up. Be as helpful, nice and concise as possible."
-
 
     @staticmethod
     def get_app_id(name: str) -> str:
@@ -36,6 +36,7 @@ class SteamAgent(Agent):
         if response.status_code != 200:
             return "Error in Open-Meteo API request – Tell the user that something went wrong and stop the conversation"
         steam_data = response.json()
+
         print("-----------------STEAM------------------")
         print(steam_data)
         print("-----------------STEAM------------------")
@@ -58,6 +59,7 @@ class SteamAgent(Agent):
         if response.status_code != 200:
             return "Error in Open-Meteo API request – Tell the user that something went wrong and stop the conversation"
         steam_data = response.json()
+
         print("-----------------STEAM------------------")
         print(steam_data)
         print("-----------------STEAM------------------")
@@ -65,7 +67,6 @@ class SteamAgent(Agent):
         return f"Tell the user that the game '{game} currently has {steam_data['response']['player_count']} online players and add some trivia about the game and stop the conversation"
 
     def respond(self, openai_client: OpenAIClient, request_builder: RequestBuilder, chat: Chat = None, memories=None):
-
         user_message = f"{self._construct_memory_string(memories) if memories else ''}" \
                        f"{self._construct_chat_string(chat) if chat else ''}" \
                        f"{self.system_response_instructions}"
@@ -102,11 +103,11 @@ class SteamAgent(Agent):
             }
         ]
 
-
         game = openai_client.chat_completion(
             messages=game_messages,
             model=self.model_for_response,
         )
         print(f"{key=}, {game=}")
-        # Step 3: Respond
+
+        # Respond
         return SteamAgent.get_player_count(key, game)
